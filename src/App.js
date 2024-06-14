@@ -3,55 +3,98 @@ import { Link } from "react-router-dom";
 import Main from "./Components/Main";
 import Forecast from "./Components/Forecast";
 import Loading from "./Components/Loading";
+import db from "./db.json";
 
-export default function Component() {
+const Component = () => {
   const [isDarkMode, setIsDarkMode] = useState(true);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [weatherData, setWeatherData] = useState([]);
+  const [currentData, setCurrentData] = useState(null);
+  const [forecastData, setForecastData] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [coords, setCoords] = useState([-25.3007, -57.6359]);
+  const [originalCoords, setOriginalCoords] = useState([]);
 
+  // Obtener la ubicación del usuario
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(success, error);
     } else {
-      console.log("Geolocation not supported");
+      console.log("Geolocalización no soportada");
     }
 
     function success(position) {
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
-      setCoords([latitude, longitude]);
+      const { latitude, longitude } = position.coords;
+      const userCoords = [latitude, longitude];
+      setCoords(userCoords);
+      setOriginalCoords(userCoords);
     }
 
     function error() {
-      console.log("Unable to retrieve your location");
+      console.log("No se pudo recuperar la ubicación");
     }
   }, []);
 
+  // Obtener los datos meteorológicos actuales
   useEffect(() => {
     if (coords.length === 2) {
-      const getWeather = async () => {
-        const response = await fetch(
-          `https://api.openweathermap.org/data/2.5/weather?lat=${coords[0]}&lon=${coords[1]}&appid=${process.env.REACT_APP_API_KEY}&units=metric&lang=es`
-        );
-        const data = await response.json();
-        setWeatherData(data);
-        console.log(data);
-        setLoaded(true);
-      };
-
-      getWeather();
+      fetchWeatherData(coords);
     }
   }, [coords]);
 
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
+  // Obtener el pronóstico meteorológico
+  useEffect(() => {
+    if (coords.length === 2) {
+      fetchForecastData(coords);
+    }
+  }, [coords]);
+
+  // Función para buscar una ciudad por nombre
+  const findCityByName = (nombreCiudad) => {
+    return db.ciudades.filter(
+      (ciudad) => ciudad.nombre.toLowerCase() === nombreCiudad.toLowerCase()
+    );
   };
 
+  // Manejar la búsqueda de ciudades
+  const handleSearch = (e) => {
+    const searchValue = e.target.value;
+    const results = findCityByName(searchValue);
+
+    if (results.length > 0) {
+      const { lat, lon, city } = results[0];
+      setCoords([lat, lon]);
+    } else {
+      setCoords(originalCoords);
+    }
+  };
+
+  // Alternar el modo oscuro
   const handleClick = () => {
     setIsDarkMode(!isDarkMode);
   };
+
+  // Obtener datos meteorológicos actuales
+  const fetchWeatherData = async (coordinates) => {
+    const [lat, lon] = coordinates;
+    const response = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_API_KEY}&units=metric&lang=es`
+    );
+    const data = await response.json();
+    console.log(data);
+    setCurrentData(data);
+    setLoaded(true);
+  };
+
+  // Obtener el pronóstico meteorológico
+  const fetchForecastData = async (coordinates) => {
+    const [lat, lon] = coordinates;
+    const response = await fetch(
+      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_API_KEY}&units=metric&lang=es`
+    );
+    const data = await response.json();
+    console.log(data);
+    setForecastData(data.list);
+  };
+
   return (
     <div
       className={`flex flex-col w-screen h-screen transition-colors ${
@@ -61,16 +104,15 @@ export default function Component() {
       <header className="flex items-center h-16 px-4 border-b shrink-0 md:px-6">
         <div className="flex w-full justify-between items-center gap-4">
           <Link
-            href="#"
+            to="#"
             className="flex items-center justify-between gap-2 text-lg font-semibold md:text-base hover:text-gray-900 dark:hover:text-gray-500"
           >
             <h1>Weather App</h1>
-          </Link>{" "}
+          </Link>
           <div className="w-full max-w-md">
             <input
               type="search"
               placeholder="Buscar ciudad..."
-              value={searchTerm}
               onChange={handleSearch}
               className={`w-full h-full rounded-md p-2 transition-colors ${
                 isDarkMode
@@ -94,18 +136,14 @@ export default function Component() {
       </header>
       {loaded ? (
         <div className="grid center place-content-evenly h-full">
-          {loaded ? (
-            <div className="grid place-content-evenly">
-              <Main weatherData={weatherData} />
-              <Forecast />
-            </div>
-          ) : (
-            <Loading />
-          )}
+          <Main weatherData={currentData} />
+          <Forecast weatherData={forecastData} />
         </div>
       ) : (
         <Loading />
       )}
     </div>
   );
-}
+};
+
+export default Component;
