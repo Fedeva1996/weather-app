@@ -4,25 +4,6 @@ const Main = ({ weatherData }) => {
   //console.log(weatherData);
   const data = weatherData[0];
 
-  const compassDirections = {
-    N: 0,
-    NNE: 22.5,
-    NE: 45,
-    ENE: 67.5,
-    E: 90,
-    ESE: 112.5,
-    SE: 135,
-    SSE: 157.5,
-    S: 180,
-    SSW: 202.5,
-    SW: 225,
-    WSW: 247.5,
-    W: 270,
-    WNW: 292.5,
-    NW: 315,
-    NNW: 337.5,
-  };
-
   return (
     <main className="flex-1 flex flex-col items-center justify-center m-auto p-4">
       <div className="flex flex-col items-center gap-3">
@@ -51,7 +32,7 @@ const Main = ({ weatherData }) => {
              - Dirección: 
           <Arrow
             prop={weatherData[2]}
-            transform={compassDirections[data.current.wind_dir]}
+            transform={data.current.wind_degree}
           />
         </div>
         <div className="flex flex-1 font-thin transition-colors">

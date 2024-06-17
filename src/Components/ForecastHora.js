@@ -16,7 +16,7 @@ const ForecastHora = ({ weatherData }) => {
 
   return (
     <aside className="flex-1 flex flex-row items-center justify-center px-4 md:px-6 overflow-x-auto w-[80%] m-auto rounded-md no-scrollbar">
-      <div className="mt-8 flex flex-auto gap-2 w-full">
+      <div className="mt-4 flex flex-auto gap-2 w-full">
         {forecast.slice(hours, 24 + hours).map((hour) => (
           <div
             key={hour.time}

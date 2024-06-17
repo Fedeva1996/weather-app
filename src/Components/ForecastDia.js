@@ -5,25 +5,44 @@ const ForecastDia = ({ weatherData }) => {
 
   const forecast = weatherData[0].forecast.forecastday;
 
+  const getDayLabel = (date) => {
+    const today = new Date();
+    const forecastDate = new Date(date);
+    forecastDate.setDate(forecastDate.getDate() + 1);
+    
+    // Asegurarse de que solo se comparen las fechas sin las horas
+    today.setHours(0, 0, 0, 0);
+    forecastDate.setHours(0, 0, 0, 0);
+
+    const diffTime = forecastDate.getTime() - today.getTime();
+    const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+
+    if (diffDays === 0) return "Hoy";
+    if (diffDays === 1) return "Mañana";
+    if (diffDays === 2) return "Pasado";
+    return forecastDate.toLocaleDateString('es-ES', { weekday: 'long' });
+  };
   //console.log(forecast);
 
   return (
     <aside className="flex-1 flex flex-row items-center justify-center px-4 md:px-6 overflow-x-auto w-screen m-auto rounded-md no-scrollbar">
-      <div className="mt-8 flex flex-auto justify-center gap-2 w-full">
+      <div className="mt-4 flex flex-auto justify-center gap-2 w-full">
         {forecast.map((day) => (
           <div
             key={day.date_epoch}
-            id={day.date}
             className="flex flex-col items-center justify-center gap-2 hover:scale-110 transition-transform duration-300 ease-in-out mt-5 mb-5 min-w-52"
           >
             <div className="text-sm font-medium transition-colors">
-              {day.date}
+              {getDayLabel(day.date)}
             </div>
-            <img src={day.day.condition.icon} alt={day.day.condition.text}></img>
+            <img
+              src={day.day.condition.icon}
+              alt={day.day.condition.text}
+            ></img>
             <div className="text-lg font-bold">
-              {weatherData[1] === "c" ? day.day.mintemp_c : day.day.mintemp_f}
+              {weatherData[1] === "c" ? day.day.mintemp_c : day.day.mintemp_f}°
+              / {weatherData[1] === "c" ? day.day.maxtemp_c : day.day.maxtemp_f}
               °
-              {weatherData[1] === "c" ? day.day.maxtemp_c : day.day.maxtemp_f}
             </div>
             <div className="text-sm font-normal text-center min-h-8 transition-colors">
               {day.day.condition.text}

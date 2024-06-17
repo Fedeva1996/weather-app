@@ -85,7 +85,7 @@ const Component = () => {
 
   return (
     <div
-      className={`flex flex-col w-full h-screen transition-colors ${
+      className={`flex flex-col w-screen h-screen transition-colors ${
         isDarkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
       }`}
     >
@@ -99,13 +99,11 @@ const Component = () => {
         handleSearch={handleSearch}
       />
       {loaded ? (
-        <div className="grid center place-content-evenly h-full w.-f">
+        <div className="grid center place-content-evenly h-full w-full">
           <Main weatherData={[data, units, isDarkMode]} />
-          {data.alerts.alert ? (
+          {data.alerts.alert[0] ? (
             <Alerta weatherData={[data, isDarkMode]} />
-          ) : (
-            <div></div>
-          )}
+          ) : ("")}
           {forecast === "d" ? (
             <ForecastDia weatherData={[data, units, isDarkMode]} />
           ) : (

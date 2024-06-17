@@ -8,7 +8,7 @@ const Alerta = ({ weatherData }) => {
 
   return (
     <aside
-      className={`flex-1 flex flex-col items-center justify-center m-auto w-2/3 ${
+      className={`flex-1 flex flex-col items-center justify-center m-auto w-2/5 ${
         weatherData[1]
           ? "bg-orange-300 border-l-4 border-orange-600 text-orange-700 p-4"
           : "bg-orange-100 border-l-4 border-orange-400 text-orange-600 p-4"
