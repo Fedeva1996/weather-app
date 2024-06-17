@@ -4,6 +4,7 @@ import Main from "./Components/Main";
 import Forecast from "./Components/Forecast";
 import Loading from "./Components/Loading";
 import db from "./db.json";
+import { fetchWeatherData, fetchForecastData } from "./Services/Weather";
 
 const Component = () => {
   const [isDarkMode, setIsDarkMode] = useState(true);
@@ -12,6 +13,7 @@ const Component = () => {
   const [loaded, setLoaded] = useState(false);
   const [coords, setCoords] = useState([-25.3007, -57.6359]);
   const [originalCoords, setOriginalCoords] = useState([]);
+  const [units, setUnist] = useState("metric");
 
   // Obtener la ubicación del usuario
   useEffect(() => {
@@ -36,16 +38,23 @@ const Component = () => {
   // Obtener los datos meteorológicos actuales
   useEffect(() => {
     if (coords.length === 2) {
-      fetchWeatherData(coords);
+      fetchWeatherData(coords[0], coords[1], units)
+        .then((data) => {
+          setCurrentData(data);
+          setLoaded(true);
+        })
+        .catch((error) => console.error(error));
     }
-  }, [coords]);
+  }, [coords, units]);
 
   // Obtener el pronóstico meteorológico
   useEffect(() => {
     if (coords.length === 2) {
-      fetchForecastData(coords);
+      fetchForecastData(coords[0], coords[1], units)
+        .then((data) => setForecastData(data.list))
+        .catch((error) => console.error(error));
     }
-  }, [coords]);
+  }, [coords, units]);
 
   // Función para buscar una ciudad por nombre
   const findCityByName = (nombreCiudad) => {
@@ -68,31 +77,12 @@ const Component = () => {
   };
 
   // Alternar el modo oscuro
-  const handleClick = () => {
+  const handleDarkmode = () => {
     setIsDarkMode(!isDarkMode);
   };
-
-  // Obtener datos meteorológicos actuales
-  const fetchWeatherData = async (coordinates) => {
-    const [lat, lon] = coordinates;
-    const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_API_KEY}&units=metric&lang=es`
-    );
-    const data = await response.json();
-    console.log(data);
-    setCurrentData(data);
-    setLoaded(true);
-  };
-
-  // Obtener el pronóstico meteorológico
-  const fetchForecastData = async (coordinates) => {
-    const [lat, lon] = coordinates;
-    const response = await fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_API_KEY}&units=metric&lang=es`
-    );
-    const data = await response.json();
-    console.log(data);
-    setForecastData(data.list);
+  // Alternar el sistema de unidades
+  const handleUnits = () => {
+    setUnist(units === "metric" ? "imperial" : "metric");
   };
 
   return (
@@ -121,17 +111,30 @@ const Component = () => {
               }`}
             />
           </div>
-          <button onClick={handleClick} className="p-2">
-            {isDarkMode ? (
-              <h1 className="text-xl hover:scale-110 transition-transform">
-                🌞
-              </h1>
-            ) : (
-              <h1 className="text-xl hover:scale-110 transition-transform">
-                🌜
-              </h1>
-            )}
-          </button>
+          <div>
+            <button onClick={handleUnits} className="p-2">
+              {units === "metric" ? (
+                <h1 className="text-xl hover:scale-110 transition-transform">
+                  C°
+                </h1>
+              ) : (
+                <h1 className="text-xl hover:scale-110 transition-transform">
+                  F°
+                </h1>
+              )}
+            </button>
+            <button onClick={handleDarkmode} className="p-2">
+              {isDarkMode ? (
+                <h1 className="text-xl hover:scale-110 transition-transform">
+                  🌞
+                </h1>
+              ) : (
+                <h1 className="text-xl hover:scale-110 transition-transform">
+                  🌜
+                </h1>
+              )}
+            </button>
+          </div>
         </div>
       </header>
       {loaded ? (

@@ -5,11 +5,11 @@ const Forecast = ({weatherData}) => {
 
   return (
     <aside className="flex-1 flex flex-row items-center justify-center px-4 md:px-6 overflow-x-auto w-[80%] m-auto rounded-md no-scrollbar">
-      <div className="mt-8 flex flex-auto gap-4 w-full">
+      <div className="mt-8 flex flex-auto gap-3 w-full">
         {Object.entries(grupedData).map(([key, value]) => (
           <div
             key={key}
-            className="flex flex-col items-center gap-3 ml-1 hover:scale-110 transition-all duration-300 ease-in-out mt-5 mb-5"
+            className="flex flex-col items-center gap-3 ml-1 hover:scale-110 transition-all duration-300 ease-in-out mt-5 mb-5 min-w-14"
           >
             <div className="text-sm font-medium">
               {key.slice(10, 13) > 12
