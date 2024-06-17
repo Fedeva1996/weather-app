@@ -1,22 +1,37 @@
-const Main = (weatherData) => {
-  const data = weatherData.weatherData;
+import { Humidity, Wind, Location } from "../Images/svg";
+
+const Main = ({ weatherData }) => {
+  //console.log(weatherData);
+  const data = weatherData[0];
   return (
     <main className="flex-1 flex flex-col items-center justify-center m-auto">
       <div className="flex flex-col items-center gap-4">
         <div className="flex items-center gap-4">
           <img
-            src={`https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
-            alt={data.weather[0].description}
+            src={data.current.condition.icon}
+            alt={data.current.condition.text}
           ></img>
-          <div className="text-6xl font-bold">{data.main.temp}°</div>
+          <div className="text-6xl font-bold">
+            {weatherData[1] === "c" ? data.current.temp_c : data.current.temp_f}
+            °
+          </div>
         </div>
         <div className="text-2xl font-medium">
-          Cielo {data.weather[0].description}
+          {data.current.condition.text}
         </div>
-        <div className="text-2l font-thin">
-          Maximas de {data.main.temp_min}°/{data.main.temp_max}°
+        <div className="flex flex-1 text-2l font-thin">
+          <Humidity prop={weatherData[2]} /> Humedad del {data.current.humidity}
+          %
         </div>
-        <div className="text-gray-500 dark:text-gray-400">{data.name} 📍</div>
+        <div className="flex flex-1 text-2l font-thin">
+          <Wind prop={weatherData[2]} /> Vientos a{" "}
+          {weatherData[1] === "c"
+            ? data.current.wind_kph + " km/h"
+            : data.current.wind_mph + " mph"}
+        </div>
+        <div className="flex flex-1 text-gray-500 dark:text-gray-400">
+          <Location prop={weatherData[2]} /> {data.location.name}
+        </div>
       </div>
     </main>
   );

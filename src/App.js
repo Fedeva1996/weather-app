@@ -4,16 +4,15 @@ import Main from "./Components/Main";
 import Forecast from "./Components/Forecast";
 import Loading from "./Components/Loading";
 import db from "./db.json";
-import { fetchWeatherData, fetchForecastData } from "./Services/Weather";
+import { fetchWeatherData } from "./Services/Weather";
 
 const Component = () => {
   const [isDarkMode, setIsDarkMode] = useState(true);
-  const [currentData, setCurrentData] = useState(null);
-  const [forecastData, setForecastData] = useState([]);
+  const [data, setCurrentData] = useState(null);
   const [loaded, setLoaded] = useState(false);
   const [coords, setCoords] = useState([-25.3007, -57.6359]);
   const [originalCoords, setOriginalCoords] = useState([]);
-  const [units, setUnist] = useState("metric");
+  const [units, setUnist] = useState("c");
 
   // Obtener la ubicación del usuario
   useEffect(() => {
@@ -41,17 +40,9 @@ const Component = () => {
       fetchWeatherData(coords[0], coords[1], units)
         .then((data) => {
           setCurrentData(data);
+          //console.log(data)
           setLoaded(true);
         })
-        .catch((error) => console.error(error));
-    }
-  }, [coords, units]);
-
-  // Obtener el pronóstico meteorológico
-  useEffect(() => {
-    if (coords.length === 2) {
-      fetchForecastData(coords[0], coords[1], units)
-        .then((data) => setForecastData(data.list))
         .catch((error) => console.error(error));
     }
   }, [coords, units]);
@@ -69,7 +60,7 @@ const Component = () => {
     const results = findCityByName(searchValue);
 
     if (results.length > 0) {
-      const { lat, lon, city } = results[0];
+      const { lat, lon } = results[0];
       setCoords([lat, lon]);
     } else {
       setCoords(originalCoords);
@@ -82,7 +73,7 @@ const Component = () => {
   };
   // Alternar el sistema de unidades
   const handleUnits = () => {
-    setUnist(units === "metric" ? "imperial" : "metric");
+    setUnist(units === "c" ? "f" : "c");
   };
 
   return (
@@ -113,7 +104,7 @@ const Component = () => {
           </div>
           <div>
             <button onClick={handleUnits} className="p-2">
-              {units === "metric" ? (
+              {units === "c" ? (
                 <h1 className="text-xl hover:scale-110 transition-transform">
                   C°
                 </h1>
@@ -139,12 +130,20 @@ const Component = () => {
       </header>
       {loaded ? (
         <div className="grid center place-content-evenly h-full">
-          <Main weatherData={currentData} />
-          <Forecast weatherData={forecastData} />
+          <Main weatherData={[data, units, isDarkMode]} />
+          <Forecast weatherData={[data, units, isDarkMode]} />
         </div>
       ) : (
         <Loading />
       )}
+      <footer className="flex justify-center items-center h-16 px-4 border-t shrink-0 md:px-6">
+        <p className="text-sm text-gray-500 dark:text-gray-400">
+          Hecho por Federico Verón y Jorge Ozuna. A base de la API{" "}
+          <a href="https://www.weatherapi.com/" title="Free Weather API">
+            WeatherAPI.com
+          </a>
+        </p>
+      </footer>
     </div>
   );
 };
