@@ -139,7 +139,7 @@ const Component = () => {
       <footer className="flex justify-center items-center h-16 px-4 border-t shrink-0 md:px-6">
         <p className="text-sm text-gray-500 dark:text-gray-400">
           Hecho por Federico Verón y Jorge Ozuna. A base de la API{" "}
-          <a href="https://www.weatherapi.com/" title="Free Weather API">
+          <a href="https://www.weatherapi.com/" title="Free Weather API" className="hover:text-gray-200">
             WeatherAPI.com
           </a>
         </p>
