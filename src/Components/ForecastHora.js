@@ -16,14 +16,14 @@ const Forecast = ({ weatherData }) => {
 
   return (
     <aside className="flex-1 flex flex-row items-center justify-center px-4 md:px-6 overflow-x-auto w-[80%] m-auto rounded-md no-scrollbar">
-      <div className="mt-8 flex flex-auto gap-3 w-full">
+      <div className="mt-8 flex flex-auto gap-2 w-full">
         {forecast.slice(hours, 24 + hours).map((hour) => (
           <div
             key={hour.time}
             id={hour.time}
-            className="flex flex-col items-center justify-center gap-3 hover:scale-110 transition-all duration-300 ease-in-out mt-5 mb-5 min-w-24"
+            className="flex flex-col items-center justify-center gap-2 hover:scale-110 transition-transform duration-300 ease-in-out mt-5 mb-5 min-w-24"
           >
-            <div className="text-sm font-medium">
+            <div className="text-sm font-medium transition-colors">
               {hour.time.slice(10, 13) > 12
                 ? hour.time.slice(10, 13) - 12 < 10
                   ? `0${hour.time.slice(10, 13) - 12} p.m.`
@@ -34,10 +34,10 @@ const Forecast = ({ weatherData }) => {
             <div className="text-lg font-bold">
               {weatherData[1] === "c" ? hour.temp_c : hour.temp_f}°
             </div>
-            <div className="text-sm font-normal text-gray-500 text-center min-h-16">
+            <div className="text-sm font-normal text-center min-h-16 transition-colors">
               {hour.condition.text}
             </div>
-            <div className="flex flex-1 text-sm font-normal text-gray-500 text-center">
+            <div className="flex flex-1 text-sm font-normal text-center transition-colors">
               <Rain prop={weatherData[2]} /> {hour.chance_of_rain} %
             </div>
           </div>
