@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import Main from "./Components/Main";
 import ForecastHora from "./Components/ForecastHora";
+import ForecastDia from "./Components/ForecastDia";
 import Alerta from "./Components/Alerta";
 import Loading from "./Components/Loading";
 import db from "./db.json";
 import { fetchWeatherData } from "./Services/Weather";
+import Header from "./Components/Header";
 
 const Component = () => {
   const [isDarkMode, setIsDarkMode] = useState(true);
@@ -14,6 +15,7 @@ const Component = () => {
   const [coords, setCoords] = useState([-25.3007, -57.6359]);
   const [originalCoords, setOriginalCoords] = useState([]);
   const [units, setUnist] = useState("c");
+  const [forecast, setForecast] = useState("d");
 
   // Obtener la ubicación del usuario
   useEffect(() => {
@@ -76,68 +78,39 @@ const Component = () => {
   const handleUnits = () => {
     setUnist(units === "c" ? "f" : "c");
   };
+  // Alternar el tipo de forecast
+  const handleForecast = () => {
+    setForecast(forecast === "d" ? "h" : "d");
+  };
 
   return (
     <div
-      className={`flex flex-col w-full h-full transition-colors ${
+      className={`flex flex-col w-full h-screen transition-colors ${
         isDarkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
       }`}
     >
-      <header className={`flex items-center h-16 px-4 border-b shrink-0 md:px-6 sticky top-0 ${
-        isDarkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
-      }`}>
-        <div className="flex w-full justify-between items-center gap-4">
-          <Link
-            to="#"
-            className="flex items-center justify-between gap-2 text-lg font-semibold md:text-base hover:text-gray-900 dark:hover:text-gray-500"
-          >
-            <h1>Weather App</h1>
-          </Link>
-          <div className="w-full max-w-md">
-            <input
-              type="search"
-              placeholder="Buscar ciudad..."
-              onChange={handleSearch}
-              className={`w-full h-full rounded-md p-2 transition-colors bg-gray-200 dark:bg-gray-800 ${
-                isDarkMode ? "bg-gray-700 text-white" : "bg-gray-200 text-gray-700"
-              }`}
-            />
-          </div>
-          <div className="flex items-center gap-2">
-            <button onClick={handleUnits} className="p-2">
-              {units === "c" ? (
-                <h1 className="text-xl hover:scale-110 transition-transform">
-                  C°
-                </h1>
-              ) : (
-                <h1 className="text-xl hover:scale-110 transition-transform">
-                  F°
-                </h1>
-              )}
-            </button>
-            <button onClick={handleDarkmode} className="p-2">
-              {isDarkMode ? (
-                <h1 className="text-xl hover:scale-110 transition-transform">
-                  🌞
-                </h1>
-              ) : (
-                <h1 className="text-xl hover:scale-110 transition-transform">
-                  🌜
-                </h1>
-              )}
-            </button>
-          </div>
-        </div>
-      </header>
+      <Header
+        isDarkMode={isDarkMode}
+        handleDarkmode={handleDarkmode}
+        units={units}
+        handleUnits={handleUnits}
+        forecast={forecast}
+        handleForecast={handleForecast}
+        handleSearch={handleSearch}
+      />
       {loaded ? (
-        <div className="grid center place-content-evenly h-full">
+        <div className="grid center place-content-evenly h-full w.-f">
           <Main weatherData={[data, units, isDarkMode]} />
           {data.alerts.alert ? (
             <Alerta weatherData={[data, isDarkMode]} />
           ) : (
             <div></div>
           )}
-          <ForecastHora weatherData={[data, units, isDarkMode]} />
+          {forecast === "d" ? (
+            <ForecastDia weatherData={[data, units, isDarkMode]} />
+          ) : (
+            <ForecastHora weatherData={[data, units, isDarkMode]} />
+          )}
         </div>
       ) : (
         <Loading />
