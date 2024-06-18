@@ -25,15 +25,13 @@ const Main = ({ weatherData }) => {
           %
         </div>
         <div className="flex flex-1 font-thin transition-colors">
-          <Wind prop={weatherData[2]} /> Vientos a {" "}
+          <Wind prop={weatherData[2]} />
+          <p className="mr-2">Vientos a</p>
           {weatherData[1] === "c"
             ? data.current.wind_kph + " km/h"
-            : data.current.wind_mph + " mph "}{" "}
-             - Dirección: 
-          <Arrow
-            prop={weatherData[2]}
-            transform={data.current.wind_degree}
-          />
+            : data.current.wind_mph + " mph"}
+          <p className="mr-2 ml-1">- Dirección:</p>
+          <Arrow prop={weatherData[2]} transform={data.current.wind_degree} />
         </div>
         <div className="flex flex-1 font-thin transition-colors">
           <Location prop={weatherData[2]} /> {data.location.name}

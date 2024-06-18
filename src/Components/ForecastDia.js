@@ -1,4 +1,4 @@
-import { Rain } from "../Images/svg";
+import { Rain, SunRise, SunSet } from "../Images/svg";
 
 const ForecastDia = ({ weatherData }) => {
   //console.log(weatherData);
@@ -9,7 +9,7 @@ const ForecastDia = ({ weatherData }) => {
     const today = new Date();
     const forecastDate = new Date(date);
     forecastDate.setDate(forecastDate.getDate() + 1);
-    
+
     // Asegurarse de que solo se comparen las fechas sin las horas
     today.setHours(0, 0, 0, 0);
     forecastDate.setHours(0, 0, 0, 0);
@@ -20,7 +20,7 @@ const ForecastDia = ({ weatherData }) => {
     if (diffDays === 0) return "Hoy";
     if (diffDays === 1) return "Mañana";
     if (diffDays === 2) return "Pasado";
-    return forecastDate.toLocaleDateString('es-ES', { weekday: 'long' });
+    return forecastDate.toLocaleDateString("es-ES", { weekday: "long" });
   };
   //console.log(forecast);
 
@@ -43,6 +43,12 @@ const ForecastDia = ({ weatherData }) => {
               {weatherData[1] === "c" ? day.day.mintemp_c : day.day.mintemp_f}°
               / {weatherData[1] === "c" ? day.day.maxtemp_c : day.day.maxtemp_f}
               °
+            </div>
+            <div className="flex flex-1 text-xs font-normal text-center min-h-8 transition-colors">
+              <SunRise prop={weatherData[2]} />
+              <p className="content-center ml-1 mr-1">{day.astro.sunrise}</p>
+              <SunSet prop={weatherData[2]} />
+              <p className="content-center ml-1 mr-1">{day.astro.sunset}</p>
             </div>
             <div className="text-sm font-normal text-center min-h-8 transition-colors">
               {day.day.condition.text}
