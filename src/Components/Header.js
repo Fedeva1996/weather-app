@@ -4,7 +4,7 @@ import Search from "./Search";
 const Header = (props) => {
   return (
     <header
-      className={`flex items-center h-16 px-4 border-b shrink-0 md:px-6 sticky top-0 ${
+      className={`flex items-center h-16 px-4 border-b shrink-0 md:px-6 sticky transition-colors top-0 ${
         props.isDarkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
       }`}
     >
@@ -15,7 +15,9 @@ const Header = (props) => {
         >
           <h1>Weather App</h1>
         </Link>
-        <Search isDarkMode={props.isDarkMode} />
+        <div className="max-sm:hidden w-full flex justify-center">
+          <Search isDarkMode={props.isDarkMode} />
+        </div>
         <div className="flex items-center gap-2">
           <button onClick={props.handleForecast} className="p-2">
             {props.forecast === "d" ? (

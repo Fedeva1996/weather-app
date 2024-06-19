@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import Main from "./Components/Main";
 import ForecastHora from "./Components/ForecastHora";
 import ForecastDia from "./Components/ForecastDia";
+import Ciudades from "./Components/Ciudades";
 import Alerta from "./Components/Alerta";
 import Loading from "./Components/Loading";
 import { fetchWeatherData } from "./Services/Weather";
 import Header from "./Components/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { setCoords } from "./redux/reducers";
+import Search from "./Components/Search";
 
 const Component = () => {
   const [isDarkMode, setIsDarkMode] = useState(true);
@@ -84,10 +86,16 @@ const Component = () => {
           ) : (
             <ForecastHora weatherData={[data, units, isDarkMode]} />
           )}
+          {/* <Ciudades weatherData={[data, units, isDarkMode]} /> */}
         </div>
       ) : (
         <Loading />
       )}
+      <div className="flex items-center h-16 px-4 border-b shrink-0 md:px-6 sticky transition-colors botton-0">
+        <div className="flex justify-center w-full items-center gap-4 sm:hidden">
+          <Search isDarkMode={isDarkMode} />
+        </div>
+      </div>
       <footer className="flex justify-center items-center min-h-8 px-4 border-t shrink-0 md:px-6">
         <p className="text-sm text-gray-500 dark:text-gray-400">
           Hecho por Federico Verón y Jorge Ozuna. A base de la API{" "}

@@ -25,8 +25,8 @@ const ForecastDia = ({ weatherData }) => {
   //console.log(forecast);
 
   return (
-    <aside className="flex-1 flex flex-row items-center justify-center px-4 md:px-6 overflow-x-auto w-screen m-auto rounded-md no-scrollbar">
-      <div className="mt-4 flex flex-auto justify-center gap-2 w-full">
+    <aside className="flex-1 flex flex-row items-center justify-center overflow-x-auto w-[90%] m-auto rounded-md no-scrollbar">
+      <div className="mt-4 flex flex-auto gap-2 w-full">
         {forecast.map((day) => (
           <div
             key={day.date_epoch}
