@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import setCoords from "./reducers";
+import { coordsReducer, citiesReducer } from "./reducers";
 
 const store = configureStore({
   reducer: {
-    coords: setCoords,
+    coords: coordsReducer,
+    saveCities: citiesReducer,
   },
 });
 

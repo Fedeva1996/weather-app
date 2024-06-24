@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Main from "./Components/Main";
+import Ciudades from "./Components/Ciudades";
 import ForecastHora from "./Components/ForecastHora";
 import ForecastDia from "./Components/ForecastDia";
-import Ciudades from "./Components/Ciudades";
 import Alerta from "./Components/Alerta";
 import Loading from "./Components/Loading";
 import { fetchWeatherData } from "./Services/Weather";
@@ -19,6 +19,7 @@ const Component = () => {
   const [forecast, setForecast] = useState("d");
   const dispatch = useDispatch();
   const coords = useSelector((state) => state.coords.value);
+  const saveCities = useSelector((state) => state.saveCities.value);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -63,7 +64,7 @@ const Component = () => {
 
   return (
     <div
-      className={`flex flex-col w-screen h-screen transition-colors ${
+      className={`flex flex-col w-full h-full min-h-screen transition-colors ${
         isDarkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
       }`}
     >
@@ -76,7 +77,7 @@ const Component = () => {
         handleForecast={handleForecast}
       />
       {loaded ? (
-        <div className="grid center place-content-evenly h-full w-full">
+        <div className="grid center place-content-evenly h-full w-screen">
           <Main weatherData={[data, units, isDarkMode]} />
           {data.alerts && data.alerts.alert[0] && (
             <Alerta weatherData={[data, isDarkMode]} />
@@ -86,17 +87,25 @@ const Component = () => {
           ) : (
             <ForecastHora weatherData={[data, units, isDarkMode]} />
           )}
-          {/* <Ciudades weatherData={[data, units, isDarkMode]} /> */}
+          <div
+            className={`flex flex-col sm:flex-row w-[80%] sm:w-full rounded-md justify-center m-auto ${
+              isDarkMode ? "bg-indigo-950 text-white" : "bg-white text-gray-900"
+            }`}
+          >
+            {saveCities.map((city, index) => (
+              <Ciudades key={index} weatherData={[city, units, isDarkMode]} />
+            ))}
+          </div>
         </div>
       ) : (
         <Loading />
       )}
-      <div className="flex items-center h-16 px-4 border-b shrink-0 md:px-6 sticky transition-colors botton-0">
-        <div className="flex justify-center w-full items-center gap-4 sm:hidden">
-          <Search isDarkMode={isDarkMode} />
+      <footer className="flex flex-col w-full justify-center items-center min-h-8 px-4 mt-4 border-t sticky top-[100%] shrink-0 md:px-6">
+        <div className="flex items-center w-full px-4 shrink-0 md:px-6 sticky transition-colors botton-0">
+          <div className="flex justify-center mt-3 w-full items-center gap-4 sm:hidden">
+            <Search isDarkMode={isDarkMode} />
+          </div>
         </div>
-      </div>
-      <footer className="flex justify-center items-center min-h-8 px-4 border-t shrink-0 md:px-6">
         <p className="text-sm text-gray-500 dark:text-gray-400">
           Hecho por Federico Verón y Jorge Ozuna. A base de la API{" "}
           <a

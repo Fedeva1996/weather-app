@@ -11,14 +11,14 @@ const Header = (props) => {
       <div className="flex w-full justify-between items-center gap-4">
         <Link
           to="#"
-          className="flex items-center justify-between gap-2 text-lg font-semibold"
+          className="flex items-center justify-between gap-2 text-lg font-semibold min-w-48"
         >
           <h1>Weather App</h1>
         </Link>
         <div className="max-sm:hidden w-full flex justify-center">
           <Search isDarkMode={props.isDarkMode} />
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 min-w-48">
           <button onClick={props.handleForecast} className="p-2">
             {props.forecast === "d" ? (
               <h1 className="text-xl hover:scale-110 transition-transform min-w-14">
