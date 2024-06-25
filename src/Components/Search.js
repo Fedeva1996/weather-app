@@ -30,7 +30,7 @@ const Search = (props) => {
   const handleRemoveCity = (ciudad) => {
     const ciudadCoords = [ciudad.lat, ciudad.lon];
     //console.log(ciudadCoords);
-    dispatch(removeSaveCities(ciudad));
+    dispatch(removeSaveCities(ciudadCoords));
   };
 
   const checkInclude = (ciudad) => {

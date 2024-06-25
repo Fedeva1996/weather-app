@@ -15,13 +15,13 @@ const ForecastHora = ({ weatherData }) => {
   //console.log(forecast);
 
   return (
-    <aside className="flex-1 flex items-center justify-center overflow-x-auto w-[80%] m-auto rounded-md no-scrollbar">
+    <aside className="flex-1 flex items-center justify-center overflow-x-auto w-[90%] sm:w-[90%] m-auto no-scrollbar">
       <div className="mt-4 flex flex-auto gap-2 w-full">
         {forecast.slice(hours, 24 + hours).map((hour) => (
           <div
             key={hour.time}
             id={hour.time}
-            className="flex flex-col items-center justify-center gap-2 mt-5 mb-5 min-w-24"
+            className="flex flex-col items-center justify-center gap-2 mt-5 mb-5 min-w-24 min-h-60"
           >
             <div className="text-sm font-medium transition-colors">
               {hour.time.slice(10, 13) > 12

@@ -18,7 +18,7 @@ const Ciudades = ({ weatherData }) => {
         setLoaded(true);
       })
       .catch((error) => console.error(error));
-  }, []);
+  }, [coords]);
 
   return loaded ? (
     <main

@@ -4,8 +4,8 @@ import Search from "./Search";
 const Header = (props) => {
   return (
     <header
-      className={`flex items-center h-16 px-4 border-b shrink-0 md:px-6 sticky transition-colors top-0 ${
-        props.isDarkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
+      className={`flex items-center h-16 px-4 border-b shrink-0 sticky transition-colors top-0 ${
+        props.isDarkMode ? "bg-gray-900 text-white" : "bg-gray-400 text-gray-900"
       }`}
     >
       <div className="flex w-full justify-between items-center gap-4">

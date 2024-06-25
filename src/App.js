@@ -65,7 +65,9 @@ const Component = () => {
   return (
     <div
       className={`flex flex-col w-full h-full min-h-screen transition-colors ${
-        isDarkMode ? "bg-gray-900 text-white" : "bg-white text-gray-900"
+        isDarkMode
+          ? "bg-gradient-to-b from-gray-900 to-slate-800  text-white"
+          : "bg-gradient-to-b from-gray-400 to-gray-100 text-gray-900"
       }`}
     >
       <Header
@@ -77,7 +79,7 @@ const Component = () => {
         handleForecast={handleForecast}
       />
       {loaded ? (
-        <div className="grid center place-content-evenly h-full w-screen">
+        <div className="grid center place-content-evenly h-full w-full">
           <Main weatherData={[data, units, isDarkMode]} />
           {data.alerts && data.alerts.alert[0] && (
             <Alerta weatherData={[data, isDarkMode]} />
@@ -88,7 +90,7 @@ const Component = () => {
             <ForecastHora weatherData={[data, units, isDarkMode]} />
           )}
           <div
-            className={`flex flex-col sm:flex-row w-[80%] sm:w-full rounded-md justify-center m-auto ${
+            className={`flex flex-col sm:flex-row w-[80%] sm:w-full rounded-md justify-center m-auto max-w-[640px] ${
               isDarkMode ? "bg-indigo-950 text-white" : "bg-white text-gray-900"
             }`}
           >
