@@ -1,6 +1,7 @@
 {
   "name": "weather-app",
   "version": "0.1.0",
+  "homepage": "https://Fedeva1996.github.io/weather-app",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.5",
@@ -19,6 +20,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -44,6 +47,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "gh-pages": "^6.1.1",
     "prettier": "^3.3.2",
     "prettier-plugin-tailwindcss": "^0.6.4"
   }
