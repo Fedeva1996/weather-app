@@ -20,14 +20,19 @@ const citiesSlice = createSlice({
   reducers: {
     setSaveCities: (state, action) => {
       state.value = [...state.value, action.payload];
-      //console.log(state.value);
+      console.log(state.value);
     },
     removeSaveCities: (state, action) => {
-      const index = state.value.indexOf(action.payload);
-      if (index > -1) { // only splice array when item is found
-        state.value.splice(index, 1); // 2nd parameter means remove one item only
-      }
-      console.log(state.value);
+      const stateAsObject = JSON.parse(JSON.stringify(state.value));
+      console.log("State before removal:", stateAsObject);
+      console.log("Payload:", action.payload);
+      state.value = state.value.filter(
+        (item) => item[0] !== action.payload[0] || item[1] !== action.payload[1]
+      );
+      console.log(
+        "State after removal:",
+        JSON.parse(JSON.stringify(state.value))
+      );
     },
   },
 });

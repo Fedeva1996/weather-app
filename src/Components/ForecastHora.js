@@ -15,8 +15,9 @@ const ForecastHora = ({ weatherData }) => {
   //console.log(forecast);
 
   return (
-    <aside className="flex-1 flex items-center justify-center overflow-x-auto w-[90%] sm:w-[90%] m-auto no-scrollbar">
-      <div className="mt-4 flex flex-auto gap-2 w-full">
+    <div className="bg-slate-300 dark:bg-slate-800 rounded-lg shadow-lg p-4">
+      <h3 className="text-2xl font-bold">Pronostico del día</h3>
+      <div className="grid grid-flow-col gap-8 items-center content-center m-auto overflow-x-auto w-[95%] no-scrollbar">
         {forecast.slice(hours, 24 + hours).map((hour) => (
           <div
             key={hour.time}
@@ -43,7 +44,7 @@ const ForecastHora = ({ weatherData }) => {
           </div>
         ))}
       </div>
-    </aside>
+    </div>
   );
 };
 export default ForecastHora;

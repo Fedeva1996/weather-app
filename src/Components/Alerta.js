@@ -7,13 +7,7 @@ const Alerta = ({ weatherData }) => {
   const items = data.desc.split("\n");
 
   return (
-    <aside
-      className={`flex-1 flex flex-col items-center justify-center m-auto w-2/5 ${
-        weatherData[1]
-          ? "bg-orange-300 border-l-4 border-orange-600 text-orange-700 p-4"
-          : "bg-orange-100 border-l-4 border-orange-400 text-orange-600 p-4"
-      } `}
-    >
+    <aside className="flex-1 flex flex-col items-center justify-center m-auto p-4 bg-orange-100 border-l-4 border-orange-400 text-orange-600 dark:bg-orange-300 dark:border-orange-600 dark:text-orange-700">
       <div className="flex flex-col items-center gap-4">
         <div className="flex items-center">
           <div className="text-xl font-bold transition-colors">

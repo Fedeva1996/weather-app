@@ -12,14 +12,32 @@ import { setCoords } from "./redux/reducers";
 import Search from "./Components/Search";
 
 const Component = () => {
-  const [isDarkMode, setIsDarkMode] = useState(true);
   const [data, setCurrentData] = useState(null);
   const [loaded, setLoaded] = useState(false);
   const [units, setUnits] = useState("c");
-  const [forecast, setForecast] = useState("d");
   const dispatch = useDispatch();
   const coords = useSelector((state) => state.coords.value);
   const saveCities = useSelector((state) => state.saveCities.value);
+
+  const [theme, setTheme] = useState(
+    localStorage.theme ||
+      (window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light")
+  );
+
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -50,62 +68,64 @@ const Component = () => {
     }
   }, [coords, units]);
 
-  const handleDarkmode = () => {
-    setIsDarkMode(!isDarkMode);
-  };
-
   const handleUnits = () => {
     setUnits(units === "c" ? "f" : "c");
   };
 
-  const handleForecast = () => {
-    setForecast(forecast === "d" ? "h" : "d");
+  const resetLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(success, error);
+    } else {
+      console.log("Geolocalización no soportada");
+    }
+
+    function success(position) {
+      const { latitude, longitude } = position.coords;
+      const userCoords = [latitude, longitude];
+      dispatch(setCoords(userCoords));
+    }
+
+    function error() {
+      console.log("No se pudo recuperar la ubicación");
+    }
   };
 
   return (
-    <div
-      className={`flex flex-col w-full h-full min-h-screen transition-colors ${
-        isDarkMode
-          ? "bg-gradient-to-b from-gray-900 to-slate-800  text-white"
-          : "bg-gradient-to-b from-gray-400 to-gray-100 text-gray-900"
-      }`}
-    >
+    <div className="flex flex-col w-full h-full min-h-screen transition-colors bg-gray-100 text-gray-900 dark:bg-gradient-to-b dark:from-gray-900 dark:to-slate-800  dark:text-white">
       <Header
-        isDarkMode={isDarkMode}
-        handleDarkmode={handleDarkmode}
+        isDarkMode={theme}
+        handleDarkmode={toggleTheme}
         units={units}
         handleUnits={handleUnits}
-        forecast={forecast}
-        handleForecast={handleForecast}
+        resetLocation={resetLocation}
       />
       {loaded ? (
-        <div className="grid center place-content-evenly h-full w-full">
-          <Main weatherData={[data, units, isDarkMode]} />
-          {data.alerts && data.alerts.alert[0] && (
-            <Alerta weatherData={[data, isDarkMode]} />
-          )}
-          {forecast === "d" ? (
-            <ForecastDia weatherData={[data, units, isDarkMode]} />
-          ) : (
-            <ForecastHora weatherData={[data, units, isDarkMode]} />
-          )}
-          <div
-            className={`flex flex-col sm:flex-row w-[80%] sm:w-full rounded-md justify-center m-auto max-w-[640px] ${
-              isDarkMode ? "bg-indigo-950 text-white" : "bg-white text-gray-900"
-            }`}
-          >
+        <div className="grid grid-cols-1 gap-6 w-[95%] sm:w-[90%] md:w-[80%] m-auto">
+          <div className="h-full w-full p-2">
+            {data.alerts && data.alerts.alert[0] && (
+              <Alerta weatherData={[data, theme]} />
+            )}
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 center place-content-evenly">
+            <Main weatherData={[data, units, theme]} />
+            <ForecastDia weatherData={[data, units, theme]} />
+          </div>
+          <div className="rounded-md">
+            <ForecastHora weatherData={[data, units, theme]} />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 center place-content-evenly">
             {saveCities.map((city, index) => (
-              <Ciudades key={index} weatherData={[city, units, isDarkMode]} />
+              <Ciudades key={index} weatherData={[city, units, theme]} />
             ))}
           </div>
         </div>
       ) : (
         <Loading />
       )}
-      <footer className="flex flex-col w-full justify-center items-center min-h-8 px-4 mt-4 border-t sticky top-[100%] shrink-0 md:px-6">
+      <footer className="flex flex-col w-full justify-center items-center min-h-8 px-4 pb-2 mt-4 gap-2 border-t sticky top-[100%] shrink-0 md:px-6">
         <div className="flex items-center w-full px-4 shrink-0 md:px-6 sticky transition-colors botton-0">
           <div className="flex justify-center mt-3 w-full items-center gap-4 sm:hidden">
-            <Search isDarkMode={isDarkMode} />
+            <Search isDarkMode={theme} />
           </div>
         </div>
         <p className="text-sm text-gray-500 dark:text-gray-400">

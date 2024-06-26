@@ -1,9 +1,10 @@
 {
   "ciudades": [
     { "nombre": "Abaí", "lat": -26.0296, "lon": -55.94 },
+    { "nombre": "Altos", "lat": -25.233333, "lon": -57.25 },
     { "nombre": "Areguá", "lat": -25.3127, "lon": -57.3817 },
     { "nombre": "Arroyos y Esteros", "lat": -25.05, "lon": -57.09 },
-    { "nombre": "Asunción", "lat": -25.3, "lon": -57.633 },
+    { "nombre": "Asunción", "lat": -25.27, "lon": -57.67 },
     { "nombre": "Atyrá", "lat": -25.2564, "lon": -57.1703 },
     { "nombre": "Ayolas", "lat": -27.3964, "lon": -56.8992 },
     { "nombre": "Bahía Negra", "lat": -20.2536, "lon": -58.1625 },
@@ -63,7 +64,7 @@
     { "nombre": "Lima", "lat": -23.9, "lon": -56.3333 },
     { "nombre": "Loreto", "lat": -23.2839, "lon": -57.1961 },
     { "nombre": "Loma Plata", "lat": -22.3746, "lon": -59.8443 },
-    { "nombre": "Luque", "lat": -25.2708, "lon": -57.4848 },
+    { "nombre": "Luque", "lat": -25.27, "lon": -57.57 },
     { "nombre": "Mariano Roque Alonso", "lat": -25.1846, "lon": -57.5466 },
     { "nombre": "Mariscal Estigarribia", "lat": -22.0461, "lon": -60.6197 },
     {
@@ -71,13 +72,13 @@
       "lat": -22.0333,
       "lon": -60.6333
     },
-    { "nombre": "Mbocayaty", "lat": -25.8069, "lon": -56.3372 },
+    { "nombre": "Mbocayaty", "lat": -25.7, "lon": -56.4 },
     { "nombre": "Minga Guazú", "lat": -25.4568, "lon": -54.8166 },
     { "nombre": "Nanawa", "lat": -25.2833, "lon": -57.6494 },
     { "nombre": "Nacunday", "lat": -26.02, "lon": -54.77 },
     { "nombre": "Ñemby", "lat": -25.3849, "lon": -57.5351 },
     { "nombre": "Paraguarí", "lat": -25.6228, "lon": -57.1503 },
-    { "nombre": "Pedro Juan Caballero", "lat": -22.5481, "lon": -55.7336 },
+    { "nombre": "Pedro Juan Caballero", "lat": -22.57, "lon": -55.62 },
     { "nombre": "Pilar", "lat": -26.8597, "lon": -58.3025 },
     { "nombre": "Piribebuy", "lat": -25.4847, "lon": -57.0497 },
     { "nombre": "Pozo Colorado", "lat": -23.5, "lon": -58.8833 },

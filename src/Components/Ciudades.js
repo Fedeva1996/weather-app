@@ -21,9 +21,7 @@ const Ciudades = ({ weatherData }) => {
   }, [coords]);
 
   return loaded ? (
-    <main
-      className="flex-1 flex flex-col items-center justify-center m-auto p-4"
-    >
+    <main className="flex-1 flex flex-col items-center justify-center m-auto min-w-full bg-slate-300 dark:bg-slate-800 rounded-lg shadow-lg p-4">
       <div className="flex flex-row items-center gap-3">
         <div className="flex flex-col items-center gap-2">
           <img
@@ -38,18 +36,30 @@ const Ciudades = ({ weatherData }) => {
           <div className="flex flex-1 text-xl font-medium transition-colors">
             {data.location.name}
           </div>
-          <div className="text-md font-thin transition-colors">
-            {data.current.condition.text}
+          <div className="flex flex-row justify-between h-full items-center gap-2">
+            <div className="text-md font-thin transition-colors">
+              {data.current.condition.text}
+            </div>
+            -
+            <div className="flex flex-1 text-sm font-thin transition-colors">
+              {units === "c"
+                ? data.forecast.forecastday[0].day.mintemp_c
+                : data.forecast.forecastday[0].day.mintemp_f}
+              ° /{" "}
+              {units === "c"
+                ? data.forecast.forecastday[0].day.maxtemp_c
+                : data.forecast.forecastday[0].day.maxtemp_f}
+              °
+            </div>
           </div>
-          <div className="flex flex-1 text-md font-thin transition-colors">
-            {units === "c"
-              ? data.forecast.forecastday[0].day.mintemp_c
-              : data.forecast.forecastday[0].day.mintemp_f}
-            ° /{" "}
-            {units === "c"
-              ? data.forecast.forecastday[0].day.maxtemp_c
-              : data.forecast.forecastday[0].day.maxtemp_f}
-            °
+          <div className="flex flex-row justify-between h-full items-center gap-2">
+            <div className="text-md font-thin transition-colors">
+              Humedad: {data.forecast.forecastday[0].day.avghumidity}
+            </div>
+            -
+            <div className="flex flex-1 text-sm font-thin transition-colors">
+              Lluvia: {data.forecast.forecastday[0].day.daily_chance_of_rain} %
+            </div>
           </div>
         </div>
       </div>

@@ -39,7 +39,6 @@ const Search = (props) => {
     );
     return includes;
   };
-
   const Ciudades = ({ filter }) => {
     const results = cities.filter((city) =>
       city.nombre.toLowerCase().includes(filter.toLowerCase())
@@ -52,12 +51,16 @@ const Search = (props) => {
     if (results.length > 0) {
       if (results.length < 5) {
         return (
-          <div className="flex flex-col items-left justify-center gap-2 fixed sm:absolute top-[67.5%] sm:top-14 overflow-y-auto min-w-[448px] w-auto max-h-52 z-auto bg-slate-800 rounded-b-md">
+          <div className="absolute left-0 right-0 bottom-full sm:bottom-auto sm:mb-2 flex flex-col items-left justify-center gap-2 overflow-y-auto min-w-full max-h-52 z-10 bg-slate-300 dark:bg-slate-600 rounded-md sm:rounded-md">
             {results.map((city) => (
-              <div key={city.nombre} className="flex flex-1">
+              <div
+                key={city.nombre}
+                className="flex flex-1 hover:bg-slate-500 dark:hover:bg-slate-500"
+                title="Agregar a favoritos"
+              >
                 <button
                   onClick={() => handleClick(city)}
-                  className="flex items-center justify-between gap-2 p-2 text-lg font-semibold hover:bg-slate-500 h-full w-full"
+                  className="flex items-center justify-between gap-2 p-2 text-lg font-semibold h-full w-full"
                   key={city.nombre}
                 >
                   <h1>{city.nombre}</h1>
@@ -69,6 +72,7 @@ const Search = (props) => {
                     <button
                       className="gap-2 p-2"
                       onClick={() => handleRemoveCity(city)}
+                      title="Eliminar de favoritos"
                     >
                       <div className="flex items-center justify-between hover:scale-110 transition-transform">
                         <Thrash prop={props.isDarkMode} />
@@ -80,9 +84,7 @@ const Search = (props) => {
                       onClick={() => handleAddCity(city)}
                     >
                       <div className="flex items-center justify-between hover:scale-110 transition-transform">
-                        {saveCities.length >= 2 ? (
-                          null
-                        ) : (
+                        {saveCities.length >= 2 ? null : (
                           <Add prop={props.isDarkMode} />
                         )}
                       </div>
@@ -95,14 +97,14 @@ const Search = (props) => {
         );
       } else {
         return (
-          <div className="flex flex-col items-left justify-center gap-2 absolute overflow-y-auto min-w-[448px] w-auto max-h-52 z-50 bg-slate-800">
+          <div className="absolute left-0 right-0 bottom-full sm:bottom-auto sm:mb-2 p-2 flex flex-col items-left justify-center gap-2 overflow-y-auto min-w-[448px] w-auto max-h-52 z-50  bg-slate-300 dark:bg-slate-600 rounded-md sm:rounded-md">
             Demasiadas coincidencias, sea más específico
           </div>
         );
       }
     } else {
       return (
-        <div className="flex flex-col items-left justify-center gap-2 absolute overflow-y-auto min-w-[448px] w-auto max-h-52 z-50 bg-slate-800">
+        <div className="absolute left-0 right-0 bottom-full sm:bottom-auto sm:mb-2 p-2 flex flex-col items-left justify-center gap-2 overflow-y-auto min-w-[448px] w-auto max-h-52 z-50  bg-slate-300 dark:bg-slate-600 rounded-md sm:rounded-md">
           No se encontraron resultados
         </div>
       );
@@ -110,17 +112,14 @@ const Search = (props) => {
   };
 
   return (
-    <div className="w-full max-w-md">
+    <div className="w-full max-w-md relative">
       <input
         type="search"
         placeholder="Buscar ciudad..."
         onChange={handleSearch}
         value={filter}
-        className={`w-full h-full rounded-md p-2 transition-colors bg-gray-200 dark:bg-gray-800 ${
-          props.isDarkMode
-            ? "bg-gray-700 text-white"
-            : "bg-gray-200 text-gray-700"
-        }`}
+        className="w-full h-full rounded-md p-2 transition-colors bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-white"
+        title="Buscar ciudad"
       />
       <Ciudades filter={filter} />
     </div>
