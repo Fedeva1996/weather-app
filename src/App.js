@@ -10,8 +10,9 @@ import Header from "./Components/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { setCoords } from "./redux/reducers";
 import Search from "./Components/Search";
+import "../src/App.css";
 
-const Component = () => {
+const App = () => {
   const [data, setCurrentData] = useState(null);
   const [loaded, setLoaded] = useState(false);
   const [units, setUnits] = useState("c");
@@ -55,7 +56,7 @@ const Component = () => {
     function error() {
       console.log("No se pudo recuperar la ubicación");
     }
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     if (coords.length === 2) {
@@ -91,7 +92,7 @@ const Component = () => {
   };
 
   return (
-    <div className="flex flex-col w-full h-full min-h-screen transition-colors bg-gray-100 text-gray-900 dark:bg-gradient-to-b dark:from-gray-900 dark:to-slate-800  dark:text-white">
+    <div className="flex flex-col min-h-full transition-colors bg-gray-100 text-gray-900 dark:bg-gradient-to-b dark:from-gray-900 dark:to-slate-800 dark:text-white overflow-x-auto">
       <Header
         isDarkMode={theme}
         handleDarkmode={toggleTheme}
@@ -115,7 +116,7 @@ const Component = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 center place-content-evenly">
             {saveCities.map((city, index) => (
-              <Ciudades key={index} weatherData={[city, units, theme]} />
+              <Ciudades key={index} weatherData={[city, units]} />
             ))}
           </div>
         </div>
@@ -143,4 +144,4 @@ const Component = () => {
   );
 };
 
-export default Component;
+export default App;

@@ -9,10 +9,10 @@ const Ciudades = ({ weatherData }) => {
   const coords = weatherData[0];
   const units = weatherData[1];
 
-  //console.log(coords);
+  console.log("coords", coords);
 
   useEffect(() => {
-    fetchWeatherData(coords[0], coords[1])
+    fetchWeatherData(coords.lat, coords.lon)
       .then((data) => {
         setCurrentData(data);
         setLoaded(true);
@@ -25,9 +25,14 @@ const Ciudades = ({ weatherData }) => {
       <div className="flex flex-row items-center gap-3">
         <div className="flex flex-col items-center gap-2">
           <img
+            src={require(`../Images/${data.current.condition.is_day = 1 ? "day" : "night"}/${data.current.condition.code}.svg`)}
+            alt={data.current.condition.text}
+            width={"64px"}
+          />
+          {/* <img
             src={data.current.condition.icon}
             alt={data.current.condition.text}
-          ></img>
+          /> */}
           <div className="text-3xl font-bold transition-colors">
             {units === "c" ? data.current.temp_c : data.current.temp_f}°
           </div>

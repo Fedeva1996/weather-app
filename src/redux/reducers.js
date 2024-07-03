@@ -23,16 +23,10 @@ const citiesSlice = createSlice({
       console.log(state.value);
     },
     removeSaveCities: (state, action) => {
-      const stateAsObject = JSON.parse(JSON.stringify(state.value));
-      console.log("State before removal:", stateAsObject);
-      console.log("Payload:", action.payload);
       state.value = state.value.filter(
-        (item) => item[0] !== action.payload[0] || item[1] !== action.payload[1]
+        (city) => city.name !== action.payload.name
       );
-      console.log(
-        "State after removal:",
-        JSON.parse(JSON.stringify(state.value))
-      );
+      console.log(state.value);
     },
   },
 });

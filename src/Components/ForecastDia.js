@@ -28,7 +28,7 @@ const ForecastDia = ({ weatherData }) => {
   return (
     <div className="bg-slate-300 dark:bg-slate-800 rounded-lg shadow-lg p-4">
       <h3 className="text-2xl font-bold">Pronostico extendido</h3>
-      <div className="grid grid-cols-5 gap-52 items-center content-center m-auto overflow-x-auto w-[95%] no-scrollbar">
+      <div className="grid grid-flow-col items-center content-center m-auto overflow-x-auto w-[95%] no-scrollbar">
         {forecast.map((day) => {
           const currentTempMin =
             weatherData[1] === "c" ? day.day.mintemp_c : day.day.mintemp_f;
@@ -51,24 +51,33 @@ const ForecastDia = ({ weatherData }) => {
           return (
             <div
               key={day.date_epoch}
-              className="flex flex-col items-center justify-center gap-2 mt-5 mb-5 min-w-52 min-h-60"
+              className="flex flex-col items-center justify-center gap-2 mt-5 mb-5 min-w-48 min-h-60"
             >
               <div className="text-sm font-medium transition-colors">
                 {getDayLabel(day.date)}
               </div>
               <img
-                src={day.day.condition.icon}
+                src={require(`../Images/day/${day.day.condition.code}.svg`)}
                 alt={day.day.condition.text}
-              ></img>
+                width={"64px"}
+              />
+              {/* <img
+                src={data.current.condition.icon}
+                alt={data.current.condition.text}
+              /> */}
               <div className="flex flex-1 text-lg font-bold">
                 {currentTempMin}° /{currentTempMax}°
                 <span className="ml-1">{tempMediaChange}</span>
               </div>
               <div className="flex flex-1 text-xs font-normal text-center min-h-8 transition-colors">
                 <SunRise prop={weatherData[2]} />
-                <p className="content-center font-thin ml-1 mr-1">{day.astro.sunrise}</p>
+                <p className="content-center font-thin ml-1 mr-1">
+                  {day.astro.sunrise}
+                </p>
                 <SunSet prop={weatherData[2]} />
-                <p className="content-center font-thin ml-1 mr-1">{day.astro.sunset}</p>
+                <p className="content-center font-thin ml-1 mr-1">
+                  {day.astro.sunset}
+                </p>
               </div>
               <div className="text-sm font-normal text-center min-h-8 transition-colors">
                 {day.day.condition.text}

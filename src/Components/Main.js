@@ -58,20 +58,25 @@ const Main = ({ weatherData }) => {
       <div className="grid grid-cols-2 gap-4">
         <div>
           <h3 className="text-2xl font-bold"> {data.current.condition.text}</h3>
-          <p className="flex flex-1 font-thin text-muted-foreground">
+          <span className="text-6xl font-thin">
+            {weatherData[1] === "c" ? data.current.temp_c : data.current.temp_f}
+            °
+          </span>
+          <p className="flex flex-1 font-thin text-muted-foreground pt-2">
             <Location prop={weatherData[2]} />
             {data.location.name}
           </p>
         </div>
-        <div className="flex items-center">
-          <span className="text-4xl font-thin">
-            {weatherData[1] === "c" ? data.current.temp_c : data.current.temp_f}
-            °
-          </span>
+        <div className="flex items-center justify-start">
           <img
+            src={require(`../Images/${data.current.condition.is_day = 1 ? "day" : "night"}/${data.current.condition.code}.svg`)}
+            alt={data.current.condition.text}
+            width={'128px'}
+          />
+          {/* <img
             src={data.current.condition.icon}
             alt={data.current.condition.text}
-          ></img>
+          /> */}
         </div>
       </div>
       <div className="mt-4 grid grid-cols-2 gap-4">
@@ -111,7 +116,7 @@ const Main = ({ weatherData }) => {
         </div>
         <div>
           <p className="font-bold text-muted-foreground">UV</p>
-          <p className="font-thin">{getUVIndexDescription(data.current.uv)}</p>
+          <p className="font-thin"><span className="font-bold">{data.current.uv}</span>: {getUVIndexDescription(data.current.uv)}</p>
         </div>
         <div>
           <p className="font-bold text-muted-foreground">Visibility</p>

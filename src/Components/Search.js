@@ -21,24 +21,34 @@ const Search = (props) => {
     setFilter("");
   };
   const handleAddCity = (ciudad) => {
-    const ciudadCoords = [ciudad.lat, ciudad.lon];
     //console.log(ciudadCoords);
-    dispatch(setSaveCities(ciudadCoords));
+    dispatch(
+      setSaveCities({
+        nombre: ciudad.nombre,
+        lat: ciudad.lat,
+        lon: ciudad.lon,
+      })
+    );
     setFilter("");
   };
 
   const handleRemoveCity = (ciudad) => {
-    const ciudadCoords = [ciudad.lat, ciudad.lon];
     //console.log(ciudadCoords);
-    dispatch(removeSaveCities(ciudadCoords));
+    dispatch(removeSaveCities(ciudad.nombre));
   };
 
   const checkInclude = (ciudad) => {
+    console.log(saveCities);
+    ciudad = [ciudad.lat, ciudad.lon];
+    console.log(ciudad);
     let includes = saveCities.some(
-      (a) => saveCities.length && ciudad.every((v, i) => v === a[i])
+      (city) => 
+        [city.lat, city.lon].length === ciudad.length && 
+        [city.lat, city.lon].every((value, index) => value === ciudad[index])
     );
     return includes;
   };
+
   const Ciudades = ({ filter }) => {
     const results = cities.filter((city) =>
       city.nombre.toLowerCase().includes(filter.toLowerCase())
@@ -65,46 +75,42 @@ const Search = (props) => {
                 >
                   <h1>{city.nombre}</h1>
                 </button>
-                {
-                  //revisar nuevamente para ver correctamente el saveCities.length
-
-                  checkInclude([city.lat, city.lon]) ? (
-                    <button
-                      className="gap-2 p-2"
-                      onClick={() => handleRemoveCity(city)}
-                      title="Eliminar de favoritos"
-                    >
-                      <div className="flex items-center justify-between hover:scale-110 transition-transform">
-                        <Thrash prop={props.isDarkMode} />
-                      </div>
-                    </button>
-                  ) : (
-                    <button
-                      className="gap-2 p-2"
-                      onClick={() => handleAddCity(city)}
-                    >
-                      <div className="flex items-center justify-between hover:scale-110 transition-transform">
-                        {saveCities.length >= 2 ? null : (
-                          <Add prop={props.isDarkMode} />
-                        )}
-                      </div>
-                    </button>
-                  )
-                }
+                {checkInclude(city) ? (
+                  <button
+                    className="gap-2 p-2"
+                    onClick={() => handleRemoveCity(city)}
+                    title="Eliminar de favoritos"
+                  >
+                    <div className="flex items-center justify-between hover:scale-110 transition-transform">
+                      <Thrash prop={props.isDarkMode} />
+                    </div>
+                  </button>
+                ) : (
+                  <button
+                    className="gap-2 p-2"
+                    onClick={() => handleAddCity(city)}
+                  >
+                    <div className="flex items-center justify-between hover:scale-110 transition-transform">
+                      {saveCities.length >= 2 ? null : (
+                        <Add prop={props.isDarkMode} />
+                      )}
+                    </div>
+                  </button>
+                )}
               </div>
             ))}
           </div>
         );
       } else {
         return (
-          <div className="absolute left-0 right-0 bottom-full sm:bottom-auto sm:mb-2 p-2 flex flex-col items-left justify-center gap-2 overflow-y-auto min-w-[448px] w-auto max-h-52 z-50  bg-slate-300 dark:bg-slate-600 rounded-md sm:rounded-md">
+          <div className="absolute left-0 p-3 right-0 bottom-full sm:bottom-auto sm:mb-2 flex flex-col items-left justify-center gap-2 overflow-y-auto min-w-full max-h-52 z-10 bg-slate-300 dark:bg-slate-600 rounded-md sm:rounded-md">
             Demasiadas coincidencias, sea más específico
           </div>
         );
       }
     } else {
       return (
-        <div className="absolute left-0 right-0 bottom-full sm:bottom-auto sm:mb-2 p-2 flex flex-col items-left justify-center gap-2 overflow-y-auto min-w-[448px] w-auto max-h-52 z-50  bg-slate-300 dark:bg-slate-600 rounded-md sm:rounded-md">
+        <div className="absolute left-0 p-3 right-0 bottom-full sm:bottom-auto sm:mb-2 flex flex-col items-left justify-center gap-2 overflow-y-auto min-w-full max-h-52 z-10 bg-slate-300 dark:bg-slate-600 rounded-md sm:rounded-md">
           No se encontraron resultados
         </div>
       );

@@ -17,7 +17,7 @@ const ForecastHora = ({ weatherData }) => {
   return (
     <div className="bg-slate-300 dark:bg-slate-800 rounded-lg shadow-lg p-4">
       <h3 className="text-2xl font-bold">Pronostico del día</h3>
-      <div className="grid grid-flow-col gap-8 items-center content-center m-auto overflow-x-auto w-[95%] no-scrollbar">
+      <div className="grid grid-flow-col items-center content-center m-auto overflow-x-auto w-[95%] no-scrollbar">
         {forecast.slice(hours, 24 + hours).map((hour) => (
           <div
             key={hour.time}
@@ -31,7 +31,15 @@ const ForecastHora = ({ weatherData }) => {
                   : `${hour.time.slice(10, 13) - 12} p.m.`
                 : `${hour.time.slice(10, 13)} a.m.`}
             </div>
-            <img src={hour.condition.icon} alt={hour.condition.text}></img>
+            <img
+              src={require(`../Images/${hour.is_day === 1 ? "day" : "night"}/${hour.condition.code}.svg`)}
+              alt={hour.condition.text}
+              width={'64px'}
+            />
+            {/* <img
+              src={data.current.condition.icon}
+              alt={data.current.condition.text}
+            /> */}
             <div className="text-lg font-bold">
               {weatherData[1] === "c" ? hour.temp_c : hour.temp_f}°
             </div>
