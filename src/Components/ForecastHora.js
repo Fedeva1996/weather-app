@@ -1,58 +1,145 @@
-import { Rain } from "../Images/svg";
+import React, { useEffect, useRef } from "react";
+import * as d3 from "d3";
 
-const ForecastHora = ({ weatherData }) => {
-  //console.log(weatherData);
+const ForecastHora = ({ Data }) => {
+  const svgRef = useRef();
 
   const date = new Date();
   let hours = date.getHours() + 1;
 
   const forecast = [
-    ...weatherData[0].forecast.forecastday[0].hour,
-    ...weatherData[0].forecast.forecastday[1].hour,
-    ...weatherData[0].forecast.forecastday[2].hour,
+    ...Data[0].forecast.forecastday[0].hour,
+    ...Data[0].forecast.forecastday[1].hour,
+    ...Data[0].forecast.forecastday[2].hour,
   ];
 
-  //console.log(forecast);
+  const hourlyForecast = forecast.slice(hours, 24 + hours);
+
+  useEffect(() => {
+    const svg = d3.select(svgRef.current);
+    svg.selectAll("*").remove();
+
+    const width = 2304;
+    const height = 100;
+    const margin = { top: 30, right: 48, bottom: 30, left: 48 };
+
+    const x = d3
+      .scaleLinear()
+      .domain([0, hourlyForecast.length - 1])
+      .range([margin.left, width - margin.right]);
+
+    const y = d3
+      .scaleLinear()
+      .domain([0, d3.max(hourlyForecast, (data) => data.temp_c)])
+      .nice()
+      .range([height - margin.bottom, margin.top]);
+
+    const line = d3
+      .line()
+      .x((data, index) => x(index))
+      .y((data) => y(data.temp_c))
+      .curve(d3.curveMonotoneX);
+
+    svg
+      .append("path")
+      .datum(hourlyForecast)
+      .attr("fill", "none")
+      .attr("stroke", "yellow")
+      .attr("stroke-width", 1)
+      .attr("d", line);
+
+    svg
+      .selectAll(".dot")
+      .data(hourlyForecast)
+      .enter()
+      .append("circle")
+      .attr("class", "dot")
+      .attr("cx", (data, index) => x(index))
+      .attr("cy", (data) => y(data.temp_c))
+      .attr("r", 2)
+      .attr("fill", "white");
+  }, [hourlyForecast]);
 
   return (
     <div className="bg-slate-300 dark:bg-slate-800 rounded-lg shadow-lg p-4">
       <h3 className="text-2xl font-bold">Pronostico del día</h3>
-      <div className="grid grid-flow-col items-center content-center m-auto overflow-x-auto w-[95%] no-scrollbar">
-        {forecast.slice(hours, 24 + hours).map((hour) => (
-          <div
-            key={hour.time}
-            id={hour.time}
-            className="flex flex-col items-center justify-center gap-2 mt-5 mb-5 min-w-24 min-h-60"
-          >
-            <div className="text-sm font-medium transition-colors">
-              {hour.time.slice(10, 13) > 12
-                ? hour.time.slice(10, 13) - 12 < 10
-                  ? `0${hour.time.slice(10, 13) - 12} p.m.`
-                  : `${hour.time.slice(10, 13) - 12} p.m.`
-                : `${hour.time.slice(10, 13)} a.m.`}
+      <div className="flex flex-col overflow-x-auto w-[95%] no-scrollbar">
+        <div className="grid grid-flow-col items-center content-center m-auto">
+          {forecast.slice(hours, 24 + hours).map((hour) => (
+            <div
+              key={hour.time}
+              id={hour.time}
+              className="flex flex-col items-center justify-between gap-2 mt-5 mb-5 min-w-24"
+            >
+              <div className="text-sm font-medium transition-colors">
+                {hour.time.slice(10, 13) > 12
+                  ? hour.time.slice(10, 13) - 12 < 10
+                    ? `0${hour.time.slice(10, 13) - 12} p.m.`
+                    : `${hour.time.slice(10, 13) - 12} p.m.`
+                  : `${hour.time.slice(10, 13)} a.m.`}
+              </div>
+              {Data[2] === true ? (
+                <img
+                  src={require(
+                    `../Images/Animated/${hour.is_day === 1 ? "day" : "night"}/${hour.condition.code}.svg`
+                  )}
+                  alt={hour.condition.text}
+                  width={"64px"}
+                />
+              ) : (
+                <img
+                  src={hour.condition.icon}
+                  alt={hour.condition.text}
+                  width={"64px"}
+                />
+              )}
+
+              <div className="text-lg font-bold">
+                {Data[1] === "c" ? hour.temp_c : hour.temp_f}°
+              </div>
+              {/* <div className="text-sm font-normal text-center min-h-8 transition-colors">
+                {hour.condition.text}
+              </div> */}
             </div>
-            <img
-              src={require(`../Images/${hour.is_day === 1 ? "day" : "night"}/${hour.condition.code}.svg`)}
-              alt={hour.condition.text}
-              width={'64px'}
-            />
-            {/* <img
-              src={data.current.condition.icon}
-              alt={data.current.condition.text}
-            /> */}
-            <div className="text-lg font-bold">
-              {weatherData[1] === "c" ? hour.temp_c : hour.temp_f}°
+          ))}
+        </div>
+        <div>
+          <svg ref={svgRef} className="w-[2304px] items-center max-h-16"></svg>
+        </div>
+        <div className="grid grid-flow-col items-center content-center m-auto">
+          {forecast.slice(hours, 24 + hours).map((hour) => (
+            <div
+              key={hour.time}
+              id={hour.time}
+              className="flex flex-col items-center justify-between gap-2 min-w-24"
+            >
+              <div className="flex flex-1 items-center text-sm font-normal text-center transition-colors max-h-6">
+                <svg
+                  width="16px"
+                  height="16px"
+                  viewBox="0 0 24 24"
+                  className="mx-1 stroke-2 transition-colors fill-none stroke-slate-800 dark:stroke-slate-300"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M21 14.7C21 18.1794 19.0438 21 15.5 21C11.9562 21 10 18.1794 10 14.7C10 11.2206 15.5 3 15.5 3C15.5 3 21 11.2206 21 14.7Z"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M8 8.2C8 9.7464 7.11083 11 5.5 11C3.88917 11 3 9.7464 3 8.2C3 6.6536 5.5 3 5.5 3C5.5 3 8 6.6536 8 8.2Z"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                {hour.chance_of_rain} %
+              </div>
             </div>
-            <div className="text-sm font-normal text-center min-h-16 transition-colors">
-              {hour.condition.text}
-            </div>
-            <div className="flex flex-1 text-sm font-normal text-center transition-colors">
-              <Rain prop={weatherData[2]} /> {hour.chance_of_rain} %
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
 };
+
 export default ForecastHora;

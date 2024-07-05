@@ -1,6 +1,6 @@
-const Alerta = ({ weatherData }) => {
+const Alerta = ({ Data }) => {
   //console.log(weatherData);
-  const data = weatherData[0].alerts.alert[0];
+  const data = Data[0].alerts.alert[0];
   //console.log(data);
 
   // Divide la cadena original en un arreglo de elementos

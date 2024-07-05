@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import Loading from "./Loading";
 import { fetchWeatherData } from "../Services/Weather";
 
-const Ciudades = ({ weatherData }) => {
+const Ciudades = ({ Data }) => {
   //console.log(weatherData);
   const [data, setCurrentData] = useState(null);
   const [loaded, setLoaded] = useState(false);
-  const coords = weatherData[0];
-  const units = weatherData[1];
+  const coords = Data[0];
+  const units = Data[1];
 
   console.log("coords", coords);
 
@@ -50,7 +50,7 @@ const Ciudades = ({ weatherData }) => {
               {units === "c"
                 ? data.forecast.forecastday[0].day.mintemp_c
                 : data.forecast.forecastday[0].day.mintemp_f}
-              ° /{" "}
+              ° /
               {units === "c"
                 ? data.forecast.forecastday[0].day.maxtemp_c
                 : data.forecast.forecastday[0].day.maxtemp_f}
