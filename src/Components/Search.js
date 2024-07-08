@@ -91,7 +91,7 @@ const Search = () => {
                         width="24px"
                         height="24px"
                         viewBox="0 0 24 24"
-                        className="mx-1 stroke-2 transition-colors fill-none stroke-slate-800 dark:stroke-slate-300"
+                        className="mx-1 stroke-2  fill-none stroke-slate-800 dark:stroke-slate-300"
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
@@ -113,7 +113,7 @@ const Search = () => {
                           width="24px"
                           height="24px"
                           viewBox="0 0 24 24"
-                          className="mx-1 stroke-2 transition-colors fill-none stroke-slate-800 dark:stroke-slate-300"
+                          className="mx-1 stroke-2  fill-none stroke-slate-800 dark:stroke-slate-300"
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
@@ -153,7 +153,7 @@ const Search = () => {
         placeholder="Buscar ciudad..."
         onChange={handleSearch}
         value={filter}
-        className="w-full h-full rounded-md p-2 transition-colors bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-white"
+        className="w-full h-full rounded-md p-2  bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-white"
         title="Buscar ciudad"
       />
       <Ciudades filter={filter} />

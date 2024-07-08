@@ -4,7 +4,7 @@ import DropdownMenu from "../Components/DropdowMenu";
 
 const Header = (props) => {
   return (
-    <header className="flex items-center h-16 px-4 mb-4 border-b shrink-0 sticky transition-colors top-0 border-gray-300 dark:border-gray-600 text-gray-900 dark:bg-gray-900 dark:text-white">
+    <header className="flex items-center h-16 px-4 mb-4 border-b shrink-0 sticky top-0 border-gray-300 dark:border-gray-600 text-gray-900 bg-slate-100 dark:bg-gray-900 dark:text-white">
       <div className="flex w-full justify-between items-center gap-4">
         <Link
           to="#"
@@ -24,6 +24,8 @@ const Header = (props) => {
             handleDarkmode={props.handleDarkmode}
             animations={props.animations}
             handleAnimations={props.handleAnimations}
+            extra={props.extra}
+            handleExtra={props.handleExtra}
           />
         </div>
       </div>

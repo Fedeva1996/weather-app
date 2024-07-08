@@ -5,7 +5,12 @@ import ForecastHora from "./Components/ForecastHora";
 import ForecastDia from "./Components/ForecastDia";
 import Alerta from "./Components/Alerta";
 import Loading from "./Components/Loading";
-import { fetchHistoryWeatherData, fetchWeatherData } from "./Services/Weather";
+import Extras from "./Components/Extras";
+import {
+  fetchHistoryWeatherData,
+  fetchCurrentWeatherData,
+  fetchForecastWeatherData,
+} from "./Services/Weather";
 import Header from "./Components/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { setCoords } from "./redux/reducers";
@@ -13,12 +18,15 @@ import Footer from "./Components/Footer";
 import "../src/App.css";
 
 const App = () => {
-  const [data, setCurrentData] = useState(null);
+  const [currentData, setCurrentData] = useState(null);
+  const [forecastData, setForecastData] = useState(null);
   const [historyData, setHistoryData] = useState(null);
-  const [loaded, setLoaded] = useState(false);
+  const [currentLoaded, setCurrentLoaded] = useState(false);
+  const [forecastLoaded, setForecastLoaded] = useState(false);
+  const [historyLoaded, setHistoryLoaded] = useState(false); // Nuevo estado para cargar datos históricos
+  const [extra, setExtra] = useState(true);
   const [units, setUnits] = useState("c");
   const [animations, setAnimations] = useState(true);
-  const [historyLoaded, setHistoryLoaded] = useState(false); // Nuevo estado para cargar datos históricos
   const dispatch = useDispatch();
   const coords = useSelector((state) => state.coords.value);
   const saveCities = useSelector((state) => state.saveCities.value);
@@ -64,9 +72,10 @@ const App = () => {
 
   useEffect(() => {
     if (coords.length === 2) {
-      setLoaded(false);
+      setCurrentLoaded(false);
+      setForecastLoaded(false);
       setHistoryLoaded(false); // Reinicia el estado de carga de datos históricos
-      fetchWeatherData(coords[0], coords[1])
+      fetchCurrentWeatherData(coords[0], coords[1])
         .then((data) => {
           //console.log("Current Weather Data:", data); // Debugging
           if (data) {
@@ -74,7 +83,26 @@ const App = () => {
           } else {
             console.error("Current weather data is null or undefined.");
           }
-          setLoaded(true);
+          setCurrentLoaded(true);
+        })
+        .catch((error) => {
+          console.error("Error fetching current weather data:", error);
+        });
+    }
+  }, [coords]);
+  useEffect(() => {
+    if (coords.length === 2) {
+      setForecastLoaded(false);
+      setHistoryLoaded(false); // Reinicia el estado de carga de datos históricos
+      fetchForecastWeatherData(coords[0], coords[1])
+        .then((data) => {
+          //console.log("Current Weather Data:", data); // Debugging
+          if (data) {
+            setForecastData(data);
+          } else {
+            console.error("Current weather data is null or undefined.");
+          }
+          setForecastLoaded(true);
         })
         .catch((error) => {
           console.error("Error fetching current weather data:", error);
@@ -104,6 +132,9 @@ const App = () => {
   const handleUnits = () => {
     setUnits(units === "c" ? "f" : "c");
   };
+  const handleExtra = () => {
+    setExtra(!extra);
+  };
 
   const resetLocation = () => {
     if (navigator.geolocation) {
@@ -124,7 +155,7 @@ const App = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen transition-colors bg-gray-100 text-gray-900 dark:bg-gradient-to-b dark:from-gray-900 dark:to-slate-800 dark:text-white overflow-x-auto">
+    <div className="flex flex-col h-screen  bg-gray-100 text-gray-900 dark:bg-gradient-to-b dark:from-gray-900 dark:to-slate-800 dark:text-white overflow-x-auto">
       <Header
         isDarkMode={theme}
         handleDarkmode={handleTheme}
@@ -133,28 +164,39 @@ const App = () => {
         resetLocation={resetLocation}
         animations={animations}
         handleAnimations={handleAnimations}
+        extra={extra}
+        handleExtra={handleExtra}
       />
-      {loaded && historyLoaded ? (
+      {currentLoaded && forecastLoaded && historyLoaded ? (
         <div className="grid grid-cols-1 gap-6 w-[95%] sm:w-[90%] md:w-[80%] m-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 center place-content-evenly">
-            <Main Data={[data, units, animations]} />
+            <Main Data={[currentData, units, animations]} />
             {historyData && (
-              <ForecastDia Data={[data, units, animations, historyData]} />
+              <ForecastDia
+                Data={[forecastData, units, animations, historyData]}
+              />
             )}
           </div>
-          {data && data.alerts && data.alerts.alert[0] && (
-            <div className="min-h-0 h-full w-full p-2">
-              <Alerta Data={[data]} />
-            </div>
-          )}
+          {forecastData &&
+            forecastData.alerts &&
+            forecastData.alerts.alert[0] && (
+              <div className="min-h-0 h-full w-full p-2">
+                <Alerta Data={[forecastData]} />
+              </div>
+            )}
           <div className="rounded-md">
-            <ForecastHora Data={[data, units, animations]} />
+            <ForecastHora Data={[forecastData, units, animations]} />
           </div>
           {saveCities.map((city, index) => (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 center place-content-evenly">
               <Ciudades key={index} Data={[city, units, animations]} />
             </div>
           ))}
+          {extra ? (
+            <div className="rounded-md">
+              <Extras Data={[forecastData, units, animations]} />
+            </div>
+          ) : null}
         </div>
       ) : (
         <Loading />

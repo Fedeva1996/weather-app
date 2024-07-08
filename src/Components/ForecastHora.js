@@ -20,8 +20,8 @@ const ForecastHora = ({ Data }) => {
     svg.selectAll("*").remove();
 
     const width = 2304;
-    const height = 100;
-    const margin = { top: 30, right: 48, bottom: 30, left: 48 };
+    const height = 180;
+    const margin = { top: 70, right: 48, bottom: 70, left: 48 };
 
     const x = d3
       .scaleLinear()
@@ -44,7 +44,7 @@ const ForecastHora = ({ Data }) => {
       .append("path")
       .datum(hourlyForecast)
       .attr("fill", "none")
-      .attr("stroke", "yellow")
+      .attr("stroke", "gray")
       .attr("stroke-width", 1)
       .attr("d", line);
 
@@ -63,7 +63,7 @@ const ForecastHora = ({ Data }) => {
   return (
     <div className="bg-slate-300 dark:bg-slate-800 rounded-lg shadow-lg p-4">
       <h3 className="text-2xl font-bold">Pronostico del día</h3>
-      <div className="flex flex-col overflow-x-auto w-[95%] no-scrollbar">
+      <div className="flex flex-col overflow-x-auto w-full no-scrollbar">
         <div className="grid grid-flow-col items-center content-center m-auto">
           {forecast.slice(hours, 24 + hours).map((hour) => (
             <div
@@ -71,40 +71,32 @@ const ForecastHora = ({ Data }) => {
               id={hour.time}
               className="flex flex-col items-center justify-between gap-2 mt-5 mb-5 min-w-24"
             >
-              <div className="text-sm font-medium transition-colors">
+              <div className="text-sm font-medium ">
                 {hour.time.slice(10, 13) > 12
                   ? hour.time.slice(10, 13) - 12 < 10
                     ? `0${hour.time.slice(10, 13) - 12} p.m.`
                     : `${hour.time.slice(10, 13) - 12} p.m.`
                   : `${hour.time.slice(10, 13)} a.m.`}
               </div>
-              {Data[2] === true ? (
-                <img
-                  src={require(
-                    `../Images/Animated/${hour.is_day === 1 ? "day" : "night"}/${hour.condition.code}.svg`
-                  )}
-                  alt={hour.condition.text}
-                  width={"64px"}
-                />
-              ) : (
-                <img
-                  src={hour.condition.icon}
-                  alt={hour.condition.text}
-                  width={"64px"}
-                />
-              )}
+              <img
+                src={require(
+                  `../Images/${Data[2] === true ? "Animated" : "NoAnimated"}/${hour.is_day === 1 ? "day" : "night"}/${hour.condition.code}.svg`
+                )}
+                alt={hour.condition.text}
+                width={"64px"}
+              />
 
               <div className="text-lg font-bold">
                 {Data[1] === "c" ? hour.temp_c : hour.temp_f}°
               </div>
-              {/* <div className="text-sm font-normal text-center min-h-8 transition-colors">
+              {/* <div className="text-sm font-normal text-center min-h-8 ">
                 {hour.condition.text}
               </div> */}
             </div>
           ))}
         </div>
         <div>
-          <svg ref={svgRef} className="w-[2304px] items-center max-h-16"></svg>
+          <svg ref={svgRef} className="w-[2304px] items-center h-auto"></svg>
         </div>
         <div className="grid grid-flow-col items-center content-center m-auto">
           {forecast.slice(hours, 24 + hours).map((hour) => (
@@ -113,13 +105,12 @@ const ForecastHora = ({ Data }) => {
               id={hour.time}
               className="flex flex-col items-center justify-between gap-2 min-w-24"
             >
-              <div className="flex flex-1 items-center text-sm font-normal text-center transition-colors max-h-6">
+              <div className="flex flex-1 items-center text-sm font-normal text-center  max-h-6">
                 <svg
                   width="16px"
                   height="16px"
                   viewBox="0 0 24 24"
-                  className="mx-1 stroke-2 transition-colors fill-none stroke-slate-800 dark:stroke-slate-300"
-                  xmlns="http://www.w3.org/2000/svg"
+                  className={`mx-1 stroke-2 stroke-slate-800 dark:stroke-slate-300 ${hour.chance_of_rain > 50 ? "fill-slate-800 dark:fill-slate-300" : "fill-none"}`}                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     d="M21 14.7C21 18.1794 19.0438 21 15.5 21C11.9562 21 10 18.1794 10 14.7C10 11.2206 15.5 3 15.5 3C15.5 3 21 11.2206 21 14.7Z"

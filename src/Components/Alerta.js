@@ -10,11 +10,11 @@ const Alerta = ({ Data }) => {
     <aside className="flex-1 flex flex-col items-center justify-center m-auto p-4 bg-orange-100 border-l-4 border-orange-400 text-orange-600 dark:bg-orange-300 dark:border-orange-600 dark:text-orange-700">
       <div className="flex flex-col items-center gap-4">
         <div className="flex items-center">
-          <div className="text-xl font-bold transition-colors">
+          <div className="text-xl font-bold ">
             {data.event}
           </div>
         </div>
-        <div className="text-sm font-medium transition-colors">
+        <div className="text-sm font-medium ">
           <ul className="list-disc list-inside">
             {items.map((key, index) => (
               <li key={index}>{key.slice(1)}</li>

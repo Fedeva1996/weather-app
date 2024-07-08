@@ -36,34 +36,26 @@ const ForecastDia = ({ Data }) => {
         {history ? (
           <div
             key={history.date_epoch}
-            className="scroll-ml-6 snap-start flex flex-col items-center justify-around gap-2 min-w-48 font-thin"
+            className="scroll-ml-6 snap-start flex flex-col items-center justify-around gap-1 min-w-48 font-thin"
           >
-            <div className="text-sm transition-colors">Ayer</div>
-            {Data[2] === true ? (
-              <img
-                src={require(
-                  `../Images/Animated/day/${history.day.condition.code}.svg`
-                )}
-                alt={history.day.condition.text}
-                width={"64px"}
-              />
-            ) : (
-              <img
-                src={history.day.condition.icon}
-                alt={history.day.condition.text}
-                width={"64px"}
-              />
-            )}
+            <div className="text-sm ">Ayer</div>
+            <img
+              src={require(
+                `../Images/${Data[2] === true ? "Animated" : "NoAnimated"}/day/${history.day.condition.code}.svg`
+              )}
+              alt={history.day.condition.text}
+              width={"64px"}
+            />
             <div className="flex flex-1 text-md font-bold max-h-7">
               {Data[1] === "c" ? history.day.avgtemp_c : history.day.avgtemp_f}°
               de media
             </div>
-            <div className="flex flex-1 items-center text-xs text-center min-h-8 transition-colors max-h-8">
+            <div className="flex flex-1 items-center text-xs text-center min-h-8  max-h-8">
               <svg
                 width="20px"
                 height="20px"
                 viewBox="0 0 24 24"
-                className="mx-1 stroke-2 transition-colors fill-none stroke-slate-800 dark:stroke-slate-300"
+                className="mx-1 stroke-2  fill-none stroke-slate-800 dark:stroke-slate-300"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -79,7 +71,7 @@ const ForecastDia = ({ Data }) => {
                 width="20px"
                 height="20px"
                 viewBox="0 0 24 24"
-                className="mx-1 stroke-2 transition-colors fill-none stroke-slate-800 dark:stroke-slate-300"
+                className="mx-1 stroke-2  fill-none stroke-slate-800 dark:stroke-slate-300"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -92,13 +84,14 @@ const ForecastDia = ({ Data }) => {
                 {history.astro.sunset}
               </p>
             </div>
-            <div className="flex flex-1 items-center text-sm font-normal text-center transition-colors max-h-8">
+            <div className="flex flex-1 items-center text-sm font-normal text-center  max-h-8">
               <svg
                 width="16px"
                 height="16px"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
-                className="mx-1 stroke-2 transition-colors fill-none stroke-slate-800 dark:stroke-slate-300"
+                className={`mx-1 stroke-2 stroke-slate-800 dark:stroke-slate-300 ${history.day.daily_chance_of_rain > 50 ? "fill-slate-800 dark:fill-slate-300" : "fill-none"}`}
+
               >
                 <path
                   d="M21 14.7C21 18.1794 19.0438 21 15.5 21C11.9562 21 10 18.1794 10 14.7C10 11.2206 15.5 3 15.5 3C15.5 3 21 11.2206 21 14.7Z"
@@ -113,7 +106,7 @@ const ForecastDia = ({ Data }) => {
               </svg>
               {history.day.daily_chance_of_rain} %
             </div>
-            {/* <div className="text-sm text-center min-h-8 transition-colors">
+            {/* <div className="text-sm text-center min-h-8 ">
               {history.day.condition.text}
             </div> */}
           </div>
@@ -135,7 +128,7 @@ const ForecastDia = ({ Data }) => {
                   width="20px"
                   height="20px"
                   viewBox="0 0 24 24"
-                  className="mx-1 stroke-2 transition-colors fill-none stroke-red-600"
+                  className="mx-1 stroke-2  fill-none stroke-red-600"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
@@ -149,7 +142,7 @@ const ForecastDia = ({ Data }) => {
                   width="20px"
                   height="20px"
                   viewBox="0 0 24 24"
-                  className="mx-1 stroke-2 transition-colors fill-none stroke-blue-600"
+                  className="mx-1 stroke-2  fill-none stroke-blue-600"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
@@ -163,7 +156,7 @@ const ForecastDia = ({ Data }) => {
                   width="20px"
                   height="20px"
                   viewBox="0 0 24 24"
-                  className="mx-1 stroke-2 transition-colors fill-none stroke-slate-800 dark:stroke-slate-300"
+                  className="mx-1 stroke-2  fill-none stroke-slate-800 dark:stroke-slate-300"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
@@ -179,36 +172,28 @@ const ForecastDia = ({ Data }) => {
           return (
             <div
               key={day.date_epoch}
-              className="scroll-ml-6 snap-start flex flex-col items-center justify-around gap-2 min-w-48"
+              className="scroll-ml-6 snap-start flex flex-col items-center justify-around gap-1 min-w-48"
             >
-              <div className="text-sm font-medium transition-colors">
+              <div className="text-sm font-medium ">
                 {getDayLabel(day.date)}
               </div>
-              {Data[2] === true ? (
-                <img
-                  src={require(
-                    `../Images/Animated/day/${day.day.condition.code}.svg`
-                  )}
-                  alt={day.day.condition.text}
-                  width={"64px"}
-                />
-              ) : (
-                <img
-                  src={day.day.condition.icon}
-                  alt={day.day.condition.text}
-                  width={"64px"}
-                />
-              )}
+              <img
+                src={require(
+                  `../Images/${Data[2] === true ? "Animated" : "NoAnimated"}/day/${day.day.condition.code}.svg`
+                )}
+                alt={day.day.condition.text}
+                width={"64px"}
+              />
               <div className="flex flex-1 items-center text-lg font-bold max-h-7">
                 {currentTempMin}° /{currentTempMax}°
                 <span>{tempMediaChange}</span>
               </div>
-              <div className="flex flex-1 items-center text-xs font-normal text-center min-h-8 transition-colors max-h-8">
+              <div className="flex flex-1 items-center text-xs font-normal text-center min-h-8  max-h-8">
                 <svg
                   width="20px"
                   height="20px"
                   viewBox="0 0 24 24"
-                  className="mx-1 stroke-2 transition-colors fill-none stroke-slate-800 dark:stroke-slate-300"
+                  className="mx-1 stroke-2  fill-none stroke-slate-800 dark:stroke-slate-300"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
@@ -224,7 +209,7 @@ const ForecastDia = ({ Data }) => {
                   width="20px"
                   height="20px"
                   viewBox="0 0 24 24"
-                  className="mx-1 stroke-2 transition-colors fill-none stroke-slate-800 dark:stroke-slate-300"
+                  className="mx-1 stroke-2  fill-none stroke-slate-800 dark:stroke-slate-300"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
@@ -237,16 +222,16 @@ const ForecastDia = ({ Data }) => {
                   {day.astro.sunset}
                 </p>
               </div>
-              {/* <div className="text-sm font-normal text-center min-h-8 transition-colors">
+              {/* <div className="text-sm font-normal text-center min-h-8 ">
                 {day.day.condition.text}
               </div> */}
-              <div className="flex flex-1 items-center text-sm font-normal text-center transition-colors max-h-8">
+              <div className="flex flex-1 items-center text-sm font-normal text-center max-h-8">
                 <svg
                   width="16px"
                   height="16px"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
-                  className="mx-1 stroke-2 transition-colors fill-none stroke-slate-800 dark:stroke-slate-300"
+                  className={`mx-1 stroke-2 stroke-slate-800 dark:stroke-slate-300 ${day.day.daily_chance_of_rain > 50 ? "fill-slate-800 dark:fill-slate-300" : "fill-none"}`}
                 >
                   <path
                     d="M21 14.7C21 18.1794 19.0438 21 15.5 21C11.9562 21 10 18.1794 10 14.7C10 11.2206 15.5 3 15.5 3C15.5 3 21 11.2206 21 14.7Z"

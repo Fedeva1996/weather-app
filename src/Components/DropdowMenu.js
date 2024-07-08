@@ -23,17 +23,17 @@ const DropdownMenu = (props) => {
 
   return (
     <div className="relative" ref={menuRef}>
-      <div className="inline-flex items-end justify-end overflow-hidden rounded-md transition-colors bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white min-w-28">
+      <div className="inline-flex items-end justify-end overflow-hidden rounded-md  text-gray-900 dark:text-white min-w-28">
         <button
           onClick={toggleMenu}
-          className="flex flex-row items-center gap-2 py-2 text-sm/none transition-colors bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white"
+          className="flex flex-row items-center gap-2 py-2 text-sm/none  bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white"
           title="Editar"
         >
           <svg
             width="32px"
             height="32px"
             viewBox="0 0 24 24"
-            className="mx-1 stroke-2 transition-colors fill-none stroke-slate-800 dark:stroke-slate-300"
+            className="mx-1 stroke-2  fill-none stroke-slate-800 dark:stroke-slate-300"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
@@ -52,7 +52,7 @@ const DropdownMenu = (props) => {
 
       {isOpen && (
         <div
-          className="absolute end-0 z-10 mt-2 w-56 divide-y divide-gray-500 rounded-md border border-gray-300 dark:border-gray-600 transition-colors bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white shadow-lg"
+          className="absolute end-0 z-10 mt-2 w-56 divide-y divide-gray-500 rounded-md border border-gray-300 dark:border-gray-600  bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white shadow-lg"
           role="menu"
         >
           <div className="flex flex-row items-center justify-center gap-2 p-2">
@@ -89,6 +89,17 @@ const DropdownMenu = (props) => {
                 </h1>
               )}
             </button>
+            <button onClick={props.handleExtra} title="Activar animación">
+              {props.extra === true ? (
+                <h1 className="text-[24px] hover:scale-110 transition-transform">
+                  📖
+                </h1>
+              ) : (
+                <h1 className="text-[24px] hover:scale-110 transition-transform">
+                  📕
+                </h1>
+              )}
+            </button>
             <button onClick={props.resetLocation} title="Restablecer ubicación">
               <h1 className="text-[24px] hover:scale-110 transition-transform min-w-8">
                 📍
@@ -104,16 +115,16 @@ const DropdownMenu = (props) => {
                 <input
                   type="text"
                   placeholder="Email"
-                  className="w-full h-full rounded-md p-2 transition-colors bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-white"
+                  className="w-full h-full rounded-md p-2  bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-white"
                 />
                 <input
                   type="password"
                   placeholder="Password"
-                  className="w-full h-full rounded-md p-2 transition-colors bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-white"
+                  className="w-full h-full rounded-md p-2  bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-white"
                 />
                 <button
                   type="submit"
-                  className="w-full h-full rounded-md m-auto transition-colors bg-gray-300 text-gray-700 dark:bg-gray-800 dark:text-white hover:bg-gray-400 hover:dark:bg-gray-700 hover:text-gray-100"
+                  className="w-full h-full rounded-md m-auto  bg-gray-300 text-gray-700 dark:bg-gray-800 dark:text-white hover:bg-gray-400 hover:dark:bg-gray-700 hover:text-gray-100"
                 >
                   Ingresar
                 </button>
