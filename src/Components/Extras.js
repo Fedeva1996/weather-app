@@ -3,18 +3,18 @@ const Extras = ({ Data }) => {
   const data = Data[0];
 
   const uvIndexDescriptions = {
-    0: "Bajo: Sin riesgo",
-    1: "Bajo: Sin riesgo",
-    2: "Bajo: Sin riesgo",
-    3: "Moderado: Protección recomendada",
-    4: "Moderado: Protección recomendada",
-    5: "Moderado: Protección recomendada",
-    6: "Alto: Protección adicional necesaria",
-    7: "Alto: Protección adicional necesaria",
-    8: "Muy alto: Protección extra requerida",
-    9: "Muy alto: Protección extra requerida",
-    10: "Muy alto: Protección extra requerida",
-    11: "Extremo: Evitar la exposición al sol",
+    0: ["Bajo: Sin riesgo", "bg-green-500"],
+    1: ["Bajo: Sin riesgo", "bg-grenn-500"],
+    2: ["Bajo: Sin riesgo", "bg-green-500"],
+    3: ["Moderado: Protección recomendada", "bg-yellow-500"],
+    4: ["Moderado: Protección recomendada", "bg-yellow-500"],
+    5: ["Moderado: Protección recomendada", "bg-yellow-500"],
+    6: ["Alto: Protección adicional necesaria", "bg-orange-500"],
+    7: ["Alto: Protección adicional necesaria", "bg-orange-500"],
+    8: ["Muy alto: Protección extra requerida", "bg-red-500"],
+    9: ["Muy alto: Protección extra requerida", "bg-red-500"],
+    10: ["Muy alto: Protección extra requerida", "bg-red-500"],
+    11: ["Extremo: Evitar la exposición al sol", "bg-purple-500"],
   };
 
   // Función para obtener la descripción del índice UV
@@ -37,10 +37,18 @@ const Extras = ({ Data }) => {
     if (moonPhase === "Waning Crescent") return "Luna Creciente";
   };
 
+  const epaIndexDescriptions = (epaIndex) => {
+    if (epaIndex === 1) return ["Muy bueno", "bg-green-500"];
+    if (epaIndex === 2) return ["Bueno", "bg-yellow-500"];
+    if (epaIndex === 3) return ["Regular", "bg-orange-500"];
+    if (epaIndex === 4) return ["Muy malo", "bg-red-500"];
+    if (epaIndex === 5) return ["Malo", "bg-purple-500"];
+    if (epaIndex === 6) return ["Extremadamente malo", "bg-ambar-500"];
+  };
+
   return (
-    <div className="bg-slate-300 dark:bg-slate-800 rounded-lg shadow-lg p-4 ">
-      <div className="grid grid-cols-2 gap-4"></div>
-      <div className="mt-4 grid grid-cols-2 gap-4">
+    <div className="bg-slate-300 dark:bg-slate-800 rounded-lg shadow-lg p-4">
+      <div className="grid grid-cols-2 gap-4">
         <div>
           <p className="flex flex-row items-center font-bold text-muted-foreground">
             Viento
@@ -99,8 +107,8 @@ const Extras = ({ Data }) => {
             </svg>
           </p>
           <p className="font-thin">
-            <span className="font-bold">{data.current.uv}</span>:{" "}
-            {getUVIndexDescription(data.current.uv)}
+            <span className={`font-bold ${getUVIndexDescription(data.current.uv)[1]} rounded-full px-2 py-[0.10rem] text-center`}>{data.current.uv}</span>:{" "}
+            {getUVIndexDescription(data.current.uv)[0]}
           </p>
         </div>
         <div>
@@ -131,7 +139,7 @@ const Extras = ({ Data }) => {
               : data.current.vis_miles + " mi"}
           </p>
         </div>
-        <div>
+        {/* <div>
           <p className="flex flex-row items-center font-bold text-muted-foreground">
             Presión
             <svg
@@ -153,27 +161,7 @@ const Extras = ({ Data }) => {
                 : data.current.pressure_in + " in"}
             </span>
           </p>
-        </div>
-        <div className="flex flex-row items-center justify-between">
-          <div>
-            <p className="font-bold text-muted-foreground">Fase lunar</p>
-            <div className="flex flex-row font-thin">
-              <span className="flex flex-row items-center">
-                {translateMoonPhase(
-                  data.forecast.forecastday[0].astro.moon_phase
-                )}
-              </span>
-            </div>
-          </div>
-          <img
-            src={require(
-              `../Images/${data.forecast.forecastday[0].astro.moon_phase}.svg`
-            )}
-            alt={data.forecast.forecastday[0].astro.moon_phase}
-            className="rounded-full bg-slate-500 dark:bg-transparent"
-            width={"60px"}
-          />
-        </div>
+        </div> */}
         <div>
           <p className="flex flex-row items-center font-bold text-muted-foreground">
             Humedad
@@ -198,6 +186,47 @@ const Extras = ({ Data }) => {
             <span className="flex flex-row items-center">
               {data.current.humidity}%{" "}
             </span>
+          </p>
+        </div>
+        <div className="flex flex-row items-center justify-between">
+          <div>
+            <p className="font-bold text-muted-foreground">Fase lunar</p>
+            <div className="flex flex-row font-thin">
+              <span className="flex flex-row items-center">
+                {translateMoonPhase(
+                  data.forecast.forecastday[0].astro.moon_phase
+                )}
+              </span>
+            </div>
+          </div>
+          <img
+            src={require(
+              `../Images/${data.forecast.forecastday[0].astro.moon_phase}.svg`
+            )}
+            alt={data.forecast.forecastday[0].astro.moon_phase}
+            width={"60px"}
+          />
+        </div>
+        <div>
+          <p className="flex flex-row items-center font-bold text-muted-foreground">
+            Calidad del aire
+          </p>
+          <p className="flex flex-row items-center font-thin">
+            <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700 my-2">
+              <div
+                class={`text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full ${epaIndexDescriptions(data.current.air_quality["us-epa-index"])[1]}`}
+                style={{
+                  width:
+                    (100 / 6) * data.current.air_quality["us-epa-index"] + "%",
+                }}
+              >
+                {
+                  epaIndexDescriptions(
+                    data.current.air_quality["us-epa-index"]
+                  )[0]
+                }
+              </div>
+            </div>
           </p>
         </div>
       </div>
