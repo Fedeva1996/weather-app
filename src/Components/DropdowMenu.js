@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import Login from "./Login";
 
 const DropdownMenu = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -106,31 +107,7 @@ const DropdownMenu = (props) => {
               </h1>
             </button>
           </div>
-          <div className="p-2">
-            <strong className="block p-2 text-xs font-medium uppercase text-gray-400">
-              Login
-            </strong>
-            <form method="POST" action="#">
-              <div className="flex flex-col gap-2">
-                <input
-                  type="text"
-                  placeholder="Email"
-                  className="w-full h-full rounded-md p-2  bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-white"
-                />
-                <input
-                  type="password"
-                  placeholder="Password"
-                  className="w-full h-full rounded-md p-2  bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-white"
-                />
-                <button
-                  type="submit"
-                  className="w-full h-full rounded-md m-auto  bg-gray-300 text-gray-700 dark:bg-gray-800 dark:text-white hover:bg-gray-400 hover:dark:bg-gray-700 hover:text-gray-100"
-                >
-                  Ingresar
-                </button>
-              </div>
-            </form>
-          </div>
+          <Login />
         </div>
       )}
     </div>

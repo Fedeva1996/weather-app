@@ -18,39 +18,113 @@ app.use(express.json());
 app.use(cors(corsOptions));
 
 app.post("/api/register", async (req, res) => {
-  const { username, email, password } = req.body;
-  const hashedPassword = await bcrypt.hash(password, 10);
-  const user = new User({ username, email, password: hashedPassword });
-  await user.save();
-  res.status(201).send("User registered");
+  try {
+    // Chequeamos si el email existe en nuestra base de datos
+    const existingUser = await User.findOne({ email: req.body.email });
+    if (existingUser) {
+      return res.status(400).json({ error: "Email already exists" });
+    }
+
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
+    // Creamos el objeto usuario desde el modelo Usuario
+    const newUser = new User({
+      email: req.body.email,
+      password: hashedPassword,
+    });
+
+    await newUser.save();
+    res.status(201).json({ message: "Usuario registrado correctamente" });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
+    console.log(error);
+  }
 });
 
 app.post("/api/login", async (req, res) => {
-  const { email, password } = req.body;
-  const user = await User.findOne({ email });
-  if (user && (await bcrypt.compare(password, user.password))) {
-    const token = jwt.sign({ userId: user._id }, "secret");
-    res.json({ token });
-  } else {
-    res.status(401).send("Invalid credentials");
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    //console.log("user", user);
+    if (!user) {
+      return res
+        .status(401)
+        .json({ error: "El email no existe en nuestra base de datos" });
+    }
+
+    const passwordMatch = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
+
+    //console.log("passwordMatch", passwordMatch);
+    if (!passwordMatch) {
+      return res
+        .status(401)
+        .json({ error: "Las contraseñas no son correctas" });
+    }
+
+    const secret = app.get("key");
+    const token = jwt.sign({ email: user.email, username: user.user }, secret);
+    res.status(200).json({ token, ok: true });
+  } catch (error) {
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
-// Middleware de autenticación
-const auth = (req, res, next) => {
-  const token = req.headers["authorization"];
-  if (token) {
-    jwt.verify(token, "secret", (err, decoded) => {
-      if (err) return res.sendStatus(403);
-      req.userId = decoded.userId;
-      next();
-    });
-  } else {
-    res.sendStatus(401);
+const verifyToken = (req, res, next) => {
+  console.log(`header authorization: `, req.headers.authorization);
+  const authorization = req.headers.authorization;
+  const token = authorization
+  //console.log(`token: `, token);
+
+  if (!token) {
+    return res.status(401).json({ error: "No token sent" });
   }
+
+  const secret = app.get("key");
+
+  jwt.verify(token, secret, (err, decoded) => {
+    if (err) {
+      return res.status(401).json({ error: "Unauthorized" });
+    }
+    req.user = decoded;
+    next();
+  });
 };
 
-app.get("/api/users/:userId/cities", auth, async (req, res) => {
+app.post("/auth", async (req, res) => {
+  if (req.body.email) {
+    const emailExistente = await User.findOne({ email: req.body.email });
+    if (emailExistente) {
+      const usuario = req.body.user;
+
+      const payload = {
+        usuario,
+        email: emailExistente.email,
+        checked: true,
+      };
+      const key = app.get("key");
+      try {
+        const token = jwt.sign(payload, key);
+        res.send({
+          message: "Token creado",
+          token,
+        });
+      } catch (error) {
+        res.send({
+          message: "Hubo un error",
+        });
+      }
+    } else {
+      res.send({ message: "El email no existe en nuestros registros" });
+    }
+  } else {
+    res.send({ message: "No se recibio el user" });
+  }
+});
+
+app.get("/api/users/:userId/cities", verifyToken, async (req, res) => {
   const { userId } = req.params;
 
   try {
@@ -65,7 +139,7 @@ app.get("/api/users/:userId/cities", auth, async (req, res) => {
   }
 });
 
-app.post("/api/users/:userId/cities", auth, async (req, res) => {
+app.post("/api/users/:userId/cities", verifyToken, async (req, res) => {
   const { userId } = req.params;
   const { nombre, lat, lon } = req.body;
 
@@ -84,27 +158,31 @@ app.post("/api/users/:userId/cities", auth, async (req, res) => {
   }
 });
 
-app.delete("/api/users/:userId/cities/:cityName", auth, async (req, res) => {
-  const { userId, cityName } = req.params;
+app.delete(
+  "/api/users/:userId/cities/:cityName",
+  verifyToken,
+  async (req, res) => {
+    const { userId, cityName } = req.params;
 
-  try {
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
+    try {
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      user.savedCities = user.savedCities.filter(
+        (city) => city.nombre !== cityName
+      );
+      await user.save();
+
+      res.status(200).json(user.savedCities);
+    } catch (error) {
+      res.status(500).json({ message: "Error removing city", error });
     }
-
-    user.savedCities = user.savedCities.filter(
-      (city) => city.nombre !== cityName
-    );
-    await user.save();
-
-    res.status(200).json(user.savedCities);
-  } catch (error) {
-    res.status(500).json({ message: "Error removing city", error });
   }
-});
+);
 
-app.put("/api/users/:userId/preferences", auth, async (req, res) => {
+app.put("/api/users/:userId/preferences", verifyToken, async (req, res) => {
   const { userId } = req.params;
   const { units, theme, animation } = req.body;
 
@@ -122,7 +200,7 @@ app.put("/api/users/:userId/preferences", auth, async (req, res) => {
     res.status(500).json({ message: "Error updating preferences", error });
   }
 });
-app.put("/api/users/:userId/preferences", auth, async (req, res) => {
+app.put("/api/users/:userId/preferences", verifyToken, async (req, res) => {
   const { userId } = req.params;
   const { units, theme, animation } = req.body;
 
@@ -141,7 +219,7 @@ app.put("/api/users/:userId/preferences", auth, async (req, res) => {
   }
 });
 
-app.put("/api/users/:userId/preferences", auth, async (req, res) => {
+app.put("/api/users/:userId/preferences", verifyToken, async (req, res) => {
   const { userId } = req.params;
   const { units, theme, animation } = req.body;
 
@@ -160,14 +238,6 @@ app.put("/api/users/:userId/preferences", auth, async (req, res) => {
   }
 });
 
-// Endpoint para obtener datos meteorológicos (ejemplo)
-app.get("/api/weather", async (req, res) => {
-  const { lat, lon, units } = req.query;
-  // Lógica para obtener datos meteorológicos usando la API externa
-  res.json({
-    /* Datos meteorológicos */
-  });
-});
 const uri = process.env.MONGODB_URI;
 
 mongoose

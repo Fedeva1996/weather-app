@@ -107,8 +107,12 @@ const Extras = ({ Data }) => {
             </svg>
           </p>
           <p className="font-thin">
-            <span className={`font-bold ${getUVIndexDescription(data.current.uv)[1]} rounded-full px-2 py-[0.10rem] text-center`}>{data.current.uv}</span>:{" "}
-            {getUVIndexDescription(data.current.uv)[0]}
+            <span
+              className={`font-bold ${getUVIndexDescription(data.current.uv)[1]} rounded-full px-2 py-[0.10rem] text-center`}
+            >
+              {data.current.uv}
+            </span>
+            : {getUVIndexDescription(data.current.uv)[0]}
           </p>
         </div>
         <div>
@@ -211,10 +215,10 @@ const Extras = ({ Data }) => {
           <p className="flex flex-row items-center font-bold text-muted-foreground">
             Calidad del aire
           </p>
-          <p className="flex flex-row items-center font-thin">
-            <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700 my-2">
+          <div className="flex flex-row items-center font-thin">
+            <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700 my-2">
               <div
-                class={`text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full ${epaIndexDescriptions(data.current.air_quality["us-epa-index"])[1]}`}
+                className={`text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full ${epaIndexDescriptions(data.current.air_quality["us-epa-index"])[1]}`}
                 style={{
                   width:
                     (100 / 6) * data.current.air_quality["us-epa-index"] + "%",
@@ -227,7 +231,7 @@ const Extras = ({ Data }) => {
                 }
               </div>
             </div>
-          </p>
+          </div>
         </div>
       </div>
     </div>

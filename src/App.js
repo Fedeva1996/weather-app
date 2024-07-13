@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCoords } from "./redux/reducers";
 import Footer from "./Components/Footer";
 import "../src/App.css";
+import Authentication from "./Components/Authentication";
 
 const App = () => {
   const [currentData, setCurrentData] = useState(null);
@@ -155,54 +156,56 @@ const App = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen  bg-gray-100 text-gray-900 dark:bg-gradient-to-b dark:from-gray-900 dark:to-slate-800 dark:text-white overflow-x-auto">
-      <Header
-        isDarkMode={theme}
-        handleDarkmode={handleTheme}
-        units={units}
-        handleUnits={handleUnits}
-        resetLocation={resetLocation}
-        animations={animations}
-        handleAnimations={handleAnimations}
-        extra={extra}
-        handleExtra={handleExtra}
-      />
-      {currentLoaded && forecastLoaded && historyLoaded ? (
-        <div className="grid grid-cols-1 gap-6 w-[95%] sm:w-[90%] md:w-[80%] m-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 center place-content-evenly">
-            <Main Data={[currentData, units, animations]} />
-            {historyData && (
-              <ForecastDia
-                Data={[forecastData, units, animations, historyData]}
-              />
-            )}
-          </div>
-          {forecastData &&
-            forecastData.alerts &&
-            forecastData.alerts.alert[0] && (
-              <div className="min-h-0 h-full w-full p-2">
-                <Alerta Data={[forecastData]} />
-              </div>
-            )}
-          <div className="rounded-md">
-            <ForecastHora Data={[forecastData, units, animations]} />
-          </div>
-          {saveCities.map((city, index) => (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 center place-content-evenly">
-              <Ciudades key={index} Data={[city, units, animations]} />
+    <Authentication>
+      <div className="flex flex-col h-screen  bg-gray-100 text-gray-900 dark:bg-gradient-to-b dark:from-gray-900 dark:to-slate-800 dark:text-white overflow-x-auto">
+        <Header
+          isDarkMode={theme}
+          handleDarkmode={handleTheme}
+          units={units}
+          handleUnits={handleUnits}
+          resetLocation={resetLocation}
+          animations={animations}
+          handleAnimations={handleAnimations}
+          extra={extra}
+          handleExtra={handleExtra}
+        />
+        {currentLoaded && forecastLoaded && historyLoaded ? (
+          <div className="grid grid-cols-1 gap-6 w-[95%] sm:w-[90%] md:w-[80%] m-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 center place-content-evenly">
+              <Main Data={[currentData, units, animations]} />
+              {historyData && (
+                <ForecastDia
+                  Data={[forecastData, units, animations, historyData]}
+                />
+              )}
             </div>
-          ))}
-          {extra ? (
+            {forecastData &&
+              forecastData.alerts &&
+              forecastData.alerts.alert[0] && (
+                <div className="min-h-0 h-full w-full p-2">
+                  <Alerta Data={[forecastData]} />
+                </div>
+              )}
             <div className="rounded-md">
-              <Extras Data={[forecastData, units, animations]} />
+              <ForecastHora Data={[forecastData, units, animations]} />
             </div>
-          ) : null}
-        </div>
-      ) : (
-        <Loading />
-      )}
-      <Footer />
-    </div>
+            {saveCities.map((city, index) => (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 center place-content-evenly">
+                <Ciudades key={index} Data={[city, units, animations]} />
+              </div>
+            ))}
+            {extra ? (
+              <div className="rounded-md">
+                <Extras Data={[forecastData, units, animations]} />
+              </div>
+            ) : null}
+          </div>
+        ) : (
+          <Loading />
+        )}
+        <Footer />
+      </div>
+    </Authentication>
   );
 };
 
