@@ -44,6 +44,7 @@ const ForecastDia = ({ Data }) => {
                 `../Images/${Data[2] === true ? "Animated" : "NoAnimated"}/day/${history.day.condition.code}.svg`
               )}
               alt={history.day.condition.text}
+              title={history.day.condition.text}
               width={"64px"}
             />
             <div className="flex flex-1 text-md font-bold max-h-7">
@@ -182,6 +183,7 @@ const ForecastDia = ({ Data }) => {
                   `../Images/${Data[2] === true ? "Animated" : "NoAnimated"}/day/${day.day.condition.code}.svg`
                 )}
                 alt={day.day.condition.text}
+                title={day.day.condition.text}
                 width={"64px"}
               />
               <div className="flex flex-1 items-center text-lg font-bold max-h-7">

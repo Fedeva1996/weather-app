@@ -83,6 +83,7 @@ const ForecastHora = ({ Data }) => {
                   `../Images/${Data[2] === true ? "Animated" : "NoAnimated"}/${hour.is_day === 1 ? "day" : "night"}/${hour.condition.code}.svg`
                 )}
                 alt={hour.condition.text}
+                title={hour.condition.text}
                 width={"64px"}
               />
 
