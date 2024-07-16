@@ -32,6 +32,7 @@ export const loginUser = async (credentials, dispatch) => {
       const token = data.token;
       // guardar el token en el window.localStorage
       localStorage.setItem("jwt", token);
+      //console.log("token: ", token);
       const decodedToken = jwtDecode(token); // { email: 'email del usuario'}
       dispatch({
         type: "SET_CURRENT_USER",

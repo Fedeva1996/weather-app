@@ -3,7 +3,7 @@ export default function authReducer(state, action) {
     case "SET_CURRENT_USER":
       const newState = {
         ...state,
-        authenticated: !!action.payload.email, // !!'' = false o !!'julia@email.com' = true
+        authenticated: !!action.payload.email,
         email: action.payload.email,
       };
       localStorage.setItem("currentUser", JSON.stringify(newState));
