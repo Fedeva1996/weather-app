@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../Contexts/AuthContexts";
 import { loginUser } from "../Actions/AuthActions";
 
-const Login = (props) => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -31,6 +31,7 @@ const Login = (props) => {
       //console.log(context)
     }
   };
+
   return (
     <div className="p-2">
       <strong className="block p-2 text-xs font-medium uppercase text-gray-400">

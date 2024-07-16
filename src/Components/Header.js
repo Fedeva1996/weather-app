@@ -1,3 +1,4 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import Search from "./Search";
 import DropdownMenu from "../Components/DropdowMenu";
@@ -13,15 +14,15 @@ const Header = (props) => {
           <h1>Weather App</h1>
         </Link>
         <div className="max-sm:hidden w-full flex justify-center">
-          <Search isDarkMode={props.isDarkMode} />
+          <Search saveCities={props.saveCities} actualizar={props.actualizar} />
         </div>
         <div className="flex items-center justify-end gap-2">
           <DropdownMenu
             handleUnits={props.handleUnits}
             units={props.units}
-            isDarkMode={props.isDarkMode}
+            isDarkMode={props.theme}
             resetLocation={props.resetLocation}
-            handleDarkmode={props.handleDarkmode}
+            handleDarkmode={props.handleTheme}
             animations={props.animations}
             handleAnimations={props.handleAnimations}
             extra={props.extra}

@@ -30,11 +30,11 @@ const Extras = ({ Data }) => {
     if (moonPhase === "New Moon") return "Luna Nueva";
     if (moonPhase === "Waxing Crescent") return "Luna Creciente";
     if (moonPhase === "First Quarter") return "Cuarto Creciente";
-    if (moonPhase === "Waxing Gibbous") return "Luna Gibosa";
+    if (moonPhase === "Waxing Gibbous") return "Luna Gibosa Creciente";
     if (moonPhase === "Full Moon") return "Luna Llena";
-    if (moonPhase === "Waning Gibbous") return "Luna Gibosa";
-    if (moonPhase === "Last Quarter") return "Cuarto Giboso";
-    if (moonPhase === "Waning Crescent") return "Luna Creciente";
+    if (moonPhase === "Waning Gibbous") return "Luna Gibosa Menguante";
+    if (moonPhase === "Last Quarter") return "Cuarto Menguante";
+    if (moonPhase === "Waning Crescent") return "Luna Menguante";
   };
 
   const epaIndexDescriptions = (epaIndex) => {
