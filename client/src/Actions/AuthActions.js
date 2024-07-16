@@ -72,3 +72,43 @@ export const logoutUser = (dispatch) => {
     },
   });
 };
+
+export const registerUser = async (credentials, dispatch) => {
+  const path = "http://localhost:3001/api/register";
+  const body = credentials;
+  try {
+    const response = await fetch(path, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+
+    const data = await response.json();
+    console.log(data);
+
+    if (data.ok === true) {
+      console.log(body);
+      loginUser(body, dispatch);
+      return "done";
+    } else {
+      dispatch({
+        type: "SET_CURRENT_USER",
+        payload: {
+          email: "",
+        },
+      });
+      return data;
+    }
+  } catch (error) {
+    console.error("Error durante la autenticación:", error);
+    dispatch({
+      type: "SET_CURRENT_USER",
+      payload: {
+        email: "",
+      },
+    });
+    return "error desconocido";
+  }
+};

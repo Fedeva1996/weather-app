@@ -67,11 +67,11 @@ const Search = (props) => {
     if (results.length > 0) {
       if (results.length < 5) {
         return (
-          <div className="absolute left-0 right-0 bottom-full sm:bottom-auto sm:mb-2 flex flex-col items-left justify-center gap-2 overflow-y-auto min-w-full max-h-52 z-10 bg-slate-300 dark:bg-slate-600 rounded-md sm:rounded-md">
+          <div className="absolute left-0 right-0 bottom-full sm:bottom-auto sm:mb-2 flex flex-col items-left justify-center gap-2 overflow-y-auto min-w-full max-h-52 z-10 bg-gray-300 dark:bg-gray-600 rounded-md sm:rounded-md">
             {results.map((city) => (
               <div
                 key={city.nombre}
-                className="flex flex-1 hover:bg-slate-500 dark:hover:bg-slate-500"
+                className="flex flex-1 hover:bg-gray-500 dark:hover:bg-gray-500"
                 title="Agregar a favoritos"
               >
                 <div
@@ -91,7 +91,7 @@ const Search = (props) => {
                         width="24px"
                         height="24px"
                         viewBox="0 0 24 24"
-                        className="mx-1 stroke-2  fill-none stroke-slate-800 dark:stroke-slate-300"
+                        className="mx-1 stroke-2  fill-none stroke-gray-800 dark:stroke-gray-300"
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
@@ -113,7 +113,7 @@ const Search = (props) => {
                           width="24px"
                           height="24px"
                           viewBox="0 0 24 24"
-                          className="mx-1 stroke-2  fill-none stroke-slate-800 dark:stroke-slate-300"
+                          className="mx-1 stroke-2  fill-none stroke-gray-800 dark:stroke-gray-300"
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
@@ -132,14 +132,14 @@ const Search = (props) => {
         );
       } else {
         return (
-          <div className="absolute left-0 p-3 right-0 bottom-full sm:bottom-auto sm:mb-2 flex flex-col items-left justify-center gap-2 overflow-y-auto min-w-full max-h-52 z-10 bg-slate-300 dark:bg-slate-600 rounded-md sm:rounded-md">
+          <div className="absolute left-0 p-3 right-0 bottom-full sm:bottom-auto sm:mb-2 flex flex-col items-left justify-center gap-2 overflow-y-auto min-w-full max-h-52 z-10 bg-gray-300 dark:bg-gray-600 rounded-md sm:rounded-md">
             Demasiadas coincidencias, sea más específico
           </div>
         );
       }
     } else {
       return (
-        <div className="absolute left-0 p-3 right-0 bottom-full sm:bottom-auto sm:mb-2 flex flex-col items-left justify-center gap-2 overflow-y-auto min-w-full max-h-52 z-10 bg-slate-300 dark:bg-slate-600 rounded-md sm:rounded-md">
+        <div className="absolute left-0 p-3 right-0 bottom-full sm:bottom-auto sm:mb-2 flex flex-col items-left justify-center gap-2 overflow-y-auto min-w-full max-h-52 z-10 bg-gray-300 dark:bg-gray-600 rounded-md sm:rounded-md">
           No se encontraron resultados
         </div>
       );
@@ -153,7 +153,7 @@ const Search = (props) => {
         placeholder="Buscar ciudad..."
         onChange={handleSearch}
         value={filter}
-        className="w-full h-full rounded-md p-2  bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-white"
+        className="w-full h-full rounded-md p-2 bg-gray-200 text-gray-700 dark:bg-gray-900 dark:text-white"
         title="Buscar ciudad"
       />
       <Ciudades filter={filter} />

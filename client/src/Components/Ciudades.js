@@ -29,7 +29,7 @@ const Ciudades = ({ Data }) => {
   };
 
   return loaded ? (
-    <div className="flex-1 flex flex-col items-center justify-center m-auto min-w-full bg-slate-300 dark:bg-slate-800 rounded-lg shadow-lg p-4">
+    <div className="flex-1 flex flex-col items-center justify-center m-auto min-w-full bg-gray-300 dark:bg-gray-900 rounded-lg shadow-lg p-4">
       <div className="flex flex-row end-full justify-end w-full max-h-[0px]">
         <button
           onClick={() => handleRemoveCity()}
@@ -40,7 +40,7 @@ const Ciudades = ({ Data }) => {
               width="24px"
               height="24px"
               viewBox="0 0 24 24"
-              className="mx-1 stroke-2  fill-none stroke-slate-800 dark:stroke-slate-300"
+              className="mx-1 stroke-2  fill-none stroke-gray-800 dark:stroke-gray-300"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path

@@ -19,23 +19,47 @@ app.use(cors(corsOptions));
 
 app.post("/api/register", async (req, res) => {
   try {
+    const { email, password, username } = req.body;
+
+    // Validar el formato del email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ error: "Invalid email format" });
+    }
+
+    // Chequeamos si el nombre de usuario existe en nuestra base de datos
+    const existingUsername = await User.findOne({ username });
+    if (existingUsername) {
+      return res.status(400).json({ error: "Username already exists" });
+    }
+
     // Chequeamos si el email existe en nuestra base de datos
-    const existingUser = await User.findOne({ email: req.body.email });
-    if (existingUser) {
+    const existingEmail = await User.findOne({ email });
+    if (existingEmail) {
       return res.status(400).json({ error: "Email already exists" });
     }
 
+    // Validar la contraseña
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*.])(?=.*[a-z]).{8,}$/;
+    if (!passwordRegex.test(password)) {
+      return res.status(400).json({
+        error:
+          "Password must be at least 8 characters long, contain at least one uppercase letter, and one special character",
+      });
+    }
+
     // Hash the password
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     // Creamos el objeto usuario desde el modelo Usuario
     const newUser = new User({
-      email: req.body.email,
+      email,
+      username,
       password: hashedPassword,
     });
 
     await newUser.save();
-    res.status(201).json({ message: "Usuario registrado correctamente" });
+    res.status(201).json({ ok: true });
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
     console.log(error);
@@ -197,7 +221,7 @@ app.put("/api/users/:email/preferences", verifyToken, async (req, res) => {
       units,
       theme,
       animations,
-      extras
+      extras,
     };
     await user.save();
     console.log(user.preferences);
@@ -235,5 +259,5 @@ mongoose
   });
 
 app.listen(process.env.PORT || 3001, () =>
-  console.log("Server started on port", process.env.PORT)
+  console.log("Server started on port ", process.env.PORT)
 );

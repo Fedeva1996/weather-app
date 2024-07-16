@@ -79,7 +79,7 @@ export async function getPreferences(userEmail) {
 }
 
 export async function setPreferences(userEmail, preferences) {
-  console.log(preferences);
+  //console.log(preferences);
   const uri = `http://localhost:3001/api/users/${userEmail}/preferences`;
   const postOptions = {
     method: "PUT",

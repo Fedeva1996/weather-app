@@ -30,9 +30,11 @@ const Container = () => {
   const [currentLoaded, setCurrentLoaded] = useState(false);
   const [forecastLoaded, setForecastLoaded] = useState(false);
   const [historyLoaded, setHistoryLoaded] = useState(false);
-  const [extras, setExtra] = useState(true);
-  const [animations, setAnimations] = useState(true);
-  const [units, setUnits] = useState("c");
+  const [extras, setExtra] = useState(localStorage.getItem("extras") || true);
+  const [animations, setAnimations] = useState(
+    localStorage.getItem("animations") || true
+  );
+  const [units, setUnits] = useState(localStorage.getItem("units") || "c");
   const [theme, setTheme] = useState(
     localStorage.theme ||
       (window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -171,41 +173,41 @@ const Container = () => {
 
   const handleTheme = async () => {
     const newTheme = theme === "dark" ? "light" : "dark";
-    // Almacena el estado anterior
     const prevTheme = theme;
-
-    // Actualiza el estado inmediatamente
     setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
 
-    try {
-      // Realiza la solicitud al servidor
-      await setPreferences(currentUser.email, {
-        theme: newTheme,
-        units,
-        animations,
-        extras,
-      });
-    } catch (error) {
-      // Si la solicitud falla, revierte el estado al anterior
-      console.error("Failed to update theme preferences:", error);
-      setTheme(prevTheme);
+    if (currentUser.authenticated) {
+      try {
+        await setPreferences(currentUser.email, {
+          theme: newTheme,
+          units,
+          animations,
+          extras,
+        });
+      } catch (error) {
+        console.error("Failed to update theme preferences:", error);
+        setTheme(prevTheme);
+      }
     }
   };
   const handleUnits = async () => {
     const newUnits = units === "c" ? "f" : "c";
     const prevUnits = units;
     setUnits(newUnits);
-
-    try {
-      await setPreferences(currentUser.email, {
-        theme,
-        units: newUnits,
-        animations,
-        extras,
-      });
-    } catch (error) {
-      console.error("Failed to update units preferences:", error);
-      setUnits(prevUnits);
+    localStorage.setItem("units", newUnits);
+    if (currentUser.authenticated) {
+      try {
+        await setPreferences(currentUser.email, {
+          theme,
+          units: newUnits,
+          animations,
+          extras,
+        });
+      } catch (error) {
+        console.error("Failed to update units preferences:", error);
+        setUnits(prevUnits);
+      }
     }
   };
 
@@ -213,17 +215,20 @@ const Container = () => {
     const newExtras = !extras;
     const prevExtras = extras;
     setExtra(newExtras);
+    localStorage.setItem("extras", newExtras);
 
-    try {
-      await setPreferences(currentUser.email, {
-        theme,
-        units,
-        animations,
-        extras: newExtras,
-      });
-    } catch (error) {
-      console.error("Failed to update extras preferences:", error);
-      setExtra(prevExtras);
+    if (currentUser.authenticated) {
+      try {
+        await setPreferences(currentUser.email, {
+          theme,
+          units,
+          animations,
+          extras: newExtras,
+        });
+      } catch (error) {
+        console.error("Failed to update extras preferences:", error);
+        setExtra(prevExtras);
+      }
     }
   };
 
@@ -231,17 +236,20 @@ const Container = () => {
     const newAnimations = !animations;
     const prevAnimations = animations;
     setAnimations(newAnimations);
+    localStorage.setItem("animations", newAnimations);
 
-    try {
-      await setPreferences(currentUser.email, {
-        theme,
-        units,
-        animations: newAnimations,
-        extras,
-      });
-    } catch (error) {
-      console.error("Failed to update animations preferences:", error);
-      setAnimations(prevAnimations);
+    if (currentUser.authenticated) {
+      try {
+        await setPreferences(currentUser.email, {
+          theme,
+          units,
+          animations: newAnimations,
+          extras,
+        });
+      } catch (error) {
+        console.error("Failed to update animations preferences:", error);
+        setAnimations(prevAnimations);
+      }
     }
   };
 
@@ -265,7 +273,7 @@ const Container = () => {
 
   return (
     <Authentication>
-      <div className="flex flex-col h-screen bg-gray-100 text-gray-900 dark:bg-gradient-to-b dark:from-gray-900 dark:to-slate-800 dark:text-white overflow-x-auto">
+      <div className="flex flex-col h-screen bg-gray-100 text-gray-900 dark:bg-gradient-to-b dark:from-gray-950 dark:to-gray-900 dark:text-white overflow-x-auto">
         <Header
           units={units}
           theme={theme}

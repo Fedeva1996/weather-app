@@ -24,7 +24,7 @@ const DropdownMenu = (props) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  
+
   const handleLogout = (event) => {
     event.preventDefault();
     logoutUser(dispatch);
@@ -35,14 +35,14 @@ const DropdownMenu = (props) => {
       <div className="inline-flex items-end justify-end overflow-hidden rounded-md  text-gray-900 dark:text-white min-w-28">
         <button
           onClick={toggleMenu}
-          className="flex flex-row items-center gap-2 py-2 text-sm/none  bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white"
+          className="flex flex-row items-center gap-2 py-2 text-sm/none  bg-gray-100 text-gray-900 dark:bg-gray-950 dark:text-white hover:scale-110 transition-transform"
           title="Editar"
         >
           <svg
             width="32px"
             height="32px"
             viewBox="0 0 24 24"
-            className="mx-1 stroke-2  fill-none stroke-slate-800 dark:stroke-slate-300"
+            className="mx-1 stroke-2  fill-none stroke-gray-800 dark:stroke-gray-300"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
@@ -64,65 +64,75 @@ const DropdownMenu = (props) => {
           className="absolute end-0 z-10 mt-2 w-56 divide-y divide-gray-500 rounded-md border border-gray-300 dark:border-gray-600  bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white shadow-lg"
           role="menu"
         >
-          <div className="flex flex-row items-center justify-center gap-2 p-2">
-            <button onClick={props.handleUnits} title="Cambiar unidades">
-              {props.units === "c" ? (
-                <h1 className="text-[24px] font-sans hover:scale-110 transition-transform min-w-8">
-                  C°
-                </h1>
-              ) : (
-                <h1 className="text-[24px] font-sans hover:scale-110 transition-transform min-w-8">
-                  F°
-                </h1>
-              )}
-            </button>
-            <button onClick={props.handleDarkmode} title="Cambiar modo oscuro">
-              {props.isDarkMode === "dark" ? (
-                <h1 className="text-[24px] hover:scale-110 transition-transform">
-                  🌚
-                </h1>
-              ) : (
-                <h1 className="text-[24px] hover:scale-110 transition-transform">
-                  🌞
-                </h1>
-              )}
-            </button>
-            <button onClick={props.handleAnimations} title="Activar animación">
-              {props.animations === true ? (
-                <h1 className="text-[24px] hover:scale-110 transition-transform">
-                  🏃🏻
-                </h1>
-              ) : (
-                <h1 className="text-[24px] hover:scale-110 transition-transform">
-                  🧍🏻
-                </h1>
-              )}
-            </button>
-            <button onClick={props.handleExtra} title="Activar animación">
-              {props.extra === true ? (
-                <h1 className="text-[24px] hover:scale-110 transition-transform">
-                  📖
-                </h1>
-              ) : (
-                <h1 className="text-[24px] hover:scale-110 transition-transform">
-                  📕
-                </h1>
-              )}
-            </button>
-            <button onClick={props.resetLocation} title="Restablecer ubicación">
-              <h1 className="text-[24px] hover:scale-110 transition-transform min-w-8">
-                📍
-              </h1>
-            </button>
+          <div className="flex flex-col items-center justify-center gap-2 p-2">
+            <label className="inline-flex items-center cursor-pointer w-full justify-between">
+              <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                Units {props.units === "c" ? "C°" : "F°"}
+              </span>
+              <input
+                type="checkbox"
+                className="sr-only peer"
+                checked={props.units === "f"}
+                onChange={props.handleUnits}
+              />
+              <div className="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-gray-800"></div>
+            </label>
+            <label className="inline-flex items-center cursor-pointer w-full justify-between">
+              <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                Dark mode {props.theme === "dark" ? "dark" : "light"}
+              </span>
+              <input
+                type="checkbox"
+                className="sr-only peer"
+                checked={props.theme === "dark"}
+                onChange={props.handleTheme}
+              />
+              <div className="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-gray-800"></div>
+            </label>
+            <label className="inline-flex items-center cursor-pointer w-full justify-between">
+              <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                Animations
+              </span>
+              <input
+                type="checkbox"
+                className="sr-only peer"
+                checked={props.animations}
+                onChange={props.handleAnimations}
+              />
+              <div className="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-gray-800"></div>
+            </label>
+            <label className="inline-flex items-center cursor-pointer w-full justify-between">
+              <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                Extras
+              </span>
+              <input
+                type="checkbox"
+                className="sr-only peer"
+                checked={props.extra}
+                onChange={props.handleExtra}
+              />
+              <div className="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-gray-800"></div>
+            </label>
+            {/* <button
+              type="button"
+              class="w-full h-8 rounded-md m-auto  bg-gray-300 text-gray-700 dark:bg-gray-800 dark:text-white hover:bg-gray-400 hover:dark:bg-gray-700 hover:text-gray-100"
+            >
+              📍 Restablecer ubicación
+            </button> */}
           </div>
           {!currentUser.authenticated ? (
-            <Login />
+            <div className="flex flex-col gap-2 p-2">
+              <Login />
+              <a href="/register"  className="w-full text-center h-8 rounded-md m-auto text-gray-500 border-gray-500 border-2 hover:text-gray-800 hover:bg-gray-500">
+                Register
+              </a>
+            </div>
           ) : (
             <div className="p-2">
               <button
                 onClick={handleLogout}
                 title="Logout"
-                className="w-full h-full rounded-md m-auto  bg-gray-300 text-gray-700 dark:bg-gray-800 dark:text-white hover:bg-gray-400 hover:dark:bg-gray-700 hover:text-gray-100"
+                className="w-full h-8 rounded-md m-auto bg-gray-300 text-gray-700 dark:bg-gray-800 dark:text-white hover:bg-gray-400 hover:dark:bg-gray-700 hover:text-gray-100"
               >
                 Logout
               </button>

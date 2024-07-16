@@ -30,7 +30,7 @@ const ForecastDia = ({ Data }) => {
   let prevTempMedia = null;
 
   return (
-    <div className="bg-slate-300 dark:bg-slate-800 rounded-lg shadow-lg p-4">
+    <div className="bg-gray-300 dark:bg-gray-900 rounded-lg shadow-lg p-4">
       <h3 className="text-2xl font-bold">Pronostico extendido</h3>
       <div className="grid grid-flow-col items-center content-center m-auto overflow-x-auto w-[95%] no-scrollbar snap-mandatory snap-x">
         {history ? (
@@ -56,7 +56,7 @@ const ForecastDia = ({ Data }) => {
                 width="20px"
                 height="20px"
                 viewBox="0 0 24 24"
-                className="mx-1 stroke-2  fill-none stroke-slate-800 dark:stroke-slate-300"
+                className="mx-1 stroke-2  fill-none stroke-gray-800 dark:stroke-gray-300"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -72,7 +72,7 @@ const ForecastDia = ({ Data }) => {
                 width="20px"
                 height="20px"
                 viewBox="0 0 24 24"
-                className="mx-1 stroke-2  fill-none stroke-slate-800 dark:stroke-slate-300"
+                className="mx-1 stroke-2  fill-none stroke-gray-800 dark:stroke-gray-300"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -91,7 +91,7 @@ const ForecastDia = ({ Data }) => {
                 height="16px"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
-                className={`mx-1 stroke-2 stroke-slate-800 dark:stroke-slate-300 ${history.day.daily_chance_of_rain > 50 ? "fill-slate-800 dark:fill-slate-300" : "fill-none"}`}
+                className={`mx-1 stroke-2 stroke-gray-800 dark:stroke-gray-300 ${history.day.daily_chance_of_rain > 50 ? "fill-gray-800 dark:fill-gray-300" : "fill-none"}`}
 
               >
                 <path
@@ -157,7 +157,7 @@ const ForecastDia = ({ Data }) => {
                   width="20px"
                   height="20px"
                   viewBox="0 0 24 24"
-                  className="mx-1 stroke-2  fill-none stroke-slate-800 dark:stroke-slate-300"
+                  className="mx-1 stroke-2  fill-none stroke-gray-800 dark:stroke-gray-300"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
@@ -195,7 +195,7 @@ const ForecastDia = ({ Data }) => {
                   width="20px"
                   height="20px"
                   viewBox="0 0 24 24"
-                  className="mx-1 stroke-2  fill-none stroke-slate-800 dark:stroke-slate-300"
+                  className="mx-1 stroke-2  fill-none stroke-gray-800 dark:stroke-gray-300"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
@@ -211,7 +211,7 @@ const ForecastDia = ({ Data }) => {
                   width="20px"
                   height="20px"
                   viewBox="0 0 24 24"
-                  className="mx-1 stroke-2  fill-none stroke-slate-800 dark:stroke-slate-300"
+                  className="mx-1 stroke-2  fill-none stroke-gray-800 dark:stroke-gray-300"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
@@ -233,7 +233,7 @@ const ForecastDia = ({ Data }) => {
                   height="16px"
                   viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
-                  className={`mx-1 stroke-2 stroke-slate-800 dark:stroke-slate-300 ${day.day.daily_chance_of_rain > 50 ? "fill-slate-800 dark:fill-slate-300" : "fill-none"}`}
+                  className={`mx-1 stroke-2 stroke-gray-800 dark:stroke-gray-300 ${day.day.daily_chance_of_rain > 50 ? "fill-gray-800 dark:fill-gray-300" : "fill-none"}`}
                 >
                   <path
                     d="M21 14.7C21 18.1794 19.0438 21 15.5 21C11.9562 21 10 18.1794 10 14.7C10 11.2206 15.5 3 15.5 3C15.5 3 21 11.2206 21 14.7Z"

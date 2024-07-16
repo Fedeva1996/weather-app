@@ -26,7 +26,7 @@ const Extras = ({ Data }) => {
     return uvIndexDescriptions[11];
   };
 
-  const translateMoonPhase = (moonPhase) => {
+  const trangrayMoonPhase = (moonPhase) => {
     if (moonPhase === "New Moon") return "Luna Nueva";
     if (moonPhase === "Waxing Crescent") return "Luna Creciente";
     if (moonPhase === "First Quarter") return "Cuarto Creciente";
@@ -47,7 +47,7 @@ const Extras = ({ Data }) => {
   };
 
   return (
-    <div className="bg-slate-300 dark:bg-slate-800 rounded-lg shadow-lg p-4">
+    <div className="bg-gray-300 dark:bg-gray-900 rounded-lg shadow-lg p-4">
       <div className="grid grid-cols-2 gap-4">
         <div>
           <p className="flex flex-row items-center font-bold text-muted-foreground">
@@ -56,7 +56,7 @@ const Extras = ({ Data }) => {
               width="28px"
               height="28px"
               viewBox="0 0 24 24"
-              className="mx-1 stroke-2 fill-none stroke-slate-800 dark:stroke-slate-300"
+              className="mx-1 stroke-2 fill-none stroke-gray-800 dark:stroke-gray-300"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -72,7 +72,7 @@ const Extras = ({ Data }) => {
                 width="28px"
                 height="28px"
                 viewBox="0 0 24 24"
-                className="mx-1 stroke-2  fill-none stroke-slate-800 dark:stroke-slate-300"
+                className="mx-1 stroke-2  fill-none stroke-gray-800 dark:stroke-gray-300"
                 xmlns="http://www.w3.org/2000/svg"
                 transform={`rotate(${data.current.wind_degree})`}
               >
@@ -96,7 +96,7 @@ const Extras = ({ Data }) => {
               width="28px"
               height="28px"
               viewBox="0 0 24 24"
-              className="mx-1 stroke-2  fill-none stroke-slate-800 dark:stroke-slate-300"
+              className="mx-1 stroke-2  fill-none stroke-gray-800 dark:stroke-gray-300"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -122,7 +122,7 @@ const Extras = ({ Data }) => {
               width="28px"
               height="28px"
               viewBox="0 0 24 24"
-              className="mx-1 stroke-2  fill-none stroke-slate-800 dark:stroke-slate-300"
+              className="mx-1 stroke-2  fill-none stroke-gray-800 dark:stroke-gray-300"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -150,7 +150,7 @@ const Extras = ({ Data }) => {
               width="20px"
               height="20px"
               viewBox="0 0 24 24"
-              className="mx-1 fill-slate-800 dark:fill-slate-300"
+              className="mx-1 fill-gray-800 dark:fill-gray-300"
               xmlns="http://www.w3.org/2000/svg"
               transform="rotate(45)"
             >
@@ -173,7 +173,7 @@ const Extras = ({ Data }) => {
               width="28px"
               height="28px"
               viewBox="0 0 24 24"
-              className="mx-1 fill-slate-800 dark:fill-slate-300"
+              className="mx-1 fill-gray-800 dark:fill-gray-300"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path d="M15.0066 3.25608C16.8483 2.85737 19.1331 2.8773 22.2423 3.65268C22.7781 3.78629 23.1038 4.32791 22.9699 4.86241C22.836 5.39691 22.2931 5.7219 21.7573 5.58829C18.8666 4.86742 16.9015 4.88747 15.4308 5.20587C13.9555 5.52524 12.895 6.15867 11.7715 6.84363L11.6874 6.89494C10.6044 7.55565 9.40515 8.28729 7.82073 8.55069C6.17734 8.82388 4.23602 8.58235 1.62883 7.54187C1.11607 7.33724 0.866674 6.75667 1.0718 6.24513C1.27692 5.73359 1.85889 5.48479 2.37165 5.68943C4.76435 6.6443 6.32295 6.77699 7.492 6.58265C8.67888 6.38535 9.58373 5.83916 10.7286 5.14119C11.855 4.45445 13.1694 3.6538 15.0066 3.25608Z" />
@@ -197,7 +197,7 @@ const Extras = ({ Data }) => {
             <p className="font-bold text-muted-foreground">Fase lunar</p>
             <div className="flex flex-row font-thin">
               <span className="flex flex-row items-center">
-                {translateMoonPhase(
+                {trangrayMoonPhase(
                   data.forecast.forecastday[0].astro.moon_phase
                 )}
               </span>

@@ -13,7 +13,7 @@ const Login = () => {
   // Importar el contexto
   const context = useContext(AuthContext);
 
-  console.log(context);
+  //console.log(context);
 
   useEffect(() => {
     if (context.currentUser.authenticated === true) {
@@ -33,7 +33,7 @@ const Login = () => {
   };
 
   return (
-    <div className="p-2">
+    <div className="">
       <strong className="block p-2 text-xs font-medium uppercase text-gray-400">
         Login
       </strong>
@@ -57,7 +57,7 @@ const Login = () => {
           <button
             type="submit"
             value="Login"
-            className="w-full h-full rounded-md m-auto  bg-gray-300 text-gray-700 dark:bg-gray-800 dark:text-white hover:bg-gray-400 hover:dark:bg-gray-700 hover:text-gray-100"
+            className="w-full h-8 rounded-md m-auto  bg-gray-300 text-gray-700 dark:bg-gray-800 dark:text-white hover:bg-gray-400 hover:dark:bg-gray-700 hover:text-gray-100"
           >
             Ingresar
           </button>
