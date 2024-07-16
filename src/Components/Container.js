@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer, useContext} from "react";
+import React, { useState, useEffect, useReducer, useContext } from "react";
 import Main from "./Main";
 import Ciudades from "./Ciudades";
 import ForecastHora from "./ForecastHora";
@@ -16,7 +16,11 @@ import Header from "./Header";
 import Footer from "./Footer";
 import "../App.css";
 import Authentication from "./Authentication";
-import { getSaveCities, getPreferences, setPreferences } from "../Actions/PreferencesActions";
+import {
+  getSaveCities,
+  getPreferences,
+  setPreferences,
+} from "../Actions/PreferencesActions";
 import { AuthContext } from "../Contexts/AuthContexts";
 
 const Container = () => {
@@ -25,10 +29,10 @@ const Container = () => {
   const [historyData, setHistoryData] = useState(null);
   const [currentLoaded, setCurrentLoaded] = useState(false);
   const [forecastLoaded, setForecastLoaded] = useState(false);
-  const [historyLoaded, setHistoryLoaded] = useState(false); 
-  const [extras, setExtra] = useState(true); 
-  const [animations, setAnimations] = useState(true); 
-  const [units, setUnits] = useState("c"); 
+  const [historyLoaded, setHistoryLoaded] = useState(false);
+  const [extras, setExtra] = useState(true);
+  const [animations, setAnimations] = useState(true);
+  const [units, setUnits] = useState("c");
   const [theme, setTheme] = useState(
     localStorage.theme ||
       (window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -63,7 +67,7 @@ const Container = () => {
     } else if (isUserLoaded) {
       console.log("No estás logueado");
     }
-  }, [isUserLoaded, currentUser, theme]);
+  }, [isUserLoaded, currentUser]);
 
   useEffect(() => {
     if (isUserLoaded && currentUser && currentUser.authenticated) {
@@ -167,67 +171,78 @@ const Container = () => {
 
   const handleTheme = async () => {
     const newTheme = theme === "dark" ? "light" : "dark";
+    // Almacena el estado anterior
+    const prevTheme = theme;
+
+    // Actualiza el estado inmediatamente
     setTheme(newTheme);
-    console.log({
-      theme: newTheme,
-      units,
-      animations,
-      extras,
-    });
-    await setPreferences(currentUser.email, {
-      theme: newTheme,
-      units,
-      animations,
-      extras,
-    });
+
+    try {
+      // Realiza la solicitud al servidor
+      await setPreferences(currentUser.email, {
+        theme: newTheme,
+        units,
+        animations,
+        extras,
+      });
+    } catch (error) {
+      // Si la solicitud falla, revierte el estado al anterior
+      console.error("Failed to update theme preferences:", error);
+      setTheme(prevTheme);
+    }
   };
   const handleUnits = async () => {
     const newUnits = units === "c" ? "f" : "c";
+    const prevUnits = units;
     setUnits(newUnits);
-    console.log({
-      theme,
-      units: newUnits,
-      animations,
-      extras,
-    });
-    await setPreferences(currentUser.email, {
-      theme,
-      units: newUnits,
-      animations,
-      extras,
-    });
+
+    try {
+      await setPreferences(currentUser.email, {
+        theme,
+        units: newUnits,
+        animations,
+        extras,
+      });
+    } catch (error) {
+      console.error("Failed to update units preferences:", error);
+      setUnits(prevUnits);
+    }
   };
+
   const handleExtra = async () => {
     const newExtras = !extras;
+    const prevExtras = extras;
     setExtra(newExtras);
-    console.log({
-      theme,
-      units,
-      animations,
-      extras: newExtras,
-    });
-    await setPreferences(currentUser.email, {
-      theme,
-      units,
-      animations,
-      extras: newExtras,
-    });
+
+    try {
+      await setPreferences(currentUser.email, {
+        theme,
+        units,
+        animations,
+        extras: newExtras,
+      });
+    } catch (error) {
+      console.error("Failed to update extras preferences:", error);
+      setExtra(prevExtras);
+    }
   };
+
   const handleAnimations = async () => {
     const newAnimations = !animations;
+    const prevAnimations = animations;
     setAnimations(newAnimations);
-    console.log({
-      theme,
-      units,
-      animations: newAnimations,
-      extras,
-    });
-    await setPreferences(currentUser.email, {
-      theme,
-      units,
-      animations: newAnimations,
-      extras,
-    });
+
+    try {
+      await setPreferences(currentUser.email, {
+        theme,
+        units,
+        animations: newAnimations,
+        extras,
+      });
+    } catch (error) {
+      console.error("Failed to update animations preferences:", error);
+      setAnimations(prevAnimations);
+    }
   };
 
   const resetLocation = () => {
