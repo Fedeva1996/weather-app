@@ -13,7 +13,7 @@ export const setCurrentUser = (user) => {
 // esta acción recibirá las credenciales y enviará las credenciales a la API
 // con la respuesta de la API enviará el email con el dispatch
 export const loginUser = async (credentials, dispatch) => {
-  const path = "http://localhost:3001/api/login";
+  const path = "https://vercel.com/fedeva1996s-projects/weather-app-backend/5CoaKQpEmoswxxpDxLs6K6KdhDGp/api/login";
   const body = credentials; // { email: '', password: ''}
 
   try {
@@ -74,7 +74,7 @@ export const logoutUser = (dispatch) => {
 };
 
 export const registerUser = async (credentials, dispatch) => {
-  const path = "http://localhost:3001/api/register";
+  const path = "https://vercel.com/fedeva1996s-projects/weather-app-backend/5CoaKQpEmoswxxpDxLs6K6KdhDGp/api/register";
   const body = credentials;
   try {
     const response = await fetch(path, {
