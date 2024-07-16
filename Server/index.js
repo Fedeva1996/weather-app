@@ -75,7 +75,7 @@ app.post("/api/login", async (req, res) => {
 const verifyToken = (req, res, next) => {
   console.log(`header authorization: `, req.headers.authorization);
   const authorization = req.headers.authorization;
-  const token = authorization
+  const token = authorization;
   //console.log(`token: `, token);
 
   if (!token) {
@@ -124,11 +124,12 @@ app.post("/auth", async (req, res) => {
   }
 });
 
-app.get("/api/users/:userId/cities", verifyToken, async (req, res) => {
-  const { userId } = req.params;
-
+app.get("/api/users/:email/cities", verifyToken, async (req, res) => {
+  const { email } = req.params;
+  //console.log(req.params);
   try {
-    const user = await User.findById(userId);
+    const user = await User.findOne({ email });
+    console.log("user ", user);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -139,12 +140,12 @@ app.get("/api/users/:userId/cities", verifyToken, async (req, res) => {
   }
 });
 
-app.post("/api/users/:userId/cities", verifyToken, async (req, res) => {
-  const { userId } = req.params;
+app.post("/api/users/:email/cities", verifyToken, async (req, res) => {
+  const { email } = req.params;
   const { nombre, lat, lon } = req.body;
 
   try {
-    const user = await User.findById(userId);
+    const user = await User.findOne({ email });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -159,13 +160,13 @@ app.post("/api/users/:userId/cities", verifyToken, async (req, res) => {
 });
 
 app.delete(
-  "/api/users/:userId/cities/:cityName",
+  "/api/users/:email/cities/:cityName",
   verifyToken,
   async (req, res) => {
-    const { userId, cityName } = req.params;
+    const { email, cityName } = req.params;
 
     try {
-      const user = await User.findById(userId);
+      const user = await User.findOne({ email });
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
@@ -182,55 +183,39 @@ app.delete(
   }
 );
 
-app.put("/api/users/:userId/preferences", verifyToken, async (req, res) => {
-  const { userId } = req.params;
-  const { units, theme, animation } = req.body;
-
+app.put("/api/users/:email/preferences", verifyToken, async (req, res) => {
+  const { email } = req.params;
+  const { units, theme, animations, extras } = req.body;
+  console.log(req.body);
   try {
-    const user = await User.findById(userId);
+    const user = await User.findOne({ email });
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    user.preferences = { units, theme, animation }; // Asegúrate de usar el nombre correcto del campo
+    user.preferences = {
+      units,
+      theme,
+      animations,
+      extras
+    };
     await user.save();
-
-    res.status(200).json(user.preferences);
-  } catch (error) {
-    res.status(500).json({ message: "Error updating preferences", error });
-  }
-});
-app.put("/api/users/:userId/preferences", verifyToken, async (req, res) => {
-  const { userId } = req.params;
-  const { units, theme, animation } = req.body;
-
-  try {
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-
-    user.preferences = { units, theme, animation }; // Asegúrate de usar el nombre correcto del campo
-    await user.save();
-
+    console.log(user.preferences);
     res.status(200).json(user.preferences);
   } catch (error) {
     res.status(500).json({ message: "Error updating preferences", error });
   }
 });
 
-app.put("/api/users/:userId/preferences", verifyToken, async (req, res) => {
-  const { userId } = req.params;
-  const { units, theme, animation } = req.body;
+app.get("/api/users/:email/preferences", verifyToken, async (req, res) => {
+  const { email } = req.params;
 
   try {
-    const user = await User.findById(userId);
+    const user = await User.findOne({ email });
+    console.log("user ", user);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-
-    user.preferences = { units, theme, animation }; // Asegúrate de usar el nombre correcto del campo
-    await user.save();
 
     res.status(200).json(user.preferences);
   } catch (error) {

@@ -14,7 +14,8 @@ const UserSchema = new mongoose.Schema({
   preferences: {
     units: String,
     theme: String,
-    animation: Boolean,
+    animations: Boolean,
+    extras: Boolean,
   },
 });
 
