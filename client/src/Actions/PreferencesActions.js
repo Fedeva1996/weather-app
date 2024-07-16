@@ -1,5 +1,5 @@
 export const getSaveCities = async (userEmail) => {
-  const uri = `https://vercel.com/fedeva1996s-projects/weather-app-backend/5CoaKQpEmoswxxpDxLs6K6KdhDGp/api/users/${userEmail}/cities`;
+  const uri = `https://weather-app-backend-r1kxkq34x-fedeva1996s-projects.vercel.app/api/users/${userEmail}/cities`;
   const getOptions = {
     headers: {
       "Content-Type": "application/json",
@@ -13,7 +13,7 @@ export const getSaveCities = async (userEmail) => {
 };
 
 export const saveCity = async (userEmail, newCity) => {
-  const uri = `https://vercel.com/fedeva1996s-projects/weather-app-backend/5CoaKQpEmoswxxpDxLs6K6KdhDGp/api/users/${userEmail}/cities`;
+  const uri = `https://weather-app-backend-r1kxkq34x-fedeva1996s-projects.vercel.app/api/users/${userEmail}/cities`;
 
   // Obtén las ciudades actuales del usuario
   const getOptions = {
@@ -45,7 +45,7 @@ export const saveCity = async (userEmail, newCity) => {
 };
 
 export const removeCity = async (userEmail, cityName) => {
-  const uri = `https://vercel.com/fedeva1996s-projects/weather-app-backend/5CoaKQpEmoswxxpDxLs6K6KdhDGp/api/users/${userEmail}/cities/${cityName}`;
+  const uri = `https://weather-app-backend-r1kxkq34x-fedeva1996s-projects.vercel.app/api/users/${userEmail}/cities/${cityName}`;
   const getOptions = {
     method: "DELETE",
     headers: {
@@ -62,7 +62,7 @@ export const removeCity = async (userEmail, cityName) => {
 };
 
 export async function getPreferences(userEmail) {
-  const uri = `https://vercel.com/fedeva1996s-projects/weather-app-backend/5CoaKQpEmoswxxpDxLs6K6KdhDGp/api/users/${userEmail}/preferences`;
+  const uri = `https://weather-app-backend-r1kxkq34x-fedeva1996s-projects.vercel.app/api/users/${userEmail}/preferences`;
   const getOptions = {
     method: "GET",
     headers: {
@@ -80,7 +80,7 @@ export async function getPreferences(userEmail) {
 
 export async function setPreferences(userEmail, preferences) {
   //console.log(preferences);
-  const uri = `https://vercel.com/fedeva1996s-projects/weather-app-backend/5CoaKQpEmoswxxpDxLs6K6KdhDGp/api/users/${userEmail}/preferences`;
+  const uri = `https://weather-app-backend-r1kxkq34x-fedeva1996s-projects.vercel.app/api/users/${userEmail}/preferences`;
   const postOptions = {
     method: "PUT",
     headers: {

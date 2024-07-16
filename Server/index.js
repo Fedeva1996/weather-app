@@ -247,6 +247,10 @@ app.get("/api/users/:email/preferences", verifyToken, async (req, res) => {
   }
 });
 
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
+
 const uri = process.env.MONGODB_URI;
 
 mongoose
