@@ -1,45 +1,46 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import db from "../db.json";
-import { useDispatch, useSelector } from "react-redux";
-import { setCoords, setSaveCities, removeSaveCities } from "../redux/reducers";
+import { saveCity, removeCity } from "../Actions/PreferencesActions";
+import { AuthContext } from "../Contexts/AuthContexts";
 
-const Search = () => {
+const Search = (props) => {
   const [filter, setFilter] = useState("");
   const cities = db.ciudades;
-  const dispatch = useDispatch();
-  const saveCities = useSelector((state) => state.saveCities.value);
   const searchRef = useRef(null);
+  const saveCities = props.saveCities;
+  //console.log(saveCities);
+  const { currentUser } = useContext(AuthContext);
 
   const handleSearch = (event) => {
     setFilter(event.target.value);
   };
 
-  const handleClick = (ciudad) => {
-    const ciudadCoords = [ciudad.lat, ciudad.lon];
-    dispatch(setCoords(ciudadCoords));
-    setFilter("");
-  };
-
-  const handleAddCity = (ciudad) => {
-    dispatch(
-      setSaveCities({
+  const handleAddCity = async (ciudad) => {
+    if (saveCities.length < 2) {
+      await saveCity(currentUser.email, {
         nombre: ciudad.nombre,
         lat: ciudad.lat,
         lon: ciudad.lon,
-      })
-    );
+      });
+      //console.log(result);
+      props.actualizar(true);
+    } else {
+      alert("Solo puedes guardar hasta 2 ciudades.");
+    }
     setFilter("");
   };
 
-  const handleRemoveCity = (ciudad) => {
-    dispatch(removeSaveCities(ciudad.nombre));
+  const handleRemoveCity = async (ciudad) => {
+    const result = await removeCity(currentUser.email, ciudad.nombre);
+    console.log(result);
+    props.actualizar(true);
   };
 
   const checkInclude = (ciudad) => {
-    const ciudadCoords = [ciudad.lat, ciudad.lon];
-    return saveCities.some(
-      (city) => city.lat === ciudadCoords[0] && city.lon === ciudadCoords[1]
-    );
+    const ciudadCoords = ciudad.nombre;
+    //console.log(ciudad);
+    //console.log(saveCities);
+    return saveCities.some((city) => city.nombre === ciudadCoords);
   };
 
   const handleClickOutside = (event) => {
@@ -73,13 +74,12 @@ const Search = () => {
                 className="flex flex-1 hover:bg-slate-500 dark:hover:bg-slate-500"
                 title="Agregar a favoritos"
               >
-                <button
-                  onClick={() => handleClick(city)}
+                <div
                   className="flex items-center justify-between gap-2 p-2 text-lg font-semibold h-full w-full"
                   key={city.nombre}
                 >
                   <h1>{city.nombre}</h1>
-                </button>
+                </div>
                 {checkInclude(city) ? (
                   <button
                     className="gap-2 p-2"
