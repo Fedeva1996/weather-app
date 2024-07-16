@@ -1,10 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import Login from "./Login";
+import { AuthContext } from "../Contexts/AuthContexts";
+import { logoutUser } from "../Actions/AuthActions";
 
 const DropdownMenu = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef(null);
-
+  const { currentUser, dispatch } = useContext(AuthContext);
+  //console.log(currentUser);
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -21,6 +24,11 @@ const DropdownMenu = (props) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+  
+  const handleLogout = (event) => {
+    event.preventDefault();
+    logoutUser(dispatch);
+  };
 
   return (
     <div className="relative" ref={menuRef}>
@@ -107,7 +115,19 @@ const DropdownMenu = (props) => {
               </h1>
             </button>
           </div>
-          <Login />
+          {!currentUser.authenticated ? (
+            <Login />
+          ) : (
+            <div className="p-2">
+              <button
+                onClick={handleLogout}
+                title="Logout"
+                className="w-full h-full rounded-md m-auto  bg-gray-300 text-gray-700 dark:bg-gray-800 dark:text-white hover:bg-gray-400 hover:dark:bg-gray-700 hover:text-gray-100"
+              >
+                Logout
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>
