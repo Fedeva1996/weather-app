@@ -248,7 +248,7 @@ app.get("/api/users/:email/preferences", verifyToken, async (req, res) => {
 });
 
 app.get("/", (req, res) => {
-  res.send("Hello World");
+  res.send("<h1>Hello World!</h1>");
 });
 
 const uri = process.env.MONGODB_URI;
