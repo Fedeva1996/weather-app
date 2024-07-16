@@ -73,7 +73,8 @@ app.post("/api/login", async (req, res) => {
     if (!user) {
       return res
         .status(401)
-        .json({ error: "El email no existe en nuestra base de datos" });
+        .json({ error: "El email no existe en nuestra base de datos", });
+        
     }
 
     const passwordMatch = await bcrypt.compare(
@@ -85,7 +86,7 @@ app.post("/api/login", async (req, res) => {
     if (!passwordMatch) {
       return res
         .status(401)
-        .json({ error: "Las contraseñas no son correctas" });
+        .json({ error: "Las contraseñas no son correctas", });
     }
 
     const secret = app.get("key");

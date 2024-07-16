@@ -4,9 +4,7 @@ import { AuthContext } from "../Contexts/AuthContexts";
 import { loginUser } from "../Actions/AuthActions";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState("nada");
 
   //console.log("jwt", jwt);
   const navigate = useNavigate();
@@ -21,14 +19,24 @@ const Login = () => {
     }
   }, [context.currentUser.authenticated, navigate]);
 
-  const handleSubmit = (event) => {
-    //console.log("login the user");
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    if (email === "" || password === "") {
-      setError("Datos incompletos");
-    } else {
-      loginUser({ email, password }, context.dispatch);
-      //console.log(context)
+    const { email, password } = event.target.elements;
+    const body = {
+      email: email.value,
+      password: password.value,
+    };
+    try {
+      const response = await loginUser(body, context.dispatch);
+
+      if (response === "done") {
+        window.location.href = "/";
+      } else {
+        setError(response.error);
+      }
+    } catch (error) {
+      console.error("Error al registrar:", error);
+      setError(error);
     }
   };
 
@@ -38,19 +46,19 @@ const Login = () => {
         Login
       </strong>
       <form onSubmit={handleSubmit}>
-        <p className="error">{error ? error : ""}</p>
+        <p className="w-full text-red-600 text-center">{error}</p>
         <div className="flex flex-col gap-2">
           <input
-            type="email"
-            name="email"
             id="email"
-            onChange={(e) => setEmail(e.target.value)}
+            name="email"
+            type="email"
             placeholder="Email"
             className="w-full h-full rounded-md p-2  bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-white"
           />
           <input
+            id="password"
+            name="password"
             type="password"
-            onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
             className="w-full h-full rounded-md p-2  bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-white"
           />

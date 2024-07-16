@@ -13,8 +13,8 @@ export const setCurrentUser = (user) => {
 // esta acción recibirá las credenciales y enviará las credenciales a la API
 // con la respuesta de la API enviará el email con el dispatch
 export const loginUser = async (credentials, dispatch) => {
-  const path = "process.env.REACT_APP_SERVER_PATH/api/login";
-  const body = credentials; // { email: '', password: ''}
+  const path = `${process.env.REACT_APP_SERVER_PATH}/api/login`;
+  const body = credentials;
 
   try {
     const response = await fetch(path, {
@@ -26,6 +26,7 @@ export const loginUser = async (credentials, dispatch) => {
     });
 
     const data = await response.json();
+    //console.log(data);
 
     if (data.ok === true) {
       // recibir el token de la respuesta del servidor
@@ -48,7 +49,7 @@ export const loginUser = async (credentials, dispatch) => {
           email: "",
         },
       });
-      return "error";
+      return data;
     }
   } catch (error) {
     console.error("Error durante la autenticación:", error);
@@ -58,7 +59,7 @@ export const loginUser = async (credentials, dispatch) => {
         email: "",
       },
     });
-    return "error";
+    return "error desconocido";
   }
 };
 
@@ -74,7 +75,7 @@ export const logoutUser = (dispatch) => {
 };
 
 export const registerUser = async (credentials, dispatch) => {
-  const path = "process.env.REACT_APP_SERVER_PATH/api/register";
+  const path =  `${process.env.REACT_APP_SERVER_PATH}/api/register`;
   const body = credentials;
   try {
     const response = await fetch(path, {
