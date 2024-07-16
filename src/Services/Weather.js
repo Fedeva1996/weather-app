@@ -23,7 +23,7 @@ export const fetchForecastWeatherData = async (lat, lon) => {
 export const fetchHistoryWeatherData = async (lat, lon, date) => {
   //console.log(lat, lon);
   const response = await fetch(
-    `http://api.weatherapi.com/v1/history.json?key=${API_KEY}&q=${lat},${lon}&dt=${date}&lang=es`
+    `https://api.weatherapi.com/v1/history.json?key=${API_KEY}&q=${lat},${lon}&dt=${date}&lang=es`
   );
   if (!response.ok) {
     throw new Error("Error al obtener los datos de pronostico meteorológicos");
