@@ -47,6 +47,7 @@ const Container = () => {
   const [isUserLoaded, setIsUserLoaded] = useState(false);
   const [actualizar, setActualizar] = useState(false);
   //console.log(localStorage);
+  //console.log(currentUser);
 
   // Verifica cuando currentUser esté cargado
   useEffect(() => {

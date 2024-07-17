@@ -75,7 +75,7 @@ export const logoutUser = (dispatch) => {
 };
 
 export const registerUser = async (credentials, dispatch) => {
-  const path =  `${process.env.REACT_APP_SERVER_PATH}/api/register`;
+  const path = `${process.env.REACT_APP_SERVER_PATH}/api/register`;
   const body = credentials;
   try {
     const response = await fetch(path, {

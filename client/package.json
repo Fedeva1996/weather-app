@@ -12,6 +12,9 @@
     "bcrypt": "^5.1.1",
     "d3": "^7.9.0",
     "dotenv": "^16.4.5",
+    "jest": "^27.5.1",
+    "jest-cli": "^29.7.0",
+    "jest-fetch-mock": "^3.0.3",
     "jwt-decode": "^4.0.0",
     "postcss": "^8.4.38",
     "react": "^18.3.1",
@@ -27,7 +30,7 @@
     "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --transformIgnorePatterns 'node_modules/(?!my-library-dir)/'",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -49,8 +52,13 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.24.9",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@babel/preset-env": "^7.24.8",
+    "@babel/preset-react": "^7.24.7",
+    "babel-jest": "^29.7.0",
     "prettier": "^3.3.2",
-    "prettier-plugin-tailwindcss": "^0.6.4"
+    "prettier-plugin-tailwindcss": "^0.6.4",
+    "react-test-renderer": "^18.3.1"
   }
 }
