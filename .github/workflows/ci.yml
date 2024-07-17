@@ -1,0 +1,96 @@
+name: CI/CD
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20.x'
+
+    # Install and build Client
+    - name: Install dependencies for Client
+      run: |
+        cd client
+        npm install
+
+    - name: Build Client
+      run: |
+        cd client
+        npm run build
+
+    # Install and build Server
+    - name: Install dependencies for Server
+      run: |
+        cd server
+        npm install
+
+    - name: Build Server
+      run: |
+        cd server
+        npm run build
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20.x'
+
+    # Install and build Client for deployment
+    - name: Install dependencies for Client
+      run: |
+        cd client
+        npm install
+
+    - name: Build Client
+      run: |
+        cd client
+        npm run build
+
+    # Install and build Server for deployment
+    - name: Install dependencies for Server
+      run: |
+        cd server
+        npm install
+
+    - name: Build Server
+      run: |
+        cd server
+        npm run build
+
+    # Deploy Client to Vercel
+    - name: Deploy Client to Vercel
+      run: |
+        cd client
+        vercel --prod
+      env:
+        VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+
+    # Deploy Server to Vercel
+    - name: Deploy Server to Vercel
+      run: |
+        cd server
+        vercel --prod
+      env:
+        VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
