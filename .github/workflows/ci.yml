@@ -74,10 +74,6 @@ jobs:
         cd Server
         npm install
 
-    - name: Build Server
-      run: |
-        cd Server
-        npm run build
 
     # Deploy Client to Vercel
     - name: Deploy Client to Vercel
