@@ -39,10 +39,6 @@ jobs:
         cd Server
         npm install
 
-    - name: Build Server
-      run: |
-        cd Server
-        npm run build
 
   deploy:
     runs-on: ubuntu-latest
