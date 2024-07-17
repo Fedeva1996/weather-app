@@ -36,12 +36,12 @@ jobs:
     # Install and build Server
     - name: Install dependencies for Server
       run: |
-        cd server
+        cd Server
         npm install
 
     - name: Build Server
       run: |
-        cd server
+        cd Server
         npm run build
 
   deploy:
@@ -71,12 +71,12 @@ jobs:
     # Install and build Server for deployment
     - name: Install dependencies for Server
       run: |
-        cd server
+        cd Server
         npm install
 
     - name: Build Server
       run: |
-        cd server
+        cd Server
         npm run build
 
     # Deploy Client to Vercel
@@ -90,7 +90,7 @@ jobs:
     # Deploy Server to Vercel
     - name: Deploy Server to Vercel
       run: |
-        cd server
+        cd Server
         vercel --prod
       env:
         VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
