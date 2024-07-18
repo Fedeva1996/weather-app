@@ -30,15 +30,15 @@ const Register = () => {
       <div className="w-full max-w-md space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-foreground">
-            Create your account
+            Crear una cuenta
           </h2>
           <p className="mt-2 text-center text-sm text-muted-foreground">
-            Or{" "}
+            O{" "}
             <a
               href="/"
               className="font-medium text-primary hover:text-primary/80 hover:underline"
             >
-              sign in to your existing account
+              ingresa a tu cuenta existente
             </a>
           </p>
         </div>
@@ -46,7 +46,7 @@ const Register = () => {
           <div className="w-full text-red-600 text-center">{error}</div>
           <div>
             <label htmlFor="username" className="sr-only">
-              Name
+              Nombre de usuario
             </label>
             <input
               id="username"
@@ -54,13 +54,13 @@ const Register = () => {
               type="text"
               autoComplete="username"
               required
-              placeholder="Enter your user name"
+              placeholder="Ingresa tu nombre de usuario"
               className="relative block w-full appearance-none rounded-md border border-input bg-background px-3 py-2 text-black placeholder-muted-foreground focus:z-10 focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
             />
           </div>
           <div>
             <label htmlFor="email" className="sr-only">
-              Email address
+              Correo electrónico
             </label>
             <input
               id="email"
@@ -68,13 +68,13 @@ const Register = () => {
               type="email"
               autoComplete="email"
               required
-              placeholder="Enter your email"
+              placeholder="Ingresa tu correo electrónico"
               className="relative block w-full appearance-none rounded-md border border-input bg-background px-3 py-2 text-black placeholder-muted-foreground focus:z-10 focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
             />
           </div>
           <div>
             <label htmlFor="password" className="sr-only">
-              Password
+              Contraseña
             </label>
             <input
               id="password"
@@ -82,16 +82,16 @@ const Register = () => {
               type="password"
               autoComplete="current-password"
               required
-              placeholder="Enter your password"
+              placeholder="Ingresa tu contraseña"
               className="relative block w-full appearance-none rounded-md border border-input bg-background px-3 py-2 text-black placeholder-muted-foreground focus:z-10 focus:border-primary focus:outline-none focus:ring-primary sm:text-sm"
             />
           </div>
           <div>
             <button
               type="submit"
-              className="w-full h-full hover:bg-gray-500 px-3 py-2 hover:text-gray-100 rounded-md"
+              className="w-full h-full border-2 border-gray-100 hover:bg-gray-100 px-3 py-2 hover:text-black rounded-md"
             >
-              Sign up
+              Crear cuenta
             </button>
           </div>
         </form>

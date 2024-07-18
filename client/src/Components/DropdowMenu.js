@@ -29,7 +29,7 @@ const DropdownMenu = (props) => {
     event.preventDefault();
     logoutUser(dispatch);
   };
-
+  //console.log(props.theme, props.units, props.animations, props.extra);
   return (
     <div className="relative" ref={menuRef}>
       <div className="inline-flex items-end justify-end overflow-hidden rounded-md  text-gray-900 dark:text-white min-w-28">
@@ -58,7 +58,6 @@ const DropdownMenu = (props) => {
           </svg>
         </button>
       </div>
-
       {isOpen && (
         <div
           className="absolute end-0 z-10 mt-2 w-56 divide-y divide-gray-500 rounded-md border border-gray-300 dark:border-gray-600  bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white shadow-lg"
@@ -67,7 +66,7 @@ const DropdownMenu = (props) => {
           <div className="flex flex-col items-center justify-center gap-2 p-2">
             <label className="inline-flex items-center cursor-pointer w-full justify-between">
               <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                Units {props.units === "c" ? "C°" : "F°"}
+                Unidades {props.units === "c" ? "C°" : "F°"}
               </span>
               <input
                 type="checkbox"
@@ -79,7 +78,7 @@ const DropdownMenu = (props) => {
             </label>
             <label className="inline-flex items-center cursor-pointer w-full justify-between">
               <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                Dark mode {props.theme === "dark" ? "dark" : "light"}
+                Modo {props.theme === "dark" ? "Oscuro" : "Dinamico"}
               </span>
               <input
                 type="checkbox"
@@ -91,7 +90,7 @@ const DropdownMenu = (props) => {
             </label>
             <label className="inline-flex items-center cursor-pointer w-full justify-between">
               <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                Animations
+                Animaciones
               </span>
               <input
                 type="checkbox"
@@ -103,7 +102,7 @@ const DropdownMenu = (props) => {
             </label>
             <label className="inline-flex items-center cursor-pointer w-full justify-between">
               <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                Extras
+                Información extra
               </span>
               <input
                 type="checkbox"
@@ -123,8 +122,11 @@ const DropdownMenu = (props) => {
           {!currentUser.authenticated ? (
             <div className="flex flex-col gap-2 p-2">
               <Login />
-              <a href="/register"  className="w-full text-center h-8 rounded-md m-auto text-gray-500 border-gray-500 border-2 hover:text-gray-800 hover:bg-gray-500">
-                Register
+              <a
+                href="/register"
+                className="w-full text-center h-8 rounded-md m-auto text-gray-500 border-gray-500 border-2 hover:text-gray-800 hover:bg-gray-500"
+              >
+                Registrarse
               </a>
             </div>
           ) : (
@@ -134,7 +136,7 @@ const DropdownMenu = (props) => {
                 title="Logout"
                 className="w-full h-8 rounded-md m-auto bg-gray-300 text-gray-700 dark:bg-gray-800 dark:text-white hover:bg-gray-400 hover:dark:bg-gray-700 hover:text-gray-100"
               >
-                Logout
+                Cerrar sesión
               </button>
             </div>
           )}

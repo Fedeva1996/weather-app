@@ -43,7 +43,7 @@ const Login = () => {
   return (
     <div className="">
       <strong className="block p-2 text-xs font-medium uppercase text-gray-400">
-        Login
+        Iniciar sesión
       </strong>
       <form onSubmit={handleSubmit}>
         <p className="w-full text-red-600 text-center">{error}</p>
@@ -52,14 +52,14 @@ const Login = () => {
             id="email"
             name="email"
             type="email"
-            placeholder="Email"
+            placeholder="Correo electrónico"
             className="w-full h-full rounded-md p-2  bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-white"
           />
           <input
             id="password"
             name="password"
             type="password"
-            placeholder="Password"
+            placeholder="Contraseña"
             className="w-full h-full rounded-md p-2  bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-white"
           />
           <button
