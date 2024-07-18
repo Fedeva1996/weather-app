@@ -14,12 +14,12 @@ const ExtrasBig = ({ Data }) => {
   };
 
   const epaIndexDescriptions = (epaIndex) => {
-    if (epaIndex === 1) return ["Muy bueno", "bg-green-500"];
-    if (epaIndex === 2) return ["Bueno", "bg-yellow-500"];
-    if (epaIndex === 3) return ["Regular", "bg-orange-500"];
-    if (epaIndex === 4) return ["Muy malo", "bg-red-500"];
-    if (epaIndex === 5) return ["Malo", "bg-purple-500"];
-    if (epaIndex === 6) return ["Extremadamente malo", "bg-ambar-500"];
+    if (epaIndex === 1) return ["Bueno", "bg-green-500"];
+    if (epaIndex === 2) return ["Moderado", "bg-yellow-500"];
+    if (epaIndex === 3) return ["Insalubre para grupos sensibles", "bg-orange-500"];
+    if (epaIndex === 4) return ["Insalubre", "bg-red-500"];
+    if (epaIndex === 5) return ["Muy insalubre", "bg-purple-500"];
+    if (epaIndex === 6) return ["Peligroso", "bg-ambar-500"];
   };
 
   return (
@@ -45,9 +45,7 @@ const ExtrasBig = ({ Data }) => {
           />
         </div>
         <div>
-          <p className="flex flex-row items-center font-bold text-muted-foreground">
-            Calidad del aire
-          </p>
+          <p className="font-bold text-muted-foreground">Calidad del aire</p>
           <div className="flex flex-row items-center font-thin">
             <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700 my-2">
               <div
@@ -69,17 +67,17 @@ const ExtrasBig = ({ Data }) => {
         <div className="flex flex-row items-center justify-evenly">
           <div className="">
             <div className="flex sm:flex-col lg:flex-row items-center">
-              <span className="text-sm text-center">
+              <span className="text-sm text-center" title="Salida del sol">
                 {data.forecast.forecastday[0].astro.sunrise}
               </span>
               <img
                 src={require(
                   `../Images/${Data[2] === true ? "Animated" : "NoAnimated"}/horizon sun.svg`
                 )}
-                alt="Salida del sol"
+                alt="Horizonte"
                 width={"60px"}
               />
-              <span className="text-sm text-center">
+              <span className="text-sm text-center" title="Puesta del sol">
                 {data.forecast.forecastday[0].astro.sunrise}
               </span>
             </div>
@@ -87,17 +85,17 @@ const ExtrasBig = ({ Data }) => {
           <div className="border border-spacing-0"></div>
           <div className="">
             <div className="flex sm:flex-col lg:flex-row items-center">
-              <span className="text-sm text-center">
+              <span className="text-sm text-center" title="Puesta de la luna">
                 {data.forecast.forecastday[0].astro.moonset}
               </span>
               <img
                 src={require(
                   `../Images/${Data[2] === true ? "Animated" : "NoAnimated"}/horizon moon.svg`
                 )}
-                alt="Salida del sol"
+                alt="Horizonte"
                 width={"60px"}
               />
-              <span className="text-sm text-center">
+              <span className="text-sm text-center" title="Salida de la luna">
                 {data.forecast.forecastday[0].astro.moonrise}
               </span>
             </div>
