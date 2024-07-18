@@ -5,7 +5,8 @@ import ForecastHora from "./ForecastHora";
 import ForecastDia from "./ForecastDia";
 import Alerta from "./Alerta";
 import Loading from "./Loading";
-import Extras from "./Extras";
+import ExtrasLittle from "./Extras little";
+import ExtrasBig from "./Extras big";
 import {
   fetchHistoryWeatherData,
   fetchCurrentWeatherData,
@@ -46,10 +47,10 @@ const Container = () => {
   const { currentUser } = useContext(AuthContext);
   const [isUserLoaded, setIsUserLoaded] = useState(false);
   const [actualizar, setActualizar] = useState(false);
+  const intervalTime = 10 * 60 * 1000;
   //console.log(localStorage);
   //console.log(currentUser);
 
-  // Verifica cuando currentUser esté cargado
   useEffect(() => {
     if (currentUser) {
       setIsUserLoaded(true);
@@ -58,23 +59,14 @@ const Container = () => {
 
   useEffect(() => {
     if (isUserLoaded && currentUser && currentUser.authenticated) {
-      //console.log(currentUser.email);
-      async function fetchData() {
+      async function fetchDataPreferences() {
         const preferences = await getPreferences(currentUser.email);
         setTheme(preferences.theme);
         setAnimations(preferences.animations);
         setUnits(preferences.units);
         setExtra(preferences.extras);
       }
-      fetchData();
-    } else if (isUserLoaded) {
-      console.log("No estás logueado");
-    }
-  }, [isUserLoaded, currentUser]);
-
-  useEffect(() => {
-    if (isUserLoaded && currentUser && currentUser.authenticated) {
-      async function fetchData() {
+      async function fetchDataSaveCities() {
         const cities = await getSaveCities(currentUser.email);
         dispatch({
           type: "INITIALIZE",
@@ -82,10 +74,11 @@ const Container = () => {
         });
       }
       //console.log(saveCities);
-      fetchData();
+      fetchDataPreferences();
       setActualizar(false);
+      fetchDataSaveCities();
     } else if (isUserLoaded) {
-      console.log("No estás logueado");
+      //console.log("No estás logueado");
     }
   }, [isUserLoaded, currentUser, actualizar]);
 
@@ -102,6 +95,9 @@ const Container = () => {
 
   useEffect(() => {
     resetLocation();
+    const intervalId = setInterval(resetLocation, intervalTime);
+    //console.log("Actualizando localización");
+    return () => clearInterval(intervalId);
   }, []);
 
   useEffect(() => {
@@ -320,8 +316,9 @@ const Container = () => {
               </div>
             ) : null}
             {extras ? (
-              <div className="rounded-md">
-                <Extras Data={[forecastData, units, animations]} />
+              <div className="flex flex-col sm:flex-row gap-2">
+                <ExtrasLittle Data={[forecastData, units, animations]} />
+                <ExtrasBig Data={[forecastData, units, animations]} />
               </div>
             ) : null}
           </div>
