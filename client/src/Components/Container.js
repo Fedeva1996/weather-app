@@ -47,7 +47,6 @@ const Container = () => {
   const { currentUser } = useContext(AuthContext);
   const [isUserLoaded, setIsUserLoaded] = useState(false);
   const [actualizar, setActualizar] = useState(false);
-  const intervalTime = 10 * 60 * 1000;
   //console.log(localStorage);
   //console.log(currentUser);
 
@@ -95,6 +94,7 @@ const Container = () => {
 
   useEffect(() => {
     resetLocation();
+    const intervalTime = 10 * 60 * 1000;
     const intervalId = setInterval(resetLocation, intervalTime);
     //console.log("Actualizando localización");
     return () => clearInterval(intervalId);
