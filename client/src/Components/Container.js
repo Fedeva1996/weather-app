@@ -268,22 +268,47 @@ const Container = () => {
     }
   };
 
+  const now = new Date();
+  let hour = now.getHours();
+  let changeOfRain;
+  if (forecastData) {
+    changeOfRain = forecastData.forecast.forecastday[0].hour.slice(
+      hour,
+      hour + 1
+    )[0].chance_of_rain;
+  }
+
+  const getBackgroundColor = () => {
+    if (changeOfRain > 50) {
+      return "bg-gradient-to-b from-gray-800 to-gray-600";
+    } else {
+      if (hour >= 5 && hour < 9) {
+        return "bg-gradient-to-b from-rose-500 to-yellow-200";
+      } else if (hour >= 9 && hour < 17) {
+        return "bg-gradient-to-b from-blue-400 to-blue-300";
+      } else if (hour >= 17 && hour < 20) {
+        return "bg-gradient-to-b from-blue-950 to-orange-400";
+      } else {
+        return "bg-gradient-to-b from-black to-purple-950";
+      }
+    }
+  };
   return (
     <Authentication>
-      <div className="flex flex-col h-screen bg-gray-100 text-gray-900 dark:bg-gradient-to-b dark:from-gray-950 dark:to-gray-900 dark:text-white overflow-x-auto">
+      <div
+        className={`flex flex-col h-screen ${getBackgroundColor()} text-gray-900 dark:bg-gradient-to-b dark:from-gray-950 dark:to-gray-900 dark:text-white overflow-x-auto`}
+      >
         <Header
           units={units}
-          theme={theme}
-          setTheme={setTheme}
-          handleTheme={handleTheme}
-          actualizar={setActualizar}
-          saveCities={saveCities}
           handleUnits={handleUnits}
-          resetLocation={resetLocation}
+          theme={theme}
+          handleTheme={handleTheme}
           animations={animations}
           handleAnimations={handleAnimations}
           extra={extras}
           handleExtra={handleExtra}
+          saveCities={saveCities}
+          resetLocation={resetLocation}
         />
         {currentLoaded && forecastLoaded && historyLoaded ? (
           <div className="grid grid-cols-1 gap-6 w-[95%] sm:w-[90%] md:w-[80%] m-auto">
