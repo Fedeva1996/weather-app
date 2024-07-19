@@ -32,7 +32,7 @@ const DropdownMenu = (props) => {
   //console.log(props.theme, props.units, props.animations, props.extra);
   return (
     <div className="relative" ref={menuRef}>
-      <div className="inline-flex items-end justify-end overflow-hidden rounded-md  text-gray-900 dark:text-white min-w-28">
+      <div className="inline-flex items-end justify-end overflow-hidden rounded-md text-gray-900 dark:text-white min-w-28">
         <button
           onClick={toggleMenu}
           className="flex flex-row items-center gap-2 py-2 text-sm/none  bg-gray-100 text-gray-900 dark:bg-gray-950 dark:text-white hover:scale-110 transition-transform"
@@ -60,7 +60,7 @@ const DropdownMenu = (props) => {
       </div>
       {isOpen && (
         <div
-          className="absolute end-0 z-10 mt-2 w-56 divide-y divide-gray-500 rounded-md border border-gray-300 dark:border-gray-600  bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white shadow-lg"
+          className="absolute end-0 z-10 mt-2 w-56 divide-y divide-gray-300 dark:divide-gray-600 rounded-md border border-gray-300 dark:border-gray-600  bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white shadow-lg"
           role="menu"
         >
           <div className="flex flex-col items-center justify-center gap-2 p-2">
@@ -95,7 +95,7 @@ const DropdownMenu = (props) => {
               <input
                 type="checkbox"
                 className="sr-only peer"
-                checked={props.animations}
+                checked={props.animations === true}
                 onChange={props.handleAnimations}
               />
               <div className="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-gray-800"></div>
@@ -107,14 +107,14 @@ const DropdownMenu = (props) => {
               <input
                 type="checkbox"
                 className="sr-only peer"
-                checked={props.extra}
+                checked={props.extra === true}
                 onChange={props.handleExtra}
               />
               <div className="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-gray-800"></div>
             </label>
             {/* <button
               type="button"
-              class="w-full h-8 rounded-md m-auto  bg-gray-300 text-gray-700 dark:bg-gray-800 dark:text-white hover:bg-gray-400 hover:dark:bg-gray-700 hover:text-gray-100"
+              class="w-full h-8 rounded-md m-auto  bg-white text-gray-700 dark:bg-gray-800 dark:text-white hover:bg-gray-400 hover:dark:bg-gray-700 hover:text-gray-100"
             >
               📍 Restablecer ubicación
             </button> */}
@@ -134,7 +134,7 @@ const DropdownMenu = (props) => {
               <button
                 onClick={handleLogout}
                 title="Logout"
-                className="w-full h-8 rounded-md m-auto bg-gray-300 text-gray-700 dark:bg-gray-800 dark:text-white hover:bg-gray-400 hover:dark:bg-gray-700 hover:text-gray-100"
+                className="w-full h-8 rounded-md m-auto bg-white text-gray-700 dark:bg-gray-800 dark:text-white hover:bg-gray-400 hover:dark:bg-gray-700 hover:text-gray-100"
               >
                 Cerrar sesión
               </button>
