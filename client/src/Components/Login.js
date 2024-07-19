@@ -42,7 +42,7 @@ const Login = () => {
 
   return (
     <div className="">
-      <strong className="block p-2 text-xs font-medium uppercase text-gray-400">
+      <strong className="block text-xs font-medium uppercase text-gray-400 mb-2">
         Iniciar sesión
       </strong>
       <form onSubmit={handleSubmit}>
@@ -52,6 +52,7 @@ const Login = () => {
             id="email"
             name="email"
             type="email"
+            autoComplete="email"
             placeholder="Correo electrónico"
             className="w-full h-full rounded-md p-2  bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-white"
           />
@@ -60,12 +61,13 @@ const Login = () => {
             name="password"
             type="password"
             placeholder="Contraseña"
+            autoComplete="current-password"
             className="w-full h-full rounded-md p-2  bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-white"
           />
           <button
             type="submit"
             value="Login"
-            className="w-full h-8 rounded-md m-auto  bg-gray-300 text-gray-700 dark:bg-gray-800 dark:text-white hover:bg-gray-400 hover:dark:bg-gray-700 hover:text-gray-100"
+            className="w-full h-8 rounded-md m-auto  bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-white hover:bg-gray-400 hover:dark:bg-gray-700 hover:text-gray-100"
           >
             Ingresar
           </button>

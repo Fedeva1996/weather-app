@@ -30,8 +30,8 @@ const ForecastDia = ({ Data }) => {
   let prevTempMedia = null;
 
   return (
-    <div className="bg-gray-300 dark:bg-gray-900 rounded-lg shadow-lg p-4">
-      <h3 className="text-2xl font-bold">Pronostico extendido</h3>
+    <div className={`bg-gray-100 dark:bg-gray-900 rounded-lg shadow-lg p-4`}>
+      <h3 className="text-2xl font-bold">Pronóstico extendido</h3>
       <div className="grid grid-flow-col items-center content-center m-auto overflow-x-auto w-[95%] no-scrollbar snap-mandatory snap-x">
         {history ? (
           <div
@@ -187,7 +187,7 @@ const ForecastDia = ({ Data }) => {
                 width={"64px"}
               />
               <div className="flex flex-1 items-center text-lg font-bold max-h-7">
-                {currentTempMin}° /{currentTempMax}°
+                {currentTempMin}° / {currentTempMax}°
                 <span>{tempMediaChange}</span>
               </div>
               <div className="flex flex-1 items-center text-xs font-normal text-center min-h-8  max-h-8">

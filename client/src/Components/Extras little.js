@@ -5,36 +5,38 @@ const ExtrasLittle = ({ Data }) => {
   //console.log(Data);
   const data = Data[0];
 
-  const uvIndexDescriptions = {
-    0: ["Bajo: Sin riesgo", "bg-green-500"],
-    1: ["Bajo: Sin riesgo", "bg-grenn-500"],
-    2: ["Bajo: Sin riesgo", "bg-green-500"],
-    3: ["Moderado: Protección recomendada", "bg-yellow-500"],
-    4: ["Moderado: Protección recomendada", "bg-yellow-500"],
-    5: ["Moderado: Protección recomendada", "bg-yellow-500"],
-    6: ["Alto: Protección adicional necesaria", "bg-orange-500"],
-    7: ["Alto: Protección adicional necesaria", "bg-orange-500"],
-    8: ["Muy alto: Protección extra requerida", "bg-red-500"],
-    9: ["Muy alto: Protección extra requerida", "bg-red-500"],
-    10: ["Muy alto: Protección extra requerida", "bg-red-500"],
-    11: ["Extremo: Evitar la exposición al sol", "bg-purple-500"],
+  const uvIndexDescriptions = (uvIndex) => {
+    if (uvIndex === 1) return ["Bajo: Sin riesgo", "bg-green-500"];
+    if (uvIndex === 2) return ["Bajo: Sin riesgo", "bg-green-500"];
+    if (uvIndex === 3)
+      return ["Moderado: Protección recomendada", "bg-yellow-500"];
+    if (uvIndex === 4)
+      return ["Moderado: Protección recomendada", "bg-yellow-500"];
+    if (uvIndex === 5)
+      return ["Moderado: Protección recomendada", "bg-yellow-500"];
+    if (uvIndex === 6)
+      return ["Alto: Protección adicional necesaria", "bg-orange-500"];
+    if (uvIndex === 7)
+      return ["Alto: Protección adicional necesaria", "bg-orange-500"];
+    if (uvIndex === 8)
+      return ["Muy alto: Protección extra requerida", "bg-red-500"];
+    if (uvIndex === 9)
+      return ["Muy alto: Protección extra requerida", "bg-red-500"];
+    if (uvIndex === 10)
+      return ["Muy alto: Protección extra requerida", "bg-red-500"];
+    if (uvIndex === 11)
+      return ["Extremo: Evitar la exposición al sol", "bg-purple-500"];
   };
 
-  // Función para obtener la descripción del índice UV
-  const getUVIndexDescription = (uvIndex) => {
-    if (uvIndex <= 2) return uvIndexDescriptions[2];
-    if (uvIndex <= 5) return uvIndexDescriptions[5];
-    if (uvIndex <= 7) return uvIndexDescriptions[7];
-    if (uvIndex <= 10) return uvIndexDescriptions[10];
-    return uvIndexDescriptions[11];
-  };
 
   return (
-    <div className="bg-gray-300 dark:bg-gray-900 rounded-lg shadow-lg p-4 w-full content-center">
-      <div className="grid grid-cols-2 gap-4">
+    <div
+      className={`bg-gray-100 dark:bg-gray-900 rounded-lg shadow-lg p-4 w-full content-center`}
+    >
+      <div className="grid grid-cols-2 gap-6">
         <div>
           <Tippy content="Dirección y velocidad del viento." arrow={false}>
-            <p className="flex flex-row items-center font-bold text-muted-foreground">
+            <p className="flex flex-row items-center font-bold">
               Viento
               <svg
                 width="24px"
@@ -52,10 +54,10 @@ const ExtrasLittle = ({ Data }) => {
             </p>
           </Tippy>
           <p className="font-thin">
-            <span className="flex flex-row items-center">
+            <span className="flex flex-row items-center align-middle">
               <svg
-                width="24px"
-                height="24px"
+                width="32px"
+                height="32px"
                 viewBox="0 0 24 24"
                 className="mx-1 stroke-2  fill-none stroke-gray-800 dark:stroke-gray-300"
                 xmlns="http://www.w3.org/2000/svg"
@@ -74,7 +76,10 @@ const ExtrasLittle = ({ Data }) => {
           </p>
         </div>
         <div>
-          <Tippy content="Intensidad de la radiación Ultravioleta." arrow={false}>
+          <Tippy
+            content="Intensidad de la radiación Ultravioleta."
+            arrow={false}
+          >
             <p className="flex flex-row items-center font-bold text-muted-foreground">
               UV
               <svg
@@ -94,15 +99,18 @@ const ExtrasLittle = ({ Data }) => {
           </Tippy>
           <p className="font-thin">
             <span
-              className={`font-bold ${getUVIndexDescription(data.current.uv)[1]} rounded-full px-2 py-[0.10rem] text-center`}
+              className={`font-bold ${uvIndexDescriptions(data.current.uv)[1]} rounded-full px-2 py-[0.10rem] text-center`}
             >
               {data.current.uv}
             </span>{" "}
-            {getUVIndexDescription(data.current.uv)[0]}
+            {uvIndexDescriptions(data.current.uv)[0]}
           </p>
         </div>
         <div>
-          <Tippy content="Distancia máxima a la que se pueden ver objetos claramente." arrow={false}>
+          <Tippy
+            content="Distancia máxima a la que se pueden ver objetos claramente."
+            arrow={false}
+          >
             <p className="flex flex-row items-center font-bold text-muted-foreground">
               Visibilidad
               <svg
@@ -132,7 +140,10 @@ const ExtrasLittle = ({ Data }) => {
           </p>
         </div>
         <div>
-          <Tippy content="Fuerza que ejerce el aire sobre la superficie de la Tierra." arrow={false}>
+          <Tippy
+            content="Fuerza que ejerce el aire sobre la superficie de la Tierra."
+            arrow={false}
+          >
             <p className="flex flex-row items-center font-bold text-muted-foreground">
               Presión
               <svg
@@ -157,9 +168,12 @@ const ExtrasLittle = ({ Data }) => {
           </p>
         </div>
         <div>
-          <Tippy content="Temperatura a la que el aire debe enfriarse para que el vapor de agua se condense en gotas de agua." arrow={false}>
+          <Tippy
+            content="Temperatura a la que el aire debe enfriarse para que el vapor de agua se condense en gotas de agua."
+            arrow={false}
+          >
             <p className="flex flex-row items-center font-bold text-muted-foreground">
-              Punto de rocio
+              Punto de rocío
               <svg
                 width="24px"
                 height="24px"

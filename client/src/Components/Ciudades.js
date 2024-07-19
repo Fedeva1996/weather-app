@@ -29,7 +29,7 @@ const Ciudades = ({ Data }) => {
   };
 
   return loaded ? (
-    <div className="flex-1 flex flex-col items-center justify-center m-auto min-w-full bg-gray-300 dark:bg-gray-900 rounded-lg shadow-lg p-4">
+    <div className="flex-1 flex flex-col items-center justify-center m-auto min-w-full bg-gray-100 dark:bg-gray-900 rounded-lg shadow-lg p-4">
       <div className="flex flex-row end-full justify-end w-full max-h-[0px]">
         <button
           onClick={() => handleRemoveCity()}

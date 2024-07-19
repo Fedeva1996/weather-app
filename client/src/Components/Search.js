@@ -67,7 +67,7 @@ const Search = (props) => {
     if (results.length > 0) {
       if (results.length < 5) {
         return (
-          <div className="absolute left-0 right-0 bottom-full sm:bottom-auto sm:mb-2 flex flex-col items-left justify-center gap-2 overflow-y-auto min-w-full max-h-52 z-10 bg-gray-300 dark:bg-gray-600 rounded-md sm:rounded-md">
+          <div className="absolute left-0 right-0 bottom-full sm:bottom-auto sm:mb-2 flex flex-col items-left justify-center gap-2 overflow-y-auto min-w-full max-h-52 z-10 bg-white dark:bg-gray-600 rounded-md sm:rounded-md">
             {results.map((city) => (
               <div
                 key={city.nombre}
@@ -132,14 +132,14 @@ const Search = (props) => {
         );
       } else {
         return (
-          <div className="absolute left-0 p-3 right-0 bottom-full sm:bottom-auto sm:mb-2 flex flex-col items-left justify-center gap-2 overflow-y-auto min-w-full max-h-52 z-10 bg-gray-300 dark:bg-gray-600 rounded-md sm:rounded-md">
+          <div className="absolute left-0 p-3 right-0 bottom-full sm:bottom-auto sm:mb-2 flex flex-col items-left justify-center gap-2 overflow-y-auto min-w-full max-h-52 z-10 bg-white dark:bg-gray-600 rounded-md sm:rounded-md">
             Demasiadas coincidencias, sea más específico
           </div>
         );
       }
     } else {
       return (
-        <div className="absolute left-0 p-3 right-0 bottom-full sm:bottom-auto sm:mb-2 flex flex-col items-left justify-center gap-2 overflow-y-auto min-w-full max-h-52 z-10 bg-gray-300 dark:bg-gray-600 rounded-md sm:rounded-md">
+        <div className="absolute left-0 p-3 right-0 bottom-full sm:bottom-auto sm:mb-2 flex flex-col items-left justify-center gap-2 overflow-y-auto min-w-full max-h-52 z-10 bg-white dark:bg-gray-600 rounded-md sm:rounded-md">
           No se encontraron resultados
         </div>
       );
