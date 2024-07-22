@@ -256,12 +256,15 @@ app.get("/weather/current/", async (req, res) => {
   //console.log(req.query);
   try {
     const weather = await fetch(
-      `https://api.weatherapi.com/v1/current.json?key=${process.env.API_KEY}&q=${lat},${lon}&aqi=yes&lang=es`
+      `https://api.weatherapi.com/v1/current.json?key=${process.env.API_KEY}&q=${lat},${lon}&aqi=yes&lang=es`,
+      (mode = "cors")
     );
     //console.log(weather);
     return res.status(200).json(await weather.json());
   } catch (error) {
-    return res.status(500).json({ message: "Error getting current weather", error });
+    return res
+      .status(500)
+      .json({ message: "Error getting current weather", error });
   }
 });
 
@@ -270,12 +273,15 @@ app.get("/weather/forecast/", async (req, res) => {
   //console.log(lat, lon);
   try {
     const weather = await fetch(
-      `https://api.weatherapi.com/v1/forecast.json?key=${process.env.API_KEY}&q=${lat},${lon}&days=3&aqi=yes&alerts=yes&lang=es`
+      `https://api.weatherapi.com/v1/forecast.json?key=${process.env.API_KEY}&q=${lat},${lon}&days=3&aqi=yes&alerts=yes&lang=es`,
+      (mode = "cors")
     );
     //console.log(weather);
     return res.status(200).json(await weather.json());
   } catch (error) {
-    return res.status(500).json({ message: "Error getting forecast weather", error });
+    return res
+      .status(500)
+      .json({ message: "Error getting forecast weather", error });
   }
 });
 
@@ -284,12 +290,15 @@ app.get("/weather/history/", async (req, res) => {
   console.log(lat, lon, date);
   try {
     const weather = await fetch(
-      `https://api.weatherapi.com/v1/history.json?key=${process.env.API_KEY}&q=${lat},${lon}&dt=${date}&lang=es`
+      `https://api.weatherapi.com/v1/history.json?key=${process.env.API_KEY}&q=${lat},${lon}&dt=${date}&lang=es`,
+      (mode = "cors")
     );
     console.log(weather);
     return res.status(200).json(await weather.json());
   } catch (error) {
-    return res.status(500).json({ message: "Error getting history weather", error });
+    return res
+      .status(500)
+      .json({ message: "Error getting history weather", error });
   }
 });
 
