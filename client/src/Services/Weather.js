@@ -3,7 +3,7 @@ const API_KEY = process.env.REACT_APP_API_KEY;
 export const fetchCurrentWeatherData = async (lat, lon) => {
   //console.log(lat, lon);
   const response = await fetch(
-    `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${lat},${lon}&aqi=yes&lang=es`
+    `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${lat},${lon}&aqi=yes&lang=es`, {mode:'cors'}
   );
   if (!response.ok) {
     throw new Error("Error al obtener los datos actuales meteorológicos");
@@ -13,7 +13,7 @@ export const fetchCurrentWeatherData = async (lat, lon) => {
 export const fetchForecastWeatherData = async (lat, lon) => {
   //console.log(lat, lon);
   const response = await fetch(
-    `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${lat},${lon}&days=3&aqi=yes&alerts=yes&lang=es`
+    `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${lat},${lon}&days=3&aqi=yes&alerts=yes&lang=es`, {mode:'cors'}
   );
   if (!response.ok) {
     throw new Error("Error al obtener los datos historicos meteorológicos");
@@ -23,7 +23,7 @@ export const fetchForecastWeatherData = async (lat, lon) => {
 export const fetchHistoryWeatherData = async (lat, lon, date) => {
   //console.log(lat, lon);
   const response = await fetch(
-    `https://api.weatherapi.com/v1/history.json?key=${API_KEY}&q=${lat},${lon}&dt=${date}&lang=es`
+    `https://api.weatherapi.com/v1/history.json?key=${API_KEY}&q=${lat},${lon}&dt=${date}&lang=es`, {mode:'cors'}
   );
   if (!response.ok) {
     throw new Error("Error al obtener los datos de pronostico meteorológicos");
