@@ -282,14 +282,14 @@ const Container = () => {
     if (changeOfRain > 50) {
       return "bg-gradient-to-b from-gray-800 to-gray-600";
     } else {
-      if (hour >= 5 && hour < 9) {
-        return "bg-gradient-to-b from-rose-500 to-yellow-200";
-      } else if (hour >= 9 && hour < 17) {
+      if (hour >= 5 && hour < 7) {
+        return "bg-gradient-to-b from-blue-950 to-orange-500";
+      } else if (hour >= 7 && hour < 17) {
         return "bg-gradient-to-b from-blue-400 to-blue-300";
       } else if (hour >= 17 && hour < 20) {
-        return "bg-gradient-to-b from-blue-950 to-orange-400";
+        return "bg-gradient-to-b from-indigo-950 to-orange-400";
       } else {
-        return "bg-gradient-to-b from-black to-purple-950";
+        return "bg-gradient-to-b from-purple-950 to-indigo-800";
       }
     }
   };
