@@ -7,7 +7,7 @@ export const fetchCurrentWeatherData = async (lat, lon) => {
       "Content-Type": "application/json",
     },
   };
-  const response = await fetch(uri, getOptions);
+  const response = await fetch(uri, getOptions, { mode: "cors" });
   //console.log(lat, lon);
   const data = await response.json();
   console.log(data);
@@ -21,7 +21,7 @@ export const fetchForecastWeatherData = async (lat, lon) => {
       "Content-Type": "application/json",
     },
   };
-  const response = await fetch(uri, getOptions);
+  const response = await fetch(uri, getOptions, { mode: "cors" });
   const data = await response.json();
   console.log(data);
   return data;
@@ -36,7 +36,7 @@ export const fetchHistoryWeatherData = async (lat, lon, date) => {
       "Content-Type": "application/json",
     },
   };
-  const response = await fetch(uri, getOptions);
+  const response = await fetch(uri, getOptions, { mode: "cors" });
   const data = await response.json();
   console.log(data);
   return data;
