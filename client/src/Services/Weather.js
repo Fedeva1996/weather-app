@@ -1,32 +1,43 @@
-const API_KEY = process.env.REACT_APP_API_KEY;
-
 export const fetchCurrentWeatherData = async (lat, lon) => {
   //console.log(lat, lon);
-  const response = await fetch(
-    `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${lat},${lon}&aqi=yes&lang=es`, {mode:'cors'}
-  );
-  if (!response.ok) {
-    throw new Error("Error al obtener los datos actuales meteorológicos");
-  }
-  return await response.json();
+  const uri = `${process.env.REACT_APP_SERVER_PATH}/weather/current/?lat=${lat}&lon=${lon}`;
+
+  const getOptions = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const response = await fetch(uri, getOptions);
+  //console.log(lat, lon);
+  const data = await response.json();
+  console.log(data);
+  return data;
 };
 export const fetchForecastWeatherData = async (lat, lon) => {
   //console.log(lat, lon);
-  const response = await fetch(
-    `https://api.weatherapi.com/v1/forecast.json?key=${API_KEY}&q=${lat},${lon}&days=3&aqi=yes&alerts=yes&lang=es`, {mode:'cors'}
-  );
-  if (!response.ok) {
-    throw new Error("Error al obtener los datos historicos meteorológicos");
-  }
-  return await response.json();
+  const uri = `${process.env.REACT_APP_SERVER_PATH}/weather/forecast?lat=${lat}&lon=${lon}`;
+  const getOptions = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const response = await fetch(uri, getOptions);
+  const data = await response.json();
+  console.log(data);
+  return data;
 };
 export const fetchHistoryWeatherData = async (lat, lon, date) => {
   //console.log(lat, lon);
-  const response = await fetch(
-    `https://api.weatherapi.com/v1/history.json?key=${API_KEY}&q=${lat},${lon}&dt=${date}&lang=es`, {mode:'cors'}
-  );
-  if (!response.ok) {
-    throw new Error("Error al obtener los datos de pronostico meteorológicos");
-  }
-  return await response.json();
+
+  const uri = `${process.env.REACT_APP_SERVER_PATH}/weather/history?lat=${lat}&lon=${lon}&date=${date}`;
+
+  const getOptions = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  const response = await fetch(uri, getOptions);
+  const data = await response.json();
+  console.log(data);
+  return data;
 };
