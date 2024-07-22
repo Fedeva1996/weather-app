@@ -25,88 +25,101 @@ const ExtrasBig = ({ Data }) => {
 
   return (
     <div
-      className={`flex flex-col justify-center bg-gray-100 dark:bg-gray-900 rounded-lg shadow-lg p-4 min-w-60 w-full`}
+      className={`flex flex-col justify-center bg-gray-100/60 dark:bg-gray-900 rounded-lg shadow-lg p-4 min-w-60 w-full`}
     >
       <div className="grid grid-cols-1 gap-6 center place-content-evenly">
-        <div className="flex flex-row items-center justify-between">
+        {data.forecast.forecastday[0].astro ? (
+          <div className="flex flex-row items-center justify-between">
+            <div>
+              <p className="font-bold">Fase lunar</p>
+              <div className="flex flex-row font-thin">
+                <span className="flex flex-row items-center">
+                  {trangrayMoonPhase(
+                    data.forecast.forecastday[0].astro.moon_phase
+                  )}
+                </span>
+              </div>
+            </div>
+            <img
+              src={require(
+                `../Images/${data.forecast.forecastday[0].astro.moon_phase}.svg`
+              )}
+              alt={data.forecast.forecastday[0].astro.moon_phase}
+              width={"60px"}
+            />
+          </div>
+        ) : null}
+        {data.current.air_quality["us-epa-index"] ? (
           <div>
-            <p className="font-bold">Fase lunar</p>
-            <div className="flex flex-row font-thin">
-              <span className="flex flex-row items-center">
-                {trangrayMoonPhase(
-                  data.forecast.forecastday[0].astro.moon_phase
-                )}
-              </span>
-            </div>
-          </div>
-          <img
-            src={require(
-              `../Images/${data.forecast.forecastday[0].astro.moon_phase}.svg`
-            )}
-            alt={data.forecast.forecastday[0].astro.moon_phase}
-            width={"60px"}
-          />
-        </div>
-        <div>
-          <p className="font-bold text-muted-foreground">Calidad del aire</p>
-          <div className="flex flex-row items-center font-thin">
-            <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700 my-2">
-              <div
-                className={`text-xs font-medium text-black text-center p-0.5 leading-none rounded-full ${epaIndexDescriptions(data.current.air_quality["us-epa-index"])[1]}`}
-                style={{
-                  width:
-                    (100 / 6) * data.current.air_quality["us-epa-index"] + "%",
-                }}
-              >
-                {
-                  epaIndexDescriptions(
-                    data.current.air_quality["us-epa-index"]
-                  )[0]
-                }
+            <p className="font-bold text-muted-foreground">Calidad del aire</p>
+            <div className="flex flex-row items-center font-thin">
+              <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700 my-2">
+                <div
+                  className={`text-xs font-medium text-black text-center p-0.5 leading-none rounded-full ${epaIndexDescriptions(data.current.air_quality["us-epa-index"])[1]}`}
+                  style={{
+                    width:
+                      (100 / 6) * data.current.air_quality["us-epa-index"] +
+                      "%",
+                  }}
+                >
+                  {
+                    epaIndexDescriptions(
+                      data.current.air_quality["us-epa-index"]
+                    )[0]
+                  }
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div>
-          <p className="font-bold">Puesta y salidad</p>
-          <div className="flex flex-row items-center justify-evenly">
-            <div>
-              <div className="flex sm:flex-col lg:flex-row items-center">
-                <span className="text-sm text-center" title="Salida del sol">
-                  {data.forecast.forecastday[0].astro.sunrise}
-                </span>
-                <img
-                  src={require(
-                    `../Images/${Data[2] === true ? "Animated" : "NoAnimated"}/horizon sun.svg`
-                  )}
-                  alt="Horizonte"
-                  width={"60px"}
-                />
-                <span className="text-sm text-center" title="Puesta del sol">
-                  {data.forecast.forecastday[0].astro.sunrise}
-                </span>
+        ) : null}
+        {data.forecast.forecastday[0].astro ? (
+          <div>
+            <p className="font-bold">Puesta y salidad</p>
+            <div className="flex flex-row items-center justify-evenly">
+              <div>
+                <div className="flex sm:flex-col lg:flex-row items-center">
+                  <span className="text-sm text-center" title="Salida del sol">
+                    {data.forecast.forecastday[0].astro.sunrise}
+                  </span>
+                  <img
+                    src={require(
+                      `../Images/${Data[2] === true ? "Animated" : "NoAnimated"}/horizon sun.svg`
+                    )}
+                    alt="Horizonte"
+                    width={"60px"}
+                  />
+                  <span className="text-sm text-center" title="Puesta del sol">
+                    {data.forecast.forecastday[0].astro.sunrise}
+                  </span>
+                </div>
               </div>
-            </div>
-            <div className="border border-spacing-0"></div>
-            <div>
-              <div className="flex sm:flex-col lg:flex-row items-center">
-                <span className="text-sm text-center" title="Puesta de la luna">
-                  {data.forecast.forecastday[0].astro.moonset}
-                </span>
-                <img
-                  src={require(
-                    `../Images/${Data[2] === true ? "Animated" : "NoAnimated"}/horizon moon.svg`
-                  )}
-                  alt="Horizonte"
-                  width={"60px"}
-                />
-                <span className="text-sm text-center" title="Salida de la luna">
-                  {data.forecast.forecastday[0].astro.moonrise}
-                </span>
+              <div className="border border-spacing-0"></div>
+              <div>
+                <div className="flex sm:flex-col lg:flex-row items-center">
+                  <span
+                    className="text-sm text-center"
+                    title="Puesta de la luna"
+                  >
+                    {data.forecast.forecastday[0].astro.moonset}
+                  </span>
+                  <img
+                    src={require(
+                      `../Images/${Data[2] === true ? "Animated" : "NoAnimated"}/horizon moon.svg`
+                    )}
+                    alt="Horizonte"
+                    width={"60px"}
+                  />
+                  <span
+                    className="text-sm text-center"
+                    title="Salida de la luna"
+                  >
+                    {data.forecast.forecastday[0].astro.moonrise}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        ) : null}
       </div>
     </div>
   );
