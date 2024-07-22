@@ -28,14 +28,17 @@ const ExtrasLittle = ({ Data }) => {
       return ["Extremo: Evitar la exposición al sol", "bg-purple-500"];
   };
 
-
   return (
     <div
       className={`bg-gray-100/60 dark:bg-gray-900 rounded-lg shadow-lg p-4 w-full content-center`}
     >
       <div className="grid grid-cols-2 gap-6">
         <div>
-          <Tippy content="Dirección y velocidad del viento." arrow={false}>
+          <Tippy
+            content="Dirección y velocidad del viento."
+            arrow={false}
+            theme="translucent"
+          >
             <p className="flex flex-row items-center font-bold">
               Viento
               <svg
@@ -79,6 +82,7 @@ const ExtrasLittle = ({ Data }) => {
           <Tippy
             content="Intensidad de la radiación Ultravioleta."
             arrow={false}
+            theme="translucent"
           >
             <p className="flex flex-row items-center font-bold text-muted-foreground">
               UV
@@ -110,6 +114,7 @@ const ExtrasLittle = ({ Data }) => {
           <Tippy
             content="Distancia máxima a la que se pueden ver objetos claramente."
             arrow={false}
+            theme="translucent"
           >
             <p className="flex flex-row items-center font-bold text-muted-foreground">
               Visibilidad
@@ -143,6 +148,7 @@ const ExtrasLittle = ({ Data }) => {
           <Tippy
             content="Fuerza que ejerce el aire sobre la superficie de la Tierra."
             arrow={false}
+            theme="translucent"
           >
             <p className="flex flex-row items-center font-bold text-muted-foreground">
               Presión
@@ -171,6 +177,7 @@ const ExtrasLittle = ({ Data }) => {
           <Tippy
             content="Temperatura a la que el aire debe enfriarse para que el vapor de agua se condense en gotas de agua."
             arrow={false}
+            theme="translucent"
           >
             <p className="flex flex-row items-center font-bold text-muted-foreground">
               Punto de rocío
@@ -195,7 +202,11 @@ const ExtrasLittle = ({ Data }) => {
           </p>
         </div>
         <div>
-          <Tippy content="Cantidad de vapor de agua en el aire." arrow={false}>
+          <Tippy
+            content="Cantidad de vapor de agua en el aire."
+            arrow={false}
+            theme="translucent"
+          >
             <p className="flex flex-row items-center font-bold text-muted-foreground">
               Humedad
               <svg
