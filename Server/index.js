@@ -257,7 +257,7 @@ app.get("/weather/current/", async (req, res) => {
   try {
     const weather = await fetch(
       `https://api.weatherapi.com/v1/current.json?key=${process.env.API_KEY}&q=${lat},${lon}&aqi=yes&lang=es`,
-      (mode = "cors")
+      { mode: "cors" }
     );
     //console.log(weather);
     return res.status(200).json(await weather.json());
@@ -274,7 +274,7 @@ app.get("/weather/forecast/", async (req, res) => {
   try {
     const weather = await fetch(
       `https://api.weatherapi.com/v1/forecast.json?key=${process.env.API_KEY}&q=${lat},${lon}&days=3&aqi=yes&alerts=yes&lang=es`,
-      (mode = "cors")
+      { mode: "cors" }
     );
     //console.log(weather);
     return res.status(200).json(await weather.json());
@@ -291,7 +291,7 @@ app.get("/weather/history/", async (req, res) => {
   try {
     const weather = await fetch(
       `https://api.weatherapi.com/v1/history.json?key=${process.env.API_KEY}&q=${lat},${lon}&dt=${date}&lang=es`,
-      (mode = "cors")
+      { mode: "cors" }
     );
     console.log(weather);
     return res.status(200).json(await weather.json());
