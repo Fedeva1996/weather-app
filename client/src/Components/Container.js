@@ -310,6 +310,7 @@ const Container = () => {
           handleExtra={handleExtra}
           saveCities={saveCities}
           resetLocation={resetLocation}
+          actualizar={setActualizar}
         />
         {currentLoaded && forecastLoaded && historyLoaded ? (
           <div className="grid grid-cols-1 gap-6 w-[95%] sm:w-[90%] md:w-[80%] m-auto">
