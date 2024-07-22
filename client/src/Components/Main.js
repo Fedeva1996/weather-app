@@ -3,7 +3,7 @@ const Main = ({ Data }) => {
   const data = Data[0];
 
   return (
-    <div className={`bg-gray-100 dark:bg-gray-900 rounded-lg shadow-lg p-4`}>
+    <div className={`bg-gray-100/60 dark:bg-gray-900 rounded-lg shadow-lg p-4`}>
       <div className="grid grid-cols-2 gap-4">
         <div>
           <span className="text-6xl font-normal">
@@ -42,7 +42,7 @@ const Main = ({ Data }) => {
         />
       </div>
       <div>
-        <h2 className="my-2 font-thin text-xl text-gray-500 dark:text-gray-300">
+        <h2 className="my-2 font-thin text-xl text-black dark:text-gray-300">
           Sensación térmica de{" "}
           {Data[1] === "c"
             ? data.current.feelslike_c

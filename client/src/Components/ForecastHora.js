@@ -57,11 +57,11 @@ const ForecastHora = ({ Data }) => {
       .attr("cx", (data, index) => x(index))
       .attr("cy", (data) => y(data.temp_c))
       .attr("r", 2)
-      .attr("fill", "rgb(136, 178, 228)");
+      .attr("fill", "white");
   }, [hourlyForecast]);
 
   return (
-    <div className={`bg-gray-100 dark:bg-gray-900 rounded-lg shadow-lg p-4`}>
+    <div className={`bg-gray-100/60 dark:bg-gray-900 rounded-lg shadow-lg p-4`}>
       <h3 className="text-2xl font-bold">Pronóstico del día</h3>
       <div className="flex flex-col overflow-x-auto w-full no-scrollbar">
         <div className="grid grid-flow-col items-center content-center m-auto">

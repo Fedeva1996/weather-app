@@ -30,7 +30,7 @@ const ForecastDia = ({ Data }) => {
   let prevTempMedia = null;
 
   return (
-    <div className={`bg-gray-100 dark:bg-gray-900 rounded-lg shadow-lg p-4`}>
+    <div className={`bg-gray-100/60 dark:bg-gray-900 rounded-lg shadow-lg p-4`}>
       <h3 className="text-2xl font-bold">Pronóstico extendido</h3>
       <div className="grid grid-flow-col items-center content-center m-auto overflow-x-auto w-[95%] no-scrollbar snap-mandatory snap-x">
         {history ? (

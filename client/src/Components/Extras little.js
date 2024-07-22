@@ -31,7 +31,7 @@ const ExtrasLittle = ({ Data }) => {
 
   return (
     <div
-      className={`bg-gray-100 dark:bg-gray-900 rounded-lg shadow-lg p-4 w-full content-center`}
+      className={`bg-gray-100/60 dark:bg-gray-900 rounded-lg shadow-lg p-4 w-full content-center`}
     >
       <div className="grid grid-cols-2 gap-6">
         <div>

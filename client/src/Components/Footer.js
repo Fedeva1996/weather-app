@@ -10,13 +10,22 @@ const Footer = (props) => {
       </div>
       <div className="flex items-center w-full justify-between">
         <p className="text-sm text-gray-500 dark:text-gray-400">
-          Hecho por Federico Verón. A base de la API:
+          Hecho por Federico Verón. API:
           <a
             href="https://www.weatherapi.com/"
             title="Free Weather API"
             className="ml-1 text-gray-600 dark:text-gray-300 hover:text-gray-700 hover:dark:text-gray-200"
           >
             WeatherAPI.com
+          </a>
+          {" | "}
+          Iconos:
+          <a
+            href="https://github.com/basmilius/weather-icons"
+            title="Free Weather API"
+            className="ml-1 text-gray-600 dark:text-gray-300 hover:text-gray-700 hover:dark:text-gray-200"
+          >
+            basmilius
           </a>
         </p>
         <div className="flex items-center gap-2">
