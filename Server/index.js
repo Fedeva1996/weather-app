@@ -73,8 +73,7 @@ app.post("/api/login", async (req, res) => {
     if (!user) {
       return res
         .status(401)
-        .json({ error: "El email no existe en nuestra base de datos", });
-        
+        .json({ error: "El email no existe en nuestra base de datos" });
     }
 
     const passwordMatch = await bcrypt.compare(
@@ -86,7 +85,7 @@ app.post("/api/login", async (req, res) => {
     if (!passwordMatch) {
       return res
         .status(401)
-        .json({ error: "Las contraseñas no son correctas", });
+        .json({ error: "Las contraseñas no son correctas" });
     }
 
     const secret = app.get("key");
@@ -250,6 +249,48 @@ app.get("/api/users/:email/preferences", verifyToken, async (req, res) => {
 
 app.get("/", (req, res) => {
   res.send("<h1>Hello World!</h1>");
+});
+
+app.get("/weather/current/", async (req, res) => {
+  const { lat, lon } = req.query;
+  //console.log(req.query);
+  try {
+    const weather = await fetch(
+      `https://api.weatherapi.com/v1/current.json?key=${process.env.API_KEY}&q=${lat},${lon}&aqi=yes&lang=es`
+    );
+    //console.log(weather);
+    return res.status(200).json(await weather.json());
+  } catch (error) {
+    return res.status(500).json({ message: "Error getting current weather", error });
+  }
+});
+
+app.get("/weather/forecast/", async (req, res) => {
+  const { lat, lon } = req.query;
+  //console.log(lat, lon);
+  try {
+    const weather = await fetch(
+      `https://api.weatherapi.com/v1/forecast.json?key=${process.env.API_KEY}&q=${lat},${lon}&days=3&aqi=yes&alerts=yes&lang=es`
+    );
+    //console.log(weather);
+    return res.status(200).json(await weather.json());
+  } catch (error) {
+    return res.status(500).json({ message: "Error getting forecast weather", error });
+  }
+});
+
+app.get("/weather/history/", async (req, res) => {
+  const { lat, lon, date } = req.query;
+  console.log(lat, lon, date);
+  try {
+    const weather = await fetch(
+      `https://api.weatherapi.com/v1/history.json?key=${process.env.API_KEY}&q=${lat},${lon}&dt=${date}&lang=es`
+    );
+    console.log(weather);
+    return res.status(200).json(await weather.json());
+  } catch (error) {
+    return res.status(500).json({ message: "Error getting history weather", error });
+  }
 });
 
 const uri = process.env.MONGODB_URI;
