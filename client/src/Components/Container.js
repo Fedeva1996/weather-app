@@ -89,7 +89,7 @@ const Container = () => {
     const mm = String(today.getMonth() + 1).padStart(2, "0");
     const yyyy = today.getFullYear();
 
-    return `${mm}-${dd}-${yyyy}`;
+    return `${yyyy}-${mm}-${dd}`;
   }
 
   useEffect(() => {
@@ -271,6 +271,7 @@ const Container = () => {
   const now = new Date();
   let hour = now.getHours();
   let changeOfRain;
+  
   if (forecastData) {
     changeOfRain = forecastData.forecast.forecastday[0].hour.slice(
       hour,
