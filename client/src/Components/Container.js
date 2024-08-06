@@ -313,8 +313,8 @@ const Container = () => {
           actualizar={setActualizar}
         />
         {currentLoaded && forecastLoaded && historyLoaded ? (
-          <div className="grid grid-cols-1 gap-6 w-[95%] sm:w-[90%] md:w-[80%] m-auto">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 center place-content-evenly">
+          <div className="grid grid-cols-1 gap-2 w-[95%] sm:w-[90%] md:w-[80%] m-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 center place-content-evenly">
               <Main Data={[currentData, units, animations]} />
               {historyData && (
                 <ForecastDia
@@ -333,7 +333,7 @@ const Container = () => {
               <ForecastHora Data={[forecastData, units, animations]} />
             </div>
             {saveCities.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 center place-content-evenly">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 center place-content-evenly">
                 {saveCities.map((city, _id) => (
                   <Ciudades
                     key={_id}
