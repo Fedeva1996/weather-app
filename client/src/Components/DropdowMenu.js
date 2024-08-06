@@ -35,7 +35,7 @@ const DropdownMenu = (props) => {
       <div className="inline-flex items-end justify-end overflow-hidden rounded-md text-gray-900 dark:text-white min-w-28">
         <button
           onClick={toggleMenu}
-          className="flex flex-row items-center gap-2 py-2 text-sm/none  bg-gray-100 text-gray-900 dark:bg-gray-950 dark:text-white hover:scale-110 transition-transform"
+          className="flex flex-row items-center gap-2 py-2 text-lg bg-gray-100 text-gray-900 dark:bg-gray-950 dark:text-white hover:scale-110 transition-transform"
           title="Editar"
         >
           <svg
@@ -65,7 +65,7 @@ const DropdownMenu = (props) => {
         >
           <div className="flex flex-col items-center justify-center gap-2 p-2">
             <label className="inline-flex items-center cursor-pointer w-full justify-between">
-              <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+              <span className="ms-3 font-lg font-medium text-gray-900 dark:text-gray-300">
                 Unidades {props.units === "c" ? "C°" : "F°"}
               </span>
               <input
@@ -77,7 +77,7 @@ const DropdownMenu = (props) => {
               <div className="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-gray-800"></div>
             </label>
             <label className="inline-flex items-center cursor-pointer w-full justify-between">
-              <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+              <span className="ms-3 font-lg font-medium text-gray-900 dark:text-gray-300">
                 Modo {props.theme === "dark" ? "Oscuro" : "Dinamico"}
               </span>
               <input
@@ -89,7 +89,7 @@ const DropdownMenu = (props) => {
               <div className="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-gray-800"></div>
             </label>
             <label className="inline-flex items-center cursor-pointer w-full justify-between">
-              <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+              <span className="ms-3 font-lg font-medium text-gray-900 dark:text-gray-300">
                 Animaciones
               </span>
               <input
@@ -101,7 +101,7 @@ const DropdownMenu = (props) => {
               <div className="relative w-11 h-6 bg-gray-200 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-gray-800"></div>
             </label>
             <label className="inline-flex items-center cursor-pointer w-full justify-between">
-              <span className="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+              <span className="ms-3 font-lg font-medium text-gray-900 dark:text-gray-300">
                 Información extra
               </span>
               <input

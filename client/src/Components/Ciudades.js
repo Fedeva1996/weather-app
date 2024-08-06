@@ -70,7 +70,7 @@ const Ciudades = ({ Data }) => {
           </div>
         </div>
         <div className="flex flex-col justify-between h-full items-center gap-2">
-          <div className="flex flex-1 text-xl font-medium">
+          <div className="flex flex-1 text-2xl font-medium">
             {data.location.name}
           </div>
           <div className="flex flex-row justify-between h-full items-center gap-2">
@@ -78,7 +78,7 @@ const Ciudades = ({ Data }) => {
               {data.current.condition.text}
             </div>
             -
-            <div className="flex flex-1 text-sm font-thin ">
+            <div className="flex flex-1 text-lg font-thin ">
               {units === "c"
                 ? data.forecast.forecastday[0].day.mintemp_c
                 : data.forecast.forecastday[0].day.mintemp_f}
@@ -94,7 +94,7 @@ const Ciudades = ({ Data }) => {
               Humedad: {data.forecast.forecastday[0].day.avghumidity}
             </div>
             -
-            <div className="flex flex-1 text-sm font-thin ">
+            <div className="flex flex-1 font-thin text-lg">
               Lluvia: {data.forecast.forecastday[0].day.daily_chance_of_rain} %
             </div>
           </div>

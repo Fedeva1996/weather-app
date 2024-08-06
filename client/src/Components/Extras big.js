@@ -31,9 +31,9 @@ const ExtrasBig = ({ Data }) => {
         {data.forecast.forecastday[0].astro ? (
           <div className="flex flex-row items-center justify-between">
             <div>
-              <p className="font-bold">Fase lunar</p>
+              <p className="font-bold text-xl">Fase lunar</p>
               <div className="flex flex-row font-thin">
-                <span className="flex flex-row items-center">
+                <span className="flex flex-row items-center text-lg">
                   {trangrayMoonPhase(
                     data.forecast.forecastday[0].astro.moon_phase
                   )}
@@ -51,11 +51,11 @@ const ExtrasBig = ({ Data }) => {
         ) : null}
         {data.current.air_quality["us-epa-index"] ? (
           <div>
-            <p className="font-bold text-muted-foreground">Calidad del aire</p>
+            <p className="font-bold text-xl">Calidad del aire</p>
             <div className="flex flex-row items-center font-thin">
               <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700 my-2">
                 <div
-                  className={`text-xs font-medium text-black text-center p-0.5 leading-none rounded-full ${epaIndexDescriptions(data.current.air_quality["us-epa-index"])[1]}`}
+                  className={`text-lg font-medium text-black text-center p-0.5 leading-none rounded-full ${epaIndexDescriptions(data.current.air_quality["us-epa-index"])[1]}`}
                   style={{
                     width:
                       (100 / 6) * data.current.air_quality["us-epa-index"] +
@@ -74,11 +74,11 @@ const ExtrasBig = ({ Data }) => {
         ) : null}
         {data.forecast.forecastday[0].astro ? (
           <div>
-            <p className="font-bold">Puesta y salidad</p>
+            <p className="font-bold text-xl">Puesta y salidad</p>
             <div className="flex flex-row items-center justify-evenly">
               <div>
                 <div className="flex sm:flex-col lg:flex-row items-center">
-                  <span className="text-sm text-center" title="Salida del sol">
+                  <span className="text-lg text-center" title="Salida del sol">
                     {data.forecast.forecastday[0].astro.sunrise}
                   </span>
                   <img
@@ -88,7 +88,7 @@ const ExtrasBig = ({ Data }) => {
                     alt="Horizonte"
                     width={"60px"}
                   />
-                  <span className="text-sm text-center" title="Puesta del sol">
+                  <span className="text-lg text-center" title="Puesta del sol">
                     {data.forecast.forecastday[0].astro.sunrise}
                   </span>
                 </div>
@@ -97,7 +97,7 @@ const ExtrasBig = ({ Data }) => {
               <div>
                 <div className="flex sm:flex-col lg:flex-row items-center">
                   <span
-                    className="text-sm text-center"
+                    className="text-lg text-center"
                     title="Puesta de la luna"
                   >
                     {data.forecast.forecastday[0].astro.moonset}
@@ -110,7 +110,7 @@ const ExtrasBig = ({ Data }) => {
                     width={"60px"}
                   />
                   <span
-                    className="text-sm text-center"
+                    className="text-lg text-center"
                     title="Salida de la luna"
                   >
                     {data.forecast.forecastday[0].astro.moonrise}

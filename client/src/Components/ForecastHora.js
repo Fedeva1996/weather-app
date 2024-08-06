@@ -71,7 +71,7 @@ const ForecastHora = ({ Data }) => {
               id={hour.time}
               className="flex flex-col items-center justify-between gap-2 mt-5 mb-5 min-w-24"
             >
-              <div className="text-sm font-medium ">
+              <div className="text-lg font-medium ">
                 {hour.time.slice(10, 13) > 12
                   ? hour.time.slice(10, 13) - 12 < 10
                     ? `0${hour.time.slice(10, 13) - 12} p.m.`
@@ -87,7 +87,7 @@ const ForecastHora = ({ Data }) => {
                 width={"64px"}
               />
 
-              <div className="text-lg font-bold">
+              <div className="text-xl font-bold">
                 {Data[1] === "c" ? hour.temp_c : hour.temp_f}°
               </div>
               {/* <div className="text-sm font-normal text-center min-h-8 ">
@@ -106,7 +106,7 @@ const ForecastHora = ({ Data }) => {
               id={hour.time}
               className="flex flex-col items-center justify-between gap-2 min-w-24"
             >
-              <div className="flex flex-1 items-center text-sm font-normal text-center  max-h-6">
+              <div className="flex flex-1 items-center text-lg font-normal text-center max-h-6">
                 <svg
                   width="16px"
                   height="16px"

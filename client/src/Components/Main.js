@@ -10,7 +10,7 @@ const Main = ({ Data }) => {
             {Data[1] === "c" ? data.current.temp_c : data.current.temp_f}°
           </span>
           <h3 className="text-xl mt-2"> {data.current.condition.text}</h3>
-          <p className="flex flex-1 font-thin text-muted-foreground pt-2">
+          <p className="flex flex-1 text-lg font-thin text-muted-foreground pt-2 items-center">
             <svg
               width="20px"
               height="20px"

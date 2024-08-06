@@ -9,7 +9,7 @@ const Footer = (props) => {
         </div>
       </div>
       <div className="flex items-center w-full justify-between">
-        <p className="text-sm text-gray-500 dark:text-gray-400">
+        <p className="text-lg text-gray-500 dark:text-gray-400">
           Hecho por Federico Verón. API:
           <a
             href="https://www.weatherapi.com/"

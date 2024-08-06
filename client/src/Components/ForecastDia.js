@@ -38,7 +38,7 @@ const ForecastDia = ({ Data }) => {
             key={history.date_epoch}
             className="scroll-ml-6 snap-start flex flex-col items-center justify-around gap-1 min-w-48 font-thin"
           >
-            <div className="text-sm ">Ayer</div>
+            <div className="text-lg">Ayer</div>
             <img
               src={require(
                 `../Images/${Data[2] === true ? "Animated" : "NoAnimated"}/day/${history.day.condition.code}.svg`
@@ -47,7 +47,7 @@ const ForecastDia = ({ Data }) => {
               title={history.day.condition.text}
               width={"64px"}
             />
-            <div className="flex flex-1 text-md font-bold max-h-7">
+            <div className="flex flex-1 text-xl font-bold max-h-7">
               {Data[1] === "c" ? history.day.avgtemp_c : history.day.avgtemp_f}°
               de media
             </div>
@@ -65,7 +65,7 @@ const ForecastDia = ({ Data }) => {
                   strokeLinejoin="round"
                 />
               </svg>
-              <p className="content-center font-thin ml-1 mr-1">
+              <p className="content-center text-sm font-thin ml-1 mr-1">
                 {history.astro.sunrise}
               </p>
               <svg
@@ -81,11 +81,11 @@ const ForecastDia = ({ Data }) => {
                   strokeLinejoin="round"
                 />
               </svg>
-              <p className="content-center font-thin ml-1 mr-1">
+              <p className="content-center text-sm font-thin ml-1 mr-1">
                 {history.astro.sunset}
               </p>
             </div>
-            <div className="flex flex-1 items-center text-sm font-normal text-center  max-h-8">
+            <div className="flex flex-1 items-center text-lg font-normal text-center max-h-8">
               <svg
                 width="16px"
                 height="16px"
